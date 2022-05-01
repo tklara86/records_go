@@ -8,7 +8,7 @@ $font-size: 62.5%; /* 10px / 16px = 62.5%  1rem = 10px; */
 
 html {
   font-size: $font-size;
-  font-family: $font-primary;
+  font-family: $font-regular;
 }
 
 // so you can click the svg
@@ -22,6 +22,7 @@ html {
   margin: 0;
   padding: 0;
   box-sizing: inherit;
+  font-weight: inherit;
 }
 
 
@@ -33,8 +34,9 @@ body {
   font-size: var(--text-base-size);
   color: var(--text-body);
   background: var(--bodyBackground);
+ // font-weight: 100 !important;
+  font-weight: inherit;
 }
-
 
  .container {
    padding: 50px;

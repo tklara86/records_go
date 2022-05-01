@@ -16,36 +16,27 @@ License: 	The WebFont(s) listed in this document must follow the YouWorkForThem
 
 @font-face {
 	font-family: 'IIIncrementsSansRegular';
-	src: url('ii-increments-sans-regular.eot');
-	src: url('ii-increments-sans-regular.eot?#iefix') format('embedded-opentype'),
-             url('ii-increments-sans-regular.woff2') format('woff2'),
-	     url('ii-increments-sans-regular.woff') format('woff'),
-	     url('ii-increments-sans-regular.ttf') format('truetype'),
-	     url('ii-increments-sans-regular.svg#youworkforthem') format('svg');
-	font-weight: normal;
-	font-style: normal;
+	src: url('ii-increments-sans-regular.woff2') format('woff2');
+
 }
 
 @font-face {
 	font-family: 'IIIncrementsSansLight';
-	src: url('ii-increments-sans-light.eot');
-	src: url('ii-increments-sans-light.eot?#iefix') format('embedded-opentype'),
-	url('ii-increments-sans-light.woff2') format('woff2'),
-	url('ii-increments-sans-light.woff') format('woff'),
-	url('ii-increments-sans-light.ttf') format('truetype'),
-	url('ii-increments-sans-light.svg#youworkforthem') format('svg');
-	font-weight: normal;
-	font-style: normal;
+	src: url('ii-increments-sans-light.woff2') format('woff2');
 }
 
 @font-face {
 	font-family: 'IIIncrementsSansMedium';
-	src: url('ii-increments-sans-medium.eot');
-	src: url('ii-increments-sans-medium.eot?#iefix') format('embedded-opentype'),
-	url('ii-increments-sans-medium.woff2') format('woff2'),
-	url('ii-increments-sans-medium.woff') format('woff'),
-	url('ii-increments-sans-medium.ttf') format('truetype'),
-	url('ii-increments-sans-medium.svg#youworkforthem') format('svg');
-	font-weight: normal;
-	font-style: normal;
+	src: url('ii-increments-sans-medium.woff2') format('woff2');
+}
+
+
+@font-face {
+	font-family: 'IIIncrementsSansBold';
+	src: url('ii-increments-sans-bold.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'IIIncrementsSansBlack';
+	src: url('ii-increments-sans-black.woff2') format('woff2'),
 }

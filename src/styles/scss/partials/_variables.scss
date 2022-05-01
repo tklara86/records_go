@@ -1,6 +1,9 @@
 $color-text: rgb(22, 22, 22);
 $color-text-heading: #242424;
-$font-primary: 'Karla', sans-serif;
+$font-regular: 'IIIncrementsSansRegular';
+$font-light: 'IIIncrementsSansLight';
+$font-medium: 'IIIncrementsSansMedium';
+$font-medium: 'IIIncrementsSansMedium';
 
 $body-line-height: 1.6 !default;
 $heading-line-height: var(--heading-line-height) !default;
@@ -14,11 +17,6 @@ $space--lg: calc(2 * var(--space-unit)) !default; // 32px
 $space--xl: calc(3.25 * var(--space-unit)) !default; // 52px
 $space--xxl: calc(5.25 * var(--space-unit)) !default; // 84px
 $space--xxxl: calc(9.25 * var(--space-unit)) !default; // 144px
-
-
-
-
-
 
 
 
