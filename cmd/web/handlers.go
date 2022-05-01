@@ -2,17 +2,33 @@ package main
 
 import (
 	"fmt"
+	"html/template"
+	"log"
 	"net/http"
 	"strconv"
 )
 
-func home(w http.ResponseWriter, r *http.Request) {
-	if r.URL.Path != "/" {
-		http.NotFound(w, r)
-		return
+// homeAdmin
+func homeAdmin(w http.ResponseWriter, r *http.Request) {
+
+	files := []string{
+		"./ui/html/pages/base.tmpl",
+		"./ui/html/pages/common/navigation.tmpl",
+		"./ui/html/pages/admin/home.tmpl",
 	}
 
-	w.Write([]byte("Heellloo!!"))
+	ts, err := template.ParseFiles(files...)
+	if err != nil {
+		log.Println(err.Error())
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+	}
+
+	err = ts.ExecuteTemplate(w, "base", nil)
+	if err != nil {
+		log.Println(err.Error())
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+	}
+
 }
 
 func createRecord(w http.ResponseWriter, r *http.Request) {
@@ -35,4 +51,8 @@ func viewRecord(w http.ResponseWriter, r *http.Request) {
 	}
 
 	fmt.Fprintf(w, "Display record with id of %d", id)
+}
+
+func viewRecords(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("All records"))
 }

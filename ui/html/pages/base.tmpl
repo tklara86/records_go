@@ -1,0 +1,33 @@
+{{ define "base"}}
+    <!DOCTYPE html>
+    <html lang='en'>
+    <head>
+        <meta charset='utf-8'>
+        <title>{{ template "title" .}} - Record Collection</title>
+        <link rel='stylesheet' href='/dist/main.css'>
+   <link rel='shortcut icon' href='/dist/favicon.ico' type='image/x-icon'>
+    </head>
+    <body>
+    <header class="header header-light">
+        <!-- Navbar -->
+
+      {{ template "navigation" .}}
+
+
+    </header>
+
+    <!-- Main -->
+    <main class="container">
+        {{ template "main" .}}
+    </main>
+
+
+
+    {{ block "js" .}}
+        <script  src='/dist/main.js'></script>
+    {{end}}
+
+    </body>
+    </html>
+
+{{ end }}

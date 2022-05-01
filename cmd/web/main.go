@@ -7,9 +7,15 @@ import (
 
 func main() {
 	mux := http.NewServeMux()
-	mux.HandleFunc("/", home)
-	mux.HandleFunc("/record/view", viewRecord)
-	mux.HandleFunc("/record/create", createRecord)
+
+	fileServer := http.FileServer(http.Dir("dist"))
+
+	mux.Handle("/dist/", http.StripPrefix("/dist", fileServer))
+
+	mux.HandleFunc("/admin", homeAdmin)
+	mux.HandleFunc("/admin/records", viewRecords)
+	mux.HandleFunc("/admin/records/view", viewRecord)
+	mux.HandleFunc("/admin/record/create", createRecord)
 
 	err := http.ListenAndServe(":8000", mux)
 	if err != nil {
