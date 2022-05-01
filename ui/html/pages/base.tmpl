@@ -18,8 +18,14 @@
 
     <!-- Main -->
     <main class="container">
-        {{ template "main" .}}
+        <div class="sidebar">
+            {{ template "sidebar" .}}
+        </div>
+        <div class="section">
+            {{ template "section" .}}
+        </div>
     </main>
+
 
 
 

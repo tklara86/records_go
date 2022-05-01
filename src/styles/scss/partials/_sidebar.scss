@@ -1,0 +1,41 @@
+.sidebar {
+  grid-area: sidebar;
+  background: var(--sidebar);
+  padding: 50px;
+  color: #afafaf;
+
+  &--links {
+
+    &__item {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+
+      p {
+        margin-bottom: 0;
+      }
+
+    }
+
+    &__item:not(:last-of-type) {
+      margin-bottom: 30px;
+    }
+
+    &__icon {
+      width: 30px;
+      height: 30px;
+      margin-right: 20px;
+      color: #afafaf;
+    }
+
+    &__item.active .sidebar--links__icon {
+      color: #fff;
+    }
+    &__item.active p {
+      color: #fff;
+    }
+
+  }
+
+
+}

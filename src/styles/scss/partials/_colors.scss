@@ -47,9 +47,9 @@
   --primary-orange: hsla(var(--palette-orange-50), 100%);
   --text-body: #181614;
   --paragraph-copy: #5b5b5b;
-  --linksColor: #696969;
+  --linksColor: #343434;
   --linksHover: #181614;
-  --navbarBg: #fcfcfc;
+  --navbarBg: #fafafa;
   --navbarBgAlt: #f3f4ef;
   --linksHoverBg: #EAE6DE;
   --linksHoverBgAlt: #e6ecd7;
@@ -60,6 +60,7 @@
   --bodyBackground: #fff;
   --highlightBlue: #3b82f6;
   --highlightBlueShadow: #bfdbfe;
+  --sidebar: #343434;
 }
 
 $theme-colors: (

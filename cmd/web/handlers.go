@@ -14,7 +14,30 @@ func homeAdmin(w http.ResponseWriter, r *http.Request) {
 	files := []string{
 		"./ui/html/pages/base.tmpl",
 		"./ui/html/pages/common/navigation.tmpl",
+		"./ui/html/pages/common/sidebar.tmpl",
 		"./ui/html/pages/admin/home.tmpl",
+	}
+
+	type Link struct {
+		LinkTitle string
+		LinkPath  string
+	}
+
+	type Links struct {
+		Link []Link
+	}
+
+	data := Links{
+		Link: []Link{
+			{
+				LinkTitle: "Home",
+				LinkPath:  "/admin",
+			},
+			{
+				LinkTitle: "Categories",
+				LinkPath:  "/admin/categories/",
+			},
+		},
 	}
 
 	ts, err := template.ParseFiles(files...)
@@ -23,7 +46,7 @@ func homeAdmin(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 	}
 
-	err = ts.ExecuteTemplate(w, "base", nil)
+	err = ts.ExecuteTemplate(w, "base", data)
 	if err != nil {
 		log.Println(err.Error())
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
