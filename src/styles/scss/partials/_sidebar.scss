@@ -1,8 +1,9 @@
 .sidebar {
   grid-area: sidebar;
   background: var(--sidebar);
-  padding: 50px;
+  padding: 25px;
   color: #afafaf;
+  height: 100vh;
 
   &--links {
 

@@ -61,6 +61,8 @@
   --highlightBlue: #3b82f6;
   --highlightBlueShadow: #bfdbfe;
   --sidebar: #343434;
+  --column-bg: #FCFAF7;
+  
 }
 
 $theme-colors: (
@@ -100,6 +102,7 @@ $theme-colors: (
     "warning--light": #fff8df,
     "primary--light": #ccdcfc,
     "secondary--light": #dbdbdb,
+
   )
 );
 

@@ -15,7 +15,8 @@ func main() {
 	mux.HandleFunc("/admin", homeAdmin)
 	mux.HandleFunc("/admin/records", viewRecords)
 	mux.HandleFunc("/admin/records/view", viewRecord)
-	mux.HandleFunc("/admin/record/create", createRecord)
+	mux.HandleFunc("/admin/record/create", createRecordPost)
+	mux.HandleFunc("/admin/record/new", createRecordGet)
 
 	err := http.ListenAndServe(":8000", mux)
 	if err != nil {

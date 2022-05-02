@@ -1,5 +1,5 @@
 form {
-  margin: 30px auto;
+
   max-width: $form-width;
 }
 .input-control {
@@ -27,10 +27,16 @@ form {
   padding: $space--md;
 }
 
+
 .input-control--small {
   margin-top: $space--xs;
   margin-bottom: 30px;
   padding: $space--sm;
+}
+
+.select {
+  margin-top: $space--xs;
+  margin-bottom: 30px;
 }
 
 .form-control.radio input {
@@ -86,7 +92,7 @@ form {
   textarea,
   input {
     font-weight: 400;
-    font-family: $font-regular;
+    font-family: $font-light;
     background-color: theme-colors('bg-color', 'inputBgColor');
   }
   textarea:focus,
@@ -113,8 +119,8 @@ form {
 }
 
 label {
-  font-size: $text--sm;
-  font-weight: 600;
+  font-size: $text--xs;
+  font-family: $font-medium;
 }
 
 
@@ -166,13 +172,12 @@ label {
 
 
 .select {
-  max-width: 300px;
   width: 100%;
   position: relative;
 }
 .custom-select {
   width: 100%;
-  padding: 10px 24px;
+  padding: $space--sm;
   border: var(--border);
   border-radius: 7px;
   display: flex;
@@ -183,6 +188,8 @@ label {
   grid-gap: 10px;
   border: 1px solid #d1d1d1;
   box-shadow: inset 0 0 0 1px hsla(0,0%,97.6%,.87);
+  background: #fbfbfb;
+  font-family: $font-light;
 }
 
 .select.show .custom-select {
@@ -194,15 +201,14 @@ label {
 .custom-select * {
   pointer-events: none;
 }
-.select.show .custom-select {
-  background: var(--light-grey);
-}
+// .select.show .custom-select {
+//   background: var(--light-grey);
+// }
 .custom-select span {
   display: block;
 }
 .custom-select .label {
   font-size: 12px;
-  font-weight: 600;
   color: var(--grey);
 }
 .custom-select .value {
@@ -255,6 +261,7 @@ label {
   cursor: pointer;
   margin-left: 5px;
   margin-right: 5px;
+  font-family: $font-light;
 
 }
 
@@ -284,7 +291,7 @@ ul.custom-option {
 }
 
 
-.select.show .icon {
+.select.show .icon.dropdown-icon {
   background-position-x: 0;
   background-position-y: 0;
   display: inline-block;

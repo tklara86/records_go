@@ -1,0 +1,165 @@
+{{template "base".}}
+
+{{define "title"}}Add Record{{end}}
+
+
+{{define "section"}}
+  <div class="column-container">
+
+    <div class="column">
+      <h2>General</h2>
+      <div class="column--item">
+        <form enctype="multipart/form-data" action="/record/create" method="post">
+  
+          <div class="form-control">
+              <label class="form-label" for="inputTitle">Name</label>
+              
+              <span class="form-alert"></span>
+              <input class="input-control input-control--small" type="text"
+                     name="inputTitle"
+                     id="inputTitle" placeholder="Name">
+          </div>
+
+          <div class="form-control">
+            <label class="form-label" for="inputYear">Artist(s)</label>
+            <div class="select">
+              <div id="val-category" class="custom-select custom-select-category">
+        
+                  <div>
+                      <!-- <span class="label">Category</span> -->
+                      <span class="value">Select artist</span>
+        
+                      <select name="inputCategory" id="inputCategory">
+                          <option>1</option>
+                      </select>
+        
+                  </div>
+        
+                  <span class="icon dropdown-icon"></span>
+        
+              </div>
+              <div class="option">
+                  <ul class="custom-option">
+                      <li data-id="1">Classical</li>
+                      <li data-id="2">Jazz</li>
+                      <li data-id="3">Avant-garde</li>
+                  </ul>
+              </div>
+        
+          </div>
+            
+        </div>
+        
+  
+        
+        
+          <div class="form-control">
+              <label class="form-label"
+                     for="inputYear">Realase Date</label>
+              {{ with .ErrorsMap.Get "inputYear"}}
+                  <span class="error-message">{{.}}</span>
+              {{end}}
+              <span class="form-alert {{with  .ErrorsMap.inputYear}} is-danger {{end}}"></span>
+              <input class="input-control input-control--small {{with  .ErrorsMap.inputYear}} is-danger {{end}}" type="text" name="inputYear"
+                     id="inputYear" placeholder="Release Date" value="{{.Get "inputYear"}}">
+          </div>
+
+          <div class="form-control">
+            <label class="form-label"
+                   for="inputLabel">Label</label>
+            {{ with .ErrorsMap.Get "inputLabel"}}
+                <span class="error-message">{{.}}</span>
+            {{end}}
+            <span class="form-alert {{with .ErrorsMap.inputLabel}} is-danger {{end}}"></span>
+            <input class="input-control input-control--small  {{with .ErrorsMap.inputLabel}} is-danger {{end}}" type="text" name="inputLabel"
+                   id="inputLabel" placeholder="Label" value='{{ .Get "inputLabel"}}'>
+        </div>
+
+        <div class="form-control">
+          <label class="form-label" for="inputYear">Genre(s)</label>
+          <div class="select">
+            <div id="val-category" class="custom-select custom-select-category">
+      
+                <div>
+                    <!-- <span class="label">Category</span> -->
+                    <span class="value">Select Genre</span>
+      
+                    <select name="inputCategory" id="inputCategory">
+                        <option>1</option>
+                    </select>
+      
+                </div>
+      
+                <span class="icon dropdown-icon"></span>
+      
+            </div>
+            <div class="option">
+                <ul class="custom-option">
+                    <li data-id="1">Classical</li>
+                    <li data-id="2">Jazz</li>
+                    <li data-id="3">Avant-garde</li>
+                </ul>
+            </div>
+      
+        </div>
+          
+      </div>
+        
+        
+        
+          <!-- <div class="form-control">
+              <label for="inputCover">Image</label>
+        
+          <input class="input-control input-control--small" type="file" name="inputCover" />
+              {{ with .ErrorsMap.Get "inputCover"}}
+                  <span class="error-message">{{.}}</span>
+              {{end}}
+          </div> -->
+        
+          <!-- <input type="submit" value="Add Record" class="btn btn-small btn-primary"/> -->
+        
+    
+        
+     
+        
+        
+        {{/*        <div class="select">*/}}
+        {{/*            <div id="val-category" class="custom-select custom-select-category">*/}}
+        
+        {{/*                <div>*/}}
+        {{/*                    <span class="label">Artist</span>*/}}
+        {{/*                    <span class="value">Select artist</span>*/}}
+        {{/*                </div>*/}}
+        
+        {{/*                <span class="icon"></span>*/}}
+        
+        {{/*            </div>*/}}
+        {{/*            <div class="option">*/}}
+        {{/*                <ul class="custom-option">*/}}
+        {{/*                    <li>Krzysztof Penderecki</li>*/}}
+        {{/*                    <li>Don Cherry</li>*/}}
+        {{/*                </ul>*/}}
+        {{/*            </div>*/}}
+        
+        {{/*        </div>*/}}
+        
+        
+        
+        </form>
+      </div>
+
+    </div>
+    
+    <div class="column">
+      <h2>Tracklist</h2>
+      <div class="column--item">
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+{{end}}

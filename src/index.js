@@ -1,4 +1,4 @@
- import "./styles/scss/main.scss";
+import "./styles/scss/main.scss";
 import { Test } from "./Test";
 
 

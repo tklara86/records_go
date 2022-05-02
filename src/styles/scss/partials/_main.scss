@@ -1,11 +1,31 @@
+.section {
+  margin-top: 50px;
+  padding: 0 20px;
+}
 .container {
   display: grid;
   grid-template-areas: "sidebar main";
-  grid-template-columns: 300px 1fr;
-  gap: 20px;
+  grid-template-columns: 200px 1fr;
 }
-
 
 .main {
   grid-area: main;
+}
+
+.column-container {
+  display: grid;
+  grid-template-columns: 30% 1fr;
+  gap: 20px;
+}
+
+.column {
+  h2 {
+    font-size: 26px;
+  }
+  &--item {
+    margin-top: 10px;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: var(--column-bg);
+  }
 }
