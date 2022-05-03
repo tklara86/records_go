@@ -91,8 +91,7 @@ form {
   position: relative;
   textarea,
   input {
-    font-weight: 400;
-    font-family: $font-light;
+    font-family: $font-medium;
     background-color: theme-colors('bg-color', 'inputBgColor');
   }
   textarea:focus,
@@ -119,8 +118,8 @@ form {
 }
 
 label {
-  font-size: $text--xs;
-  font-family: $font-medium;
+  font-size: $text--sm;
+  font-family: $font-regular;
 }
 
 
@@ -189,7 +188,7 @@ label {
   border: 1px solid #d1d1d1;
   box-shadow: inset 0 0 0 1px hsla(0,0%,97.6%,.87);
   background: #fbfbfb;
-  font-family: $font-light;
+  font-family: $font-medium;
 }
 
 .select.show .custom-select {
@@ -233,7 +232,7 @@ label {
 }
 .select.show .option {
   max-height: 260px;
-  background-color: #f9f9f9;
+  background-color: #fff;
   border: 1px solid #d1d1d1;
   box-shadow: inset 0 0 0 1px hsla(0,0%,97.6%,.87);
   border-radius: 7px;
@@ -253,7 +252,7 @@ label {
   display: none; /* For chrome browser */
 }
 .custom-option li {
-  padding: 10px 10px 10px 24px;
+  padding: 7px;
   display: flex;
   align-items: center;
   grid-gap: 10px;
@@ -261,7 +260,7 @@ label {
   cursor: pointer;
   margin-left: 5px;
   margin-right: 5px;
-  font-family: $font-light;
+  font-family: $font-medium;
 
 }
 
@@ -269,7 +268,7 @@ ul.custom-option {
   margin-bottom: 0;
 }
 .custom-option li:hover {
-  background: #eee;
+  background: #f7f7f7;
   transition: all .3s ease;
   margin-left: 5px;
   margin-right: 5px;

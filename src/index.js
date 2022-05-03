@@ -1,5 +1,5 @@
 import "./styles/scss/main.scss";
-import { Test } from "./Test";
+
 
 
 //let attention = Prompt();
@@ -422,7 +422,6 @@ customSelects.forEach(customSelect => {
 
 
 
- console.log('sdsdsd')
 
 
 

@@ -29,3 +29,27 @@
     background-color: var(--column-bg);
   }
 }
+
+
+.custom-options-selected--item {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  padding: 6px 8px;
+  background: #eee;
+  border-radius: 39px;
+  font-size: 14px;
+  font-family: $font-medium;
+
+  svg {
+    margin-left: 5px;
+  }
+ 
+}
+
+.custom-options-selected--item:first-of-type {
+  margin-top: 5px;
+}
+.custom-options-selected--item:not(:last-of-type) {
+  margin-bottom: 5px;
+}
