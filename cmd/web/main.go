@@ -10,11 +10,13 @@ import (
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/joho/godotenv"
+	"github.com/tklara86/records_go/internal/models"
 )
 
 type application struct {
 	errorLog *log.Logger
 	infoLog  *log.Logger
+	records  *models.RecordModel
 }
 
 func main() {
@@ -48,6 +50,7 @@ func main() {
 	app := &application{
 		errorLog: errorLog,
 		infoLog:  infoLog,
+		records:  &models.RecordModel{DB: db},
 	}
 
 	srv := http.Server{
