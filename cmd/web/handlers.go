@@ -2,12 +2,11 @@ package main
 
 import (
 	"html/template"
-	"log"
 	"net/http"
 )
 
 // homeAdmin
-func homeAdmin(w http.ResponseWriter, r *http.Request) {
+func (app *application) homeAdmin(w http.ResponseWriter, r *http.Request) {
 
 	files := []string{
 		"./ui/html/pages/base.tmpl",
@@ -41,30 +40,28 @@ func homeAdmin(w http.ResponseWriter, r *http.Request) {
 
 	ts, err := template.ParseFiles(files...)
 	if err != nil {
-		log.Println(err.Error())
-		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		app.serverError(w, err)
 	}
 
 	err = ts.ExecuteTemplate(w, "base", data)
 	if err != nil {
-		log.Println(err.Error())
-		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		app.serverError(w, err)
 	}
 
 }
 
-func createRecordPost(w http.ResponseWriter, r *http.Request) {
+func (app *application) createRecordPost(w http.ResponseWriter, r *http.Request) {
 
 	if r.Method != http.MethodPost {
 		w.Header().Set("Allow", http.MethodPost)
-		http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
+		app.clientError(w, http.StatusMethodNotAllowed)
 		return
 	}
 
 	w.Write([]byte("create Record"))
 }
 
-func createRecordGet(w http.ResponseWriter, r *http.Request) {
+func (app *application) createRecordGet(w http.ResponseWriter, r *http.Request) {
 
 	files := []string{
 		"./ui/html/pages/base.tmpl",
@@ -75,19 +72,17 @@ func createRecordGet(w http.ResponseWriter, r *http.Request) {
 
 	ts, err := template.ParseFiles(files...)
 	if err != nil {
-		log.Println(err.Error())
-		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		app.errorLog.Println(err.Error())
 	}
 
 	err = ts.ExecuteTemplate(w, "base", nil)
 	if err != nil {
-		log.Println(err.Error())
-		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		app.serverError(w, err)
 	}
 
 }
 
-func viewRecord(w http.ResponseWriter, r *http.Request) {
+func (app *application) viewRecord(w http.ResponseWriter, r *http.Request) {
 
 	files := []string{
 		"./ui/html/pages/base.tmpl",
@@ -98,15 +93,13 @@ func viewRecord(w http.ResponseWriter, r *http.Request) {
 
 	ts, err := template.ParseFiles(files...)
 	if err != nil {
-		log.Println(err.Error())
-		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		app.serverError(w, err)
 	}
 
 	err = ts.ExecuteTemplate(w, "base", nil)
 
 	if err != nil {
-		log.Println(err.Error())
-		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		app.serverError(w, err)
 	}
 
 	// id, err := strconv.Atoi(r.URL.Query().Get("id"))
@@ -118,6 +111,6 @@ func viewRecord(w http.ResponseWriter, r *http.Request) {
 	//fmt.Fprintf(w, "Display record with id of %d", id)
 }
 
-func viewRecords(w http.ResponseWriter, r *http.Request) {
+func (app *application) viewRecords(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("All records"))
 }
