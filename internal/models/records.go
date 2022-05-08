@@ -117,7 +117,7 @@ func (m *RecordModel) GetAll() ([]*Record, error) {
 	for rows.Next() {
 		r := &Record{}
 
-		err := rows.Scan(&r.ID, &r.Title, &r.ReleaseDate, &r.Image, &r.CreatedAt, &r.UpdatedAt)
+		err := rows.Scan(&r.ID, &r.Title, &r.ReleaseDate, &r.Image, &r.Status, &r.CreatedAt, &r.UpdatedAt)
 		if err != nil {
 			return nil, err
 		}
