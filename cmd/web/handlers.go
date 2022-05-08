@@ -79,7 +79,19 @@ func (app *application) createRecordPost(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
+	// recordGenre := &models.RecordGenre{
+	// 	RecordID: int64(id),
+	// 	GenreID:  1,
+	// }
+
+	// id2, err := app.genres.InsertRecordGenre(recordGenre)
+	// if err != nil {
+	// 	app.serverError(w, err)
+	// 	return
+	// }
+
 	w.Write([]byte(fmt.Sprintf("Record created with id of %d", id)))
+	//w.Write([]byte(fmt.Sprintf("Record Genre created with id of %d", record.RecordGenres.RecordID)))
 }
 
 func (app *application) createRecordGet(w http.ResponseWriter, r *http.Request) {
@@ -143,5 +155,18 @@ func (app *application) viewRecord(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *application) viewRecords(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("All records"))
+	// if r.URL.Path != "/" {
+	// 	app.notFound(w)
+	// 	return
+	// }
+
+	records, err := app.records.GetAll()
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	for _, record := range records {
+		fmt.Fprintf(w, "%+v\n", record)
+	}
 }

@@ -223,12 +223,12 @@ label {
 }
 .option {
   position: absolute;
-  top: calc(100% + 5px);
   max-height: 0;
   overflow-y: hidden;
   width: 100%;
   animation: slideInDown .3s ease-in;
   z-index: 500;
+  margin-top: 5px;
 }
 .select.show .option {
   max-height: 260px;

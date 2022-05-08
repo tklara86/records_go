@@ -17,6 +17,7 @@ type application struct {
 	errorLog *log.Logger
 	infoLog  *log.Logger
 	records  *models.RecordModel
+	genres   *models.GenreModel
 }
 
 func main() {
@@ -51,6 +52,7 @@ func main() {
 		errorLog: errorLog,
 		infoLog:  infoLog,
 		records:  &models.RecordModel{DB: db},
+		genres:   &models.GenreModel{DB: db},
 	}
 
 	srv := http.Server{

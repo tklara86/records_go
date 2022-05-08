@@ -12,6 +12,7 @@ type Record struct {
 	Title       string
 	ReleaseDate string
 	Image       string
+	Status      int
 	CreatedAt   time.Time
 	UpdatedAt   time.Time
 }
@@ -26,6 +27,43 @@ type RecorImage struct {
 
 type RecordModel struct {
 	DB *sql.DB
+}
+
+func (m *RecordModel) InsertTransaction(rd *Record, rg *RecordGenre) (int, error) {
+	tx, err := m.DB.Begin()
+	if err != nil {
+		return 0, err
+	}
+
+	defer tx.Rollback()
+
+	stmt := `
+	INSERT INTO records(title,release_date,image,created_at,updated_at) VALUES(?, ?, ?, UTC_TIMESTAMP(), UTC_TIMESTAMP())
+`
+
+	result, err := tx.Exec(stmt, rd.Title, rd.ReleaseDate, rd.Image)
+	if err != nil {
+		return 0, err
+	}
+
+	id, err := result.LastInsertId()
+	if err != nil {
+		return 0, err
+	}
+
+	stmt2 := `
+		INSERT INTO record_genres (record_id, genre_id, created_at, updated_at)
+		VALUES (?, ?, UTC_TIMESTAMP(), UTC_TIMESTAMP())
+	
+	`
+	_, err = m.DB.Exec(stmt2, id, rg.GenreID)
+	if err != nil {
+		return 0, err
+	}
+
+	err = tx.Commit()
+	return int(id), err
+
 }
 
 func (m *RecordModel) Insert(rd *Record) (int, error) {
@@ -57,5 +95,42 @@ func (m *RecordModel) Get(recordId int) (*Record, error) {
 	}
 
 	return r, nil
+
+}
+
+func (m *RecordModel) GetAll() ([]*Record, error) {
+	stmt := `
+		SELECT * FROM records
+	`
+
+	rows, err := m.DB.Query(stmt)
+	if err != nil {
+		return nil, err
+	}
+
+	defer rows.Close()
+
+	// initialize empty slice to hold record structs
+	records := []*Record{}
+
+	// Use rows.Next to iterate through the rows in the resultset.
+	for rows.Next() {
+		r := &Record{}
+
+		err := rows.Scan(&r.ID, &r.Title, &r.ReleaseDate, &r.Image, &r.CreatedAt, &r.UpdatedAt)
+		if err != nil {
+			return nil, err
+		}
+
+		// Append it to the slice of snippets.
+		records = append(records, r)
+	}
+	// When the rows.Next() loop has finished we call rows.Err() to retrieve any
+	// error that was encountered during the iteration.
+	if err = rows.Err(); err != nil {
+		return nil, err
+	}
+
+	return records, nil
 
 }
