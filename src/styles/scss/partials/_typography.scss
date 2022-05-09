@@ -145,8 +145,7 @@ p {
 //  color: var(--paragraph-copy);
 }
 ul li,
-ol li,
- {
+ol li {
   line-height: $body-line-height;
   list-style: none;
 }

@@ -79,16 +79,26 @@ func (app *application) createRecordPost(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
-	// recordGenre := &models.RecordGenre{
-	// 	RecordID: int64(id),
-	// 	GenreID:  1,
-	// }
+	recordGenre := []models.RecordGenre{
+		{
+			RecordID: int64(id),
+			GenreID:  1,
+		},
+		{
+			RecordID: int64(id),
+			GenreID:  2,
+		},
+		{
+			RecordID: int64(id),
+			GenreID:  3,
+		},
+	}
 
-	// id2, err := app.genres.InsertRecordGenre(recordGenre)
-	// if err != nil {
-	// 	app.serverError(w, err)
-	// 	return
-	// }
+	_, err = app.genres.InsertRecordGenre(recordGenre)
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
 
 	w.Write([]byte(fmt.Sprintf("Record created with id of %d", id)))
 	//w.Write([]byte(fmt.Sprintf("Record Genre created with id of %d", record.RecordGenres.RecordID)))

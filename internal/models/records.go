@@ -29,43 +29,6 @@ type RecordModel struct {
 	DB *sql.DB
 }
 
-func (m *RecordModel) InsertTransaction(rd *Record, rg *RecordGenre) (int, error) {
-	tx, err := m.DB.Begin()
-	if err != nil {
-		return 0, err
-	}
-
-	defer tx.Rollback()
-
-	stmt := `
-	INSERT INTO records(title,release_date,image,created_at,updated_at) VALUES(?, ?, ?, UTC_TIMESTAMP(), UTC_TIMESTAMP())
-`
-
-	result, err := tx.Exec(stmt, rd.Title, rd.ReleaseDate, rd.Image)
-	if err != nil {
-		return 0, err
-	}
-
-	id, err := result.LastInsertId()
-	if err != nil {
-		return 0, err
-	}
-
-	stmt2 := `
-		INSERT INTO record_genres (record_id, genre_id, created_at, updated_at)
-		VALUES (?, ?, UTC_TIMESTAMP(), UTC_TIMESTAMP())
-	
-	`
-	_, err = m.DB.Exec(stmt2, id, rg.GenreID)
-	if err != nil {
-		return 0, err
-	}
-
-	err = tx.Commit()
-	return int(id), err
-
-}
-
 func (m *RecordModel) Insert(rd *Record) (int, error) {
 	stmt := `
 		INSERT INTO records(title,release_date,image,created_at,updated_at) VALUES(?, ?, ?, UTC_TIMESTAMP(), UTC_TIMESTAMP())
