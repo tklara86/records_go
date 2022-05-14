@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"flag"
 	"fmt"
+	"html/template"
 	"log"
 	"net/http"
 	"os"
@@ -14,10 +15,11 @@ import (
 )
 
 type application struct {
-	errorLog *log.Logger
-	infoLog  *log.Logger
-	records  *models.RecordModel
-	genres   *models.GenreModel
+	errorLog      *log.Logger
+	infoLog       *log.Logger
+	records       *models.RecordModel
+	genres        *models.GenreModel
+	templateCache map[string]*template.Template
 }
 
 func main() {
@@ -48,11 +50,18 @@ func main() {
 
 	defer db.Close()
 
+	// init a new template cache
+	templateCache, err := newTemplateCache()
+	if err != nil {
+		errorLog.Fatal(err)
+	}
+
 	app := &application{
-		errorLog: errorLog,
-		infoLog:  infoLog,
-		records:  &models.RecordModel{DB: db},
-		genres:   &models.GenreModel{DB: db},
+		errorLog:      errorLog,
+		infoLog:       infoLog,
+		records:       &models.RecordModel{DB: db},
+		genres:        &models.GenreModel{DB: db},
+		templateCache: templateCache,
 	}
 
 	srv := http.Server{

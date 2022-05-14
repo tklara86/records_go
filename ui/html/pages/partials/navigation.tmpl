@@ -5,14 +5,17 @@
                 Logo
             </a>
 
+         
+
                 <!-- Navbar Collapse -->
                 <div class="nav-collapse">
                     <div class="navContentWrapper hidden">
                         <!-- LEFT SECTION -->
                         <div class="nav nav-left">
 
-                            <a href="/admin" class="btn btn-xs nav-item">Home</a>
-                            <a href="/admin" class="btn btn-xs nav-item">Categories</a>
+                            {{ range .Links}}
+                                <a href="{{.LinkPath}}" class="btn btn-xs nav-item">{{.LinkTitle}}</a>
+                            {{end}}
 
                         </div>
                         <!-- RIGHT SECTION -->

@@ -68,23 +68,20 @@
           <div class="form-control">
               <label class="form-label"
                      for="inputYear">Realase Date</label>
-              {{ with .ErrorsMap.Get "inputYear"}}
-                  <span class="error-message">{{.}}</span>
-              {{end}}
-              <span class="form-alert {{with  .ErrorsMap.inputYear}} is-danger {{end}}"></span>
-              <input class="input-control input-control--small {{with  .ErrorsMap.inputYear}} is-danger {{end}}" type="text" name="inputYear"
-                     id="inputYear" placeholder="Release Date" value="{{.Get "inputYear"}}">
+            
+                  
+              
+              <span class="form-alert is-danger"></span>
+              <input class="input-control input-control--small" type="text" name="inputYear"
+                     id="inputYear" placeholder="Release Date">
           </div>
 
           <div class="form-control">
             <label class="form-label"
                    for="inputLabel">Label</label>
-            {{ with .ErrorsMap.Get "inputLabel"}}
-                <span class="error-message">{{.}}</span>
-            {{end}}
-            <span class="form-alert {{with .ErrorsMap.inputLabel}} is-danger {{end}}"></span>
-            <input class="input-control input-control--small  {{with .ErrorsMap.inputLabel}} is-danger {{end}}" type="text" name="inputLabel"
-                   id="inputLabel" placeholder="Label" value='{{ .Get "inputLabel"}}'>
+           
+            <input class="input-control input-control--small" type="text" name="inputLabel"
+                   id="inputLabel" placeholder="Label">
         </div>
 
         <div class="form-control">
@@ -123,9 +120,9 @@
               <label for="inputCover">Image</label>
         
           <input class="input-control input-control--small" type="file" name="inputCover" />
-              {{ with .ErrorsMap.Get "inputCover"}}
+           
                   <span class="error-message">{{.}}</span>
-              {{end}}
+            
           </div> -->
         
           <!-- <input type="submit" value="Add Record" class="btn btn-small btn-primary"/> -->
