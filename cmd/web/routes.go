@@ -1,19 +1,28 @@
 package main
 
-import "net/http"
+import (
+	"net/http"
 
-func (app *application) routes() *http.ServeMux {
-	mux := http.NewServeMux()
+	"github.com/julienschmidt/httprouter"
+	"github.com/justinas/alice"
+)
+
+func (app *application) routes() http.Handler {
+
+	router := httprouter.New()
 
 	fileServer := http.FileServer(http.Dir("dist"))
 
-	mux.Handle("/dist/", http.StripPrefix("/dist", fileServer))
+	router.Handler(http.MethodGet, "/dist/*filepath", http.StripPrefix("/dist", fileServer))
 
-	mux.HandleFunc("/admin", app.homeAdmin)
-	mux.HandleFunc("/admin/records", app.viewRecords)
-	mux.HandleFunc("/admin/records/view", app.viewRecord)
-	mux.HandleFunc("/admin/record/create", app.createRecordPost)
-	mux.HandleFunc("/admin/record/new", app.createRecordGet)
+	router.HandlerFunc(http.MethodGet, "/admin", app.homeAdmin)
+	router.HandlerFunc(http.MethodGet, "/admin/records", app.viewRecords)
+	router.HandlerFunc(http.MethodGet, "/admin/records/view/:id", app.viewRecord)
+	router.HandlerFunc(http.MethodPost, "/admin/record/create", app.createRecordPost)
+	router.HandlerFunc(http.MethodGet, "/admin/record/new", app.createRecordGet)
 
-	return mux
+	standard := alice.New(app.recoverPanic, app.logRequest, secureHeaders)
+
+	return standard.Then(router)
+
 }
