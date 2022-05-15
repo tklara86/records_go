@@ -9,42 +9,32 @@
     <div class="column">
       <h2>General</h2>
       <div class="column--item">
-        <form enctype="multipart/form-data" action="/record/create" method="post">
+        <form enctype="multipart/form-data" action="/admin/record/new" method="post">
   
           <div class="form-control">
-              <label class="form-label" for="inputTitle">Title</label>
-              
+              <label class="form-label" for="recordTitle">Title</label>
               <span class="form-alert"></span>
-              <input class="input-control input-control--small" type="text"
-                     name="inputTitle"
-                     id="inputTitle" placeholder="Title">
+              <input class="input-control input-control--small" type="text" name="recordTitle" placeholder="Title">
           </div>
 
           <div class="form-control">
-            <label class="form-label" for="inputYear">Artist(s)</label>
+            <label class="form-label" for="recordArtist">Artist(s)</label>
             <div class="select">
               <div id="val-category" class="custom-select custom-select-category">
-        
                   <div>
-                      <!-- <span class="label">Category</span> -->
-                      <span class="value">Select artist</span>
-        
-                      <select name="inputCategory" id="inputCategory">
-                          <option>1</option>
-                      </select>
-        
+                    <span class="value">Select artist</span>
+                    <select name="inputCategory" id="inputCategory">
+                      <option>1</option>
+                    </select>
                   </div>
-        
                   <span class="icon dropdown-icon"></span>
-        
               </div>
-
-              
               <div class="option">
                   <ul class="custom-option">
-                      <li data-id="1">Krzysztof Penderecki</li>
-                      <li data-id="2">Don Cherry</li>
-                      <li data-id="3">Karlheinz Stockhausen</li>
+                    <li data-id="1">Krzysztof Penderecki</li>
+                    <li data-id="2">Don Cherry</li>
+                    <li data-id="3">Karlheinz Stockhausen</li>
+                  </ul>
               </div>
               <div class="custom-options-selected">
                 <span class="custom-options-selected--item">Krzysztof Penderecki
@@ -57,62 +47,41 @@
                   <span class="icon-close"></span>
                 </span>
               </div>
-        
+            </div>  
           </div>
-            
-        </div>
-        
-  
-        
-        
+      
           <div class="form-control">
-              <label class="form-label"
-                     for="inputYear">Realase Date</label>
-            
-                  
-              
+              <label class="form-label" for="recordReleaseDate">Realase Date</label>
               <span class="form-alert is-danger"></span>
-              <input class="input-control input-control--small" type="text" name="inputYear"
-                     id="inputYear" placeholder="Release Date">
+              <input class="input-control input-control--small" type="text" name="recordReleaseDate" placeholder="Release Date">
           </div>
 
           <div class="form-control">
-            <label class="form-label"
-                   for="inputLabel">Label</label>
-           
-            <input class="input-control input-control--small" type="text" name="inputLabel"
-                   id="inputLabel" placeholder="Label">
-        </div>
+            <label class="form-label" for="recordLabel">Label</label>
+            <input class="input-control input-control--small" type="text" name="recordLabel" placeholder="Label">
+          </div>
 
         <div class="form-control">
           <label class="form-label" for="inputYear">Genre(s)</label>
           <div class="select">
             <div id="val-category" class="custom-select custom-select-category">
-      
                 <div>
-                    <!-- <span class="label">Category</span> -->
-                    <span class="value">Select Genre</span>
-      
-                    <select name="inputCategory" id="inputCategory">
-                        <option>1</option>
-                    </select>
-      
+                  <span class="value">Select Genre</span>
+                  <select name="inputCategory" id="inputCategory">
+                    <option>1</option>
+                  </select>
                 </div>
-      
                 <span class="icon dropdown-icon"></span>
-      
             </div>
             <div class="option">
-                <ul class="custom-option">
-                    <li data-id="1">Classical</li>
-                    <li data-id="2">Jazz</li>
-                    <li data-id="3">Avant-garde</li>
-                </ul>
+              <ul class="custom-option">
+                <li data-id="1">Classical</li>
+                <li data-id="2">Jazz</li>
+                <li data-id="3">Avant-garde</li>
+              </ul>
             </div>
-      
+          </div>  
         </div>
-          
-      </div>
         
         
         
