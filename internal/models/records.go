@@ -47,7 +47,7 @@ func (m *RecordModel) Insert(rd *Record) (int, error) {
 func (m *RecordModel) Get(recordId int) (*Record, error) {
 	r := &Record{}
 
-	err := m.DB.QueryRow("SELECT * FROM records WHERE id = ?", recordId).Scan(&r.ID, &r.Title, &r.ReleaseDate, &r.Image, &r.CreatedAt, &r.UpdatedAt)
+	err := m.DB.QueryRow("SELECT * FROM records WHERE id = ?", recordId).Scan(&r.ID, &r.Title, &r.ReleaseDate, &r.Image, &r.Status, &r.CreatedAt, &r.UpdatedAt)
 
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {

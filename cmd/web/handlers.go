@@ -6,10 +6,11 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/julienschmidt/httprouter"
 	"github.com/tklara86/records_go/internal/models"
 )
 
-// homeAdmin
+// Home Admin
 func (app *application) homeAdmin(w http.ResponseWriter, r *http.Request) {
 
 	data := app.newTemplateData(r)
@@ -18,7 +19,8 @@ func (app *application) homeAdmin(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func (app *application) createRecordPost(w http.ResponseWriter, r *http.Request) {
+// recordCreatePost - creates a new record
+func (app *application) recordCreatePost(w http.ResponseWriter, r *http.Request) {
 
 	if r.Method != http.MethodPost {
 		w.Header().Set("Allow", http.MethodPost)
@@ -67,7 +69,8 @@ func (app *application) createRecordPost(w http.ResponseWriter, r *http.Request)
 	//w.Write([]byte(fmt.Sprintf("Record Genre created with id of %d", record.RecordGenres.RecordID)))
 }
 
-func (app *application) createRecordGet(w http.ResponseWriter, r *http.Request) {
+// recordCreateGet - displays a HTML form for creating a new record
+func (app *application) recordCreateGet(w http.ResponseWriter, r *http.Request) {
 
 	data := app.newTemplateData(r)
 
@@ -75,11 +78,14 @@ func (app *application) createRecordGet(w http.ResponseWriter, r *http.Request) 
 
 }
 
+// viewRecord - dipslays single record
 func (app *application) viewRecord(w http.ResponseWriter, r *http.Request) {
 
-	id, err := strconv.Atoi(r.URL.Query().Get("id"))
+	params := httprouter.ParamsFromContext(r.Context())
+
+	id, err := strconv.Atoi(params.ByName("id"))
 	if err != nil || id < 1 {
-		http.NotFound(w, r)
+		app.notFound(w)
 		return
 	}
 
@@ -96,9 +102,10 @@ func (app *application) viewRecord(w http.ResponseWriter, r *http.Request) {
 	data := app.newTemplateData(r)
 	data.Record = record
 
-	//app.render(w, http.StatusOK, "create.tmpl", data)
+	app.render(w, http.StatusOK, "view.tmpl", data)
 }
 
+// viewRecords - dipslays all records
 func (app *application) viewRecords(w http.ResponseWriter, r *http.Request) {
 
 	records, err := app.records.GetAll()

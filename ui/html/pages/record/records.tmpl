@@ -12,7 +12,9 @@
         <div>
                 {{if .Records}}
                 {{ range .Records}}
-                        <p>#{{.ID}} - {{ .Title }}</p>
+
+                        <a href="/admin/records/view/{{.ID}}">#{{.ID}} - {{ .Title }}</a>
+                        <br>
                 {{end}}
                
                 {{else}}
