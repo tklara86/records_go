@@ -50,6 +50,12 @@ type Link struct {
 	LinkPath  string
 }
 
+type SideBarLink struct {
+	LinkTitle string
+	LinkIcon  string
+	LinkHref  string
+}
+
 func (app *application) newTemplateData(r *http.Request) *templateData {
 	return &templateData{
 		CurrentYear: time.Now().Year(),
@@ -61,6 +67,18 @@ func (app *application) newTemplateData(r *http.Request) *templateData {
 			{
 				LinkTitle: "Categories",
 				LinkPath:  "/admin/categories/",
+			},
+		},
+		SideBarLinks: []SideBarLink{
+			{
+				LinkTitle: "Home",
+				LinkIcon:  "home",
+				LinkHref:  "/admin",
+			},
+			{
+				LinkTitle: "Albums",
+				LinkIcon:  "archive",
+				LinkHref:  "/admin/records",
 			},
 		},
 	}

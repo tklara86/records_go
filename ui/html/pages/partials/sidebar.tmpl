@@ -1,16 +1,12 @@
 {{define  "sidebar"}}
     <div class="sidebar--links">
-        <a href="/admin" class="sidebar--links__item">
+        {{ range .SideBarLinks }}
+        <a href="{{.LinkHref}}" class="sidebar--links__item">
             <svg class="sidebar--links__icon">
-                <use xlink:href="/dist/icons/sprite.svg#home"></use>
+                <use xlink:href="/dist/icons/sprite.svg#{{.LinkIcon}}"></use>
             </svg>
-            <p>Home</p>
+            {{.LinkTitle}}
         </a>
-        <a href="/" class="sidebar--links__item active">
-            <svg class="sidebar--links__icon">
-                <use xlink:href="/dist/icons/sprite.svg#archive"></use>
-            </svg>
-            <p>Albums</p>
-        </a>
+        {{ end }}
     </div>
 {{end}}

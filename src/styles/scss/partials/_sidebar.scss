@@ -5,6 +5,10 @@
   color: #afafaf;
 
   &--links {
+    a {
+      text-decoration: none;
+      color: #afafaf;
+    }
 
     &__item {
       display: flex;

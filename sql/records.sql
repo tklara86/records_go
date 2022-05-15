@@ -262,50 +262,50 @@ CREATE INDEX `record_channels_index_40` ON `record_channels` (`record_id`);
 
 CREATE INDEX `record_channels_index_41` ON `record_channels` (`channels_id`, `record_id`);
 
-ALTER TABLE `label_catalogue_number` ADD FOREIGN KEY (`label_id`) REFERENCES `labels` (`id`);
+ALTER TABLE `label_catalogue_number` ADD FOREIGN KEY (`label_id`) REFERENCES `labels` (`id`) ON DELETE CASCADE;
 
-ALTER TABLE `label_catalogue_number_to_record` ADD FOREIGN KEY (`label_catalogue_number_id`) REFERENCES `label_catalogue_number` (`id`);
+ALTER TABLE `label_catalogue_number_to_record` ADD FOREIGN KEY (`label_catalogue_number_id`) REFERENCES `label_catalogue_number` (`id`) ON DELETE CASCADE;
 
-ALTER TABLE `label_catalogue_number_to_record` ADD FOREIGN KEY (`record_id`) REFERENCES `records` (`id`);
+ALTER TABLE `label_catalogue_number_to_record` ADD FOREIGN KEY (`record_id`) REFERENCES `records` (`id`) ON DELETE CASCADE;
 
-ALTER TABLE `record_labels` ADD FOREIGN KEY (`label_id`) REFERENCES `labels` (`id`);
+ALTER TABLE `record_labels` ADD FOREIGN KEY (`label_id`) REFERENCES `labels` (`id`) ON DELETE CASCADE;
 
-ALTER TABLE `record_labels` ADD FOREIGN KEY (`record_id`) REFERENCES `records` (`id`);
+ALTER TABLE `record_labels` ADD FOREIGN KEY (`record_id`) REFERENCES `records` (`id`) ON DELETE CASCADE;
 
-ALTER TABLE `record_genres` ADD FOREIGN KEY (`record_id`) REFERENCES `records` (`id`);
+ALTER TABLE `record_genres` ADD FOREIGN KEY (`record_id`) REFERENCES `records` (`id`) ON DELETE CASCADE;
 
-ALTER TABLE `record_genres` ADD FOREIGN KEY (`genre_id`) REFERENCES `genres` (`genre_id`);
+ALTER TABLE `record_genres` ADD FOREIGN KEY (`genre_id`) REFERENCES `genres` (`genre_id`) ON DELETE CASCADE;
 
-ALTER TABLE `record_artists` ADD FOREIGN KEY (`artist_id`) REFERENCES `artists` (`artist_id`);
+ALTER TABLE `record_artists` ADD FOREIGN KEY (`artist_id`) REFERENCES `artists` (`artist_id`) ON DELETE CASCADE;
 
-ALTER TABLE `record_artists` ADD FOREIGN KEY (`record_id`) REFERENCES `records` (`id`);
+ALTER TABLE `record_artists` ADD FOREIGN KEY (`record_id`) REFERENCES `records` (`id`) ON DELETE CASCADE;
 
-ALTER TABLE `record_images` ADD FOREIGN KEY (`record_id`) REFERENCES `records` (`id`);
+ALTER TABLE `record_images` ADD FOREIGN KEY (`record_id`) REFERENCES `records` (`id`) ON DELETE CASCADE;
 
-ALTER TABLE `record_tracklists` ADD FOREIGN KEY (`record_id`) REFERENCES `records` (`id`);
+ALTER TABLE `record_tracklists` ADD FOREIGN KEY (`record_id`) REFERENCES `records` (`id`) ON DELETE CASCADE;
 
-ALTER TABLE `record_tracklists` ADD FOREIGN KEY (`tracklist_id`) REFERENCES `tracklist` (`id`);
+ALTER TABLE `record_tracklists` ADD FOREIGN KEY (`tracklist_id`) REFERENCES `tracklist` (`id`) ON DELETE CASCADE;
 
-ALTER TABLE `record_tracklists_artists` ADD FOREIGN KEY (`tracklist_id`) REFERENCES `tracklist` (`id`);
+ALTER TABLE `record_tracklists_artists` ADD FOREIGN KEY (`tracklist_id`) REFERENCES `tracklist` (`id`) ON DELETE CASCADE;
 
-ALTER TABLE `record_tracklists_artists` ADD FOREIGN KEY (`artist_id`) REFERENCES `artists` (`artist_id`);
+ALTER TABLE `record_tracklists_artists` ADD FOREIGN KEY (`artist_id`) REFERENCES `artists` (`artist_id`) ON DELETE CASCADE;
 
-ALTER TABLE `record_format` ADD FOREIGN KEY (`format_id`) REFERENCES `format` (`id`);
+ALTER TABLE `record_format` ADD FOREIGN KEY (`format_id`) REFERENCES `format` (`id`) ON DELETE CASCADE;
 
-ALTER TABLE `record_format` ADD FOREIGN KEY (`record_id`) REFERENCES `records` (`id`);
+ALTER TABLE `record_format` ADD FOREIGN KEY (`record_id`) REFERENCES `records` (`id`) ON DELETE CASCADE;
 
-ALTER TABLE `record_size` ADD FOREIGN KEY (`size_id`) REFERENCES `size` (`id`);
+ALTER TABLE `record_size` ADD FOREIGN KEY (`size_id`) REFERENCES `size` (`id`) ON DELETE CASCADE;
 
-ALTER TABLE `record_size` ADD FOREIGN KEY (`record_id`) REFERENCES `records` (`id`);
+ALTER TABLE `record_size` ADD FOREIGN KEY (`record_id`) REFERENCES `records` (`id`) ON DELETE CASCADE;
 
-ALTER TABLE `record_speed` ADD FOREIGN KEY (`speed_id`) REFERENCES `speed` (`id`);
+ALTER TABLE `record_speed` ADD FOREIGN KEY (`speed_id`) REFERENCES `speed` (`id`) ON DELETE CASCADE;
 
-ALTER TABLE `record_speed` ADD FOREIGN KEY (`record_id`) REFERENCES `records` (`id`);
+ALTER TABLE `record_speed` ADD FOREIGN KEY (`record_id`) REFERENCES `records` (`id`) ON DELETE CASCADE;
 
-ALTER TABLE `record_description` ADD FOREIGN KEY (`description_id`) REFERENCES `description` (`id`);
+ALTER TABLE `record_description` ADD FOREIGN KEY (`description_id`) REFERENCES `description` (`id`) ON DELETE CASCADE;
 
-ALTER TABLE `record_description` ADD FOREIGN KEY (`record_id`) REFERENCES `records` (`id`);
+ALTER TABLE `record_description` ADD FOREIGN KEY (`record_id`) REFERENCES `records` (`id`) ON DELETE CASCADE;
 
-ALTER TABLE `record_channels` ADD FOREIGN KEY (`channels_id`) REFERENCES `description` (`id`);
+ALTER TABLE `record_channels` ADD FOREIGN KEY (`channels_id`) REFERENCES `description` (`id`) ON DELETE CASCADE;
 
-ALTER TABLE `record_channels` ADD FOREIGN KEY (`record_id`) REFERENCES `records` (`id`);
+ALTER TABLE `record_channels` ADD FOREIGN KEY (`record_id`) REFERENCES `records` (`id`) ON DELETE CASCADE;
