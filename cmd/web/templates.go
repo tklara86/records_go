@@ -11,6 +11,7 @@ type templateData struct {
 	CurrentYear  int
 	Links        []Link
 	SideBarLinks []SideBarLink
+	FormOptions  []FormOption
 	Records      []*models.Record
 	Record       *models.Record
 }

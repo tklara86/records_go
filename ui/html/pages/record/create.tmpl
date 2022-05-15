@@ -10,12 +10,16 @@
       <h2>General</h2>
       <div class="column--item">
         <form enctype="multipart/form-data" action="/admin/record/new" method="post">
-  
-          <div class="form-control">
-              <label class="form-label" for="recordTitle">Title</label>
-              <span class="form-alert"></span>
-              <input class="input-control input-control--small" type="text" name="recordTitle" placeholder="Title">
-          </div>
+
+          {{ range .FormOptions }} 
+            <div class="form-control">
+                <label class="form-label" for="{{.FormFor}}">{{.FormName}}</label>
+                <span class="form-alert"></span>
+                <input class="input-control input-control--small" type="{{.FormType}}" name="{{.FormFor}}" placeholder="{{.FormName}}">
+            </div>
+          {{ end }}
+
+         
 
           <div class="form-control">
             <label class="form-label" for="recordArtist">Artist(s)</label>
@@ -49,8 +53,8 @@
               </div>
             </div>  
           </div>
-      
-          <div class="form-control">
+
+          <!-- <div class="form-control">
               <label class="form-label" for="recordReleaseDate">Realase Date</label>
               <span class="form-alert is-danger"></span>
               <input class="input-control input-control--small" type="text" name="recordReleaseDate" placeholder="Release Date">
@@ -59,7 +63,7 @@
           <div class="form-control">
             <label class="form-label" for="recordLabel">Label</label>
             <input class="input-control input-control--small" type="text" name="recordLabel" placeholder="Label">
-          </div>
+          </div> -->
 
         <div class="form-control">
           <label class="form-label" for="inputYear">Genre(s)</label>

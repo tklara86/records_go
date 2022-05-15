@@ -56,6 +56,12 @@ type SideBarLink struct {
 	LinkHref  string
 }
 
+type FormOption struct {
+	FormName string
+	FormType string
+	FormFor  string
+}
+
 func (app *application) newTemplateData(r *http.Request) *templateData {
 	return &templateData{
 		CurrentYear: time.Now().Year(),
@@ -79,6 +85,23 @@ func (app *application) newTemplateData(r *http.Request) *templateData {
 				LinkTitle: "Albums",
 				LinkIcon:  "archive",
 				LinkHref:  "/admin/records",
+			},
+		},
+		FormOptions: []FormOption{
+			{
+				FormName: "Title",
+				FormType: "text",
+				FormFor:  "recordTitle",
+			},
+			{
+				FormName: "Release Date",
+				FormType: "text",
+				FormFor:  "recordReleaseDate",
+			},
+			{
+				FormName: "Label",
+				FormType: "text",
+				FormFor:  "recordLabel",
 			},
 		},
 	}
