@@ -15,6 +15,14 @@ type templateData struct {
 	Record       *models.Record
 }
 
+func indexPlusOne(i int) int {
+	return i + 1
+}
+
+var functions = template.FuncMap{
+	"indexPlusOne": indexPlusOne,
+}
+
 func newTemplateCache() (map[string]*template.Template, error) {
 
 	cache := map[string]*template.Template{}
@@ -28,7 +36,7 @@ func newTemplateCache() (map[string]*template.Template, error) {
 	for _, page := range pages {
 		name := filepath.Base(page)
 
-		ts, err := template.ParseFiles("./ui/html/pages/base.tmpl")
+		ts, err := template.New(name).Funcs(functions).ParseFiles("./ui/html/pages/base.tmpl")
 		if err != nil {
 			return nil, err
 		}
