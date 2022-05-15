@@ -5,17 +5,13 @@
         <meta charset='utf-8'>
         <title>{{ template "title" .}} - Record Collection</title>
         <link rel='stylesheet' href='/dist/main.css'>
-   <link rel='shortcut icon' href='/dist/favicon.ico' type='image/x-icon'>
+    <link rel='shortcut icon' href='/dist/favicon.ico' type='image/x-icon'>
     </head>
     <body>
     <header class="header header-light">
-        <!-- Navbar -->
-
-      {{ template "navigation" .}}
-
-
+        <!-- Navigation -->
+        {{ template "navigation" .}}
     </header>
-
     <!-- Main -->
     <main class="container">
         <div class="sidebar">
@@ -25,15 +21,6 @@
             {{ template "section" .}}
         </div>
     </main>
-
-
-
-
-    {{ block "js" .}}
-        <script  src='/dist/main.js'></script>
-    {{end}}
-
-    </body>
-    </html>
-
+    <!-- Footer -->
+    {{template "footer" .}}
 {{ end }}
