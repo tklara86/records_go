@@ -1,0 +1,90 @@
+.albums-container {
+  background-color: var(--column-bg);
+  padding: 30px;
+  border-radius: 5px;
+}
+
+table {
+  width: 100%;
+
+}
+
+tr {
+  text-align: left;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  text-align: left;
+  padding: 8px;
+}
+
+.albums-table-headings {
+  font-family: $font-bold;
+}
+
+th {
+  border-bottom: 1px solid #dddddd;
+}
+
+
+tr:not(:first-of-type) {
+  border-bottom: 1px solid #ddd;
+}
+
+tr:last-of-type {
+  border-bottom: none;
+}
+
+.albums-table-action-icons {
+  display: flex;
+}
+
+.albums-table-action-icons .edit,
+.albums-table-action-icons .remove {
+  display: flex;
+  align-items: center;
+}
+.action-icon  {
+  width: 30px;
+  height: 18px;
+  margin-right: 2px;
+  color: var(--text-body);
+}
+
+.albums-table-action-icons .edit {
+  margin-right: 7px;
+}
+
+.albums-table-action-icons .remove {
+  margin-right: 7px;
+  border-left: 1px solid var(--borderHeader);
+
+}
+
+.albums-top-section { 
+  display: flex;
+  justify-content: flex-end;
+}
+
+.add-record {
+  display: flex;
+  padding: 10px;
+  background: #fbfbfb;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  align-items: center;
+  margin-bottom: 10px;
+  font-family: $font-bold;
+}
+
+.add-icon  {
+  width: 30px;
+  height: 25px;
+  margin-right: 2px;
+  color: var(--text-body);
+}
