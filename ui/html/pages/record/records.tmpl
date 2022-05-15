@@ -29,24 +29,26 @@
         {{if .Records}}
           {{ range .Records}}
             <tr>
-              <td>{{.Image}}</td>
+              <td><img class="albums-thumbnail" src="/dist/img/davis-bitches-brew-front_1.jpg"></td>
               <td>{{.Title}}</td>
               <td>Penderecki</td>
               <td>{{.ReleaseDate}}</td>
               <td>ECM</td>
               <td>{{.Status}}</td>
-              <td class="albums-table-action-icons">
-                <div class="edit">
-                  <svg class="action-icon">
-                    <use xlink:href="/dist/icons/sprite.svg#edit"></use>
-                  </svg>
-                  Edit
-                </div>
-                <div class="remove">
-                  <svg class="action-icon">
-                    <use xlink:href="/dist/icons/sprite.svg#remove"></use>
-                  </svg>
-                  Remove
+              <td>
+                <div class="albums-table-action-icons">
+                  <div class="edit">
+                    <svg class="action-icon">
+                      <use xlink:href="/dist/icons/sprite.svg#edit"></use>
+                    </svg>
+                    Edit
+                  </div>
+                  <div class="remove">
+                    <svg class="action-icon">
+                      <use xlink:href="/dist/icons/sprite.svg#remove"></use>
+                    </svg>
+                    Remove
+                  </div>
                 </div>
               </td>
             </tr> 
