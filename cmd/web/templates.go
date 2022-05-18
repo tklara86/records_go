@@ -13,8 +13,9 @@ type templateData struct {
 	SideBarLinks []SideBarLink
 	FormOptions  []FormOption
 	Records      []*models.Record
-	Record       *models.Record
 	Genres       []*models.Genre
+	Artists      []*models.Artist
+	Record       *models.Record
 }
 
 func indexPlusOne(i int) int {

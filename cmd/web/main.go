@@ -19,6 +19,7 @@ type application struct {
 	infoLog       *log.Logger
 	records       *models.RecordModel
 	genres        *models.GenreModel
+	artists       *models.ArtistModel
 	templateCache map[string]*template.Template
 }
 
@@ -61,6 +62,7 @@ func main() {
 		infoLog:       infoLog,
 		records:       &models.RecordModel{DB: db},
 		genres:        &models.GenreModel{DB: db},
+		artists:       &models.ArtistModel{DB: db},
 		templateCache: templateCache,
 	}
 

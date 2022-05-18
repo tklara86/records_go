@@ -326,3 +326,25 @@ ul.custom-option {
 #inputCategory {
   display: none;
 }
+
+.custom-option label {
+  padding: 7px;
+  display: flex;
+  align-items: center;
+  grid-gap: 10px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  margin-left: 5px;
+  margin-right: 5px;
+  font-family: "IIIncrementsSansRegular";
+}
+
+
+.custom-option label:hover {
+  background: #f7f7f7;
+  transition: all 0.3s ease;
+  margin-left: 5px;
+  margin-right: 5px;
+  border-radius: 5px;
+}
+

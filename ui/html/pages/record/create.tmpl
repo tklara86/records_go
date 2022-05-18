@@ -36,11 +36,15 @@
                   <span class="icon dropdown-icon"></span>
               </div>
               <div class="option">
-                  <ul class="custom-option">
-                    <li data-id="1">Krzysztof Penderecki</li>
-                    <li data-id="2">Don Cherry</li>
-                    <li data-id="3">Karlheinz Stockhausen</li>
-                  </ul>
+                  <div class="custom-option">
+                    {{if .Artists}}
+                      {{range .Artists}}
+                        <label>
+                          <input type="checkbox" name="artist-name" value="{{.ArtistID}}">{{.Name}}
+                        </label>
+                      {{end}}
+                    {{end}}
+                  </div>
               </div>
               <div class="custom-options-selected">
                 <span class="custom-options-selected--item">Krzysztof Penderecki
@@ -80,13 +84,15 @@
                 <span class="icon dropdown-icon"></span>
             </div>
             <div class="option">
-              <ul class="custom-option">
+              <div class="custom-option">
                 {{if .Genres}}
                   {{range .Genres}}
-                    <li><input type="checkbox" name="genre-name" value="{{.GenreID}}">{{.GenreName}}</li> 
+                    <label>
+                      <input type="checkbox" name="genre-name" value="{{.GenreID}}">{{.GenreName}}
+                    </label>
                   {{end}}
                 {{end}}
-              </ul>
+              </div>
             </div>
           </div>  
         </div>

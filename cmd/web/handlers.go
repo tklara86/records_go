@@ -47,10 +47,9 @@ func (app *application) recordCreatePost(w http.ResponseWriter, r *http.Request)
 	}
 
 	recordGenre := []models.RecordGenre{}
+	for _, g := range r.PostForm["genre-name"] {
 
-	for _, item := range r.PostForm["genre-name"] {
-
-		genreID, err := strconv.ParseInt(item, 10, 64)
+		genreID, err := strconv.ParseInt(g, 10, 64)
 		if err != nil {
 			fmt.Println(err)
 		}
@@ -64,8 +63,31 @@ func (app *application) recordCreatePost(w http.ResponseWriter, r *http.Request)
 		recordGenre = append(recordGenre, rg...)
 	}
 
-	// Genres
+	// RecordGenres
 	_, err = app.genres.InsertRecordGenre(recordGenre)
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	// RecordArtists
+	recordArtist := []models.RecordArtist{}
+	for _, a := range r.PostForm["artist-name"] {
+		artistID, err := strconv.ParseInt(a, 10, 64)
+		if err != nil {
+			fmt.Println(err)
+		}
+
+		ra := []models.RecordArtist{
+			{
+				ArtistID: artistID,
+				RecordID: int64(id),
+			},
+		}
+		recordArtist = append(recordArtist, ra...)
+	}
+
+	_, err = app.artists.InsertRecordArtist(recordArtist)
 	if err != nil {
 		app.serverError(w, err)
 		return
@@ -77,14 +99,24 @@ func (app *application) recordCreatePost(w http.ResponseWriter, r *http.Request)
 
 // recordCreateGet - displays a HTML form for creating a new record
 func (app *application) recordCreateGet(w http.ResponseWriter, r *http.Request) {
-
+	// pass genres struct
 	genres, err := app.genres.GetAll()
 	if err != nil {
 		app.serverError(w, err)
 		return
 	}
+
+	// pass artists struct
+	artists, err := app.artists.GetAll()
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
 	data := app.newTemplateData(r)
+
 	data.Genres = genres
+	data.Artists = artists
 
 	app.render(w, http.StatusOK, "create.tmpl", data)
 
