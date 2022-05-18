@@ -353,142 +353,20 @@ function notifyModal(title, text, icon, confirmationButton) {
 
 
 /* Custom select */
-
-// const customSelects = document.querySelectorAll('.custom-select');
-
-
-// customSelects.forEach(customSelect => {
-//     customSelect.addEventListener('click', (e) => {
-//         e.currentTarget.parentElement.classList.toggle('show');
-
-//         const option = e.currentTarget.nextElementSibling;
-//         const options = option.querySelectorAll('.custom-option li');
-//         const customOption = option.querySelector('.custom-option');
-
-//         const value = customSelect.querySelector('.value')
-//         const inputCategory = customSelect.querySelector('#inputCategory');
-
-
-
-
-//         options.forEach(item=> {
-//             item.addEventListener('click', function (e) {
-//                 value.innerHTML = e.target.innerHTML;
-//                 inputCategory.options[0].value = e.target.dataset.id;
-//                 e.target.parentElement.classList.remove('show');
-//             })
-
-
-//         })
-
-//         // const unique = [...new Set(selectedOptions)]
-//         //
-//         //
-//         // for (var i = 0; i <= unique.length; i++) {
-//         //
-//         //     var input = document.createElement('input');
-//         //     input.type = 'hidden';
-//         //     input.name = 'inputCategories';
-//         //     input.value = unique[i];
-//         //
-//         //
-//         //     // var inputConatiner = document.createElement('div');
-//         //     //
-//         //     // inputConatiner.insertAdjacentHTML("afterbegin",input)
-//         //     //
-//         //     if (input.value != 'undefined') {
-//         //         const selectForm = document.querySelector('.select');
-//         //         selectForm.appendChild(input)
-//         //     }
-//         //
-//         //     //
-//         //     // selectForm.insertAdjacentHTML("afterbegin",  inputConatiner)
-//         //
-//         // }
-
-
-
-
-
-
-//         window.addEventListener('click', function (e) {
-//             if(e.target !== customSelect && e.target !== customOption) {
-//                 customSelect.parentElement.classList.remove('show');
-//             }
-//         })
-
-//     })
-// })
-
-
 const customSelects = document.querySelectorAll('.custom-select');
-
 
 customSelects.forEach(customSelect => {
     customSelect.addEventListener('click', (e) => {
         e.currentTarget.parentElement.classList.toggle('show');
-
-        const option = e.currentTarget.nextElementSibling;
-        const options = option.querySelectorAll('.custom-option li');
-        const customOption = option.querySelector('.custom-option');
-
-        const value = customSelect.querySelector('.value')
-        const inputCategory = customSelect.querySelector('#inputCategory');
-
-
-
-
-        options.forEach(item=> {
-            item.addEventListener('click', function (e) {
-            
-                inputCategory.options[0].value = e.target.dataset.id;
-                e.target.parentElement.classList.remove('show');
-            })
-
-
-        })
-
-        // const unique = [...new Set(selectedOptions)]
-        //
-        //
-        // for (var i = 0; i <= unique.length; i++) {
-        //
-        //     var input = document.createElement('input');
-        //     input.type = 'hidden';
-        //     input.name = 'inputCategories';
-        //     input.value = unique[i];
-        //
-        //
-        //     // var inputConatiner = document.createElement('div');
-        //     //
-        //     // inputConatiner.insertAdjacentHTML("afterbegin",input)
-        //     //
-        //     if (input.value != 'undefined') {
-        //         const selectForm = document.querySelector('.select');
-        //         selectForm.appendChild(input)
-        //     }
-        //
-        //     //
-        //     // selectForm.insertAdjacentHTML("afterbegin",  inputConatiner)
-        //
-        // }
-        // window.addEventListener('click', function (e) {
-        // //    if(!e.target.classList.contains('show') || e.target !== customOption) {
-             
-        //       if (customSelect.parentElement.classList.contains('show')) {
-        //           if (e.target !== customOption) {
-        //               customSelect.parentElement.classList.remove('show');
-        //           }
-        //       }
-   
-
-        //   //  }
-        // })
-
+  
     })
 
- 
-
+    window.addEventListener('click', function (e) {
+        var option = e.target.closest('.option') 
+        if (e.target != customSelect && option === null) {
+            customSelect.parentElement.classList.remove('show');
+        }
+    })
 })
 
 
