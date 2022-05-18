@@ -8,14 +8,15 @@ import (
 )
 
 type templateData struct {
-	CurrentYear  int
-	Links        []Link
-	SideBarLinks []SideBarLink
-	FormOptions  []FormOption
-	Records      []*models.Record
-	Genres       []*models.Genre
-	Artists      []*models.Artist
-	Record       *models.Record
+	CurrentYear   int
+	Links         []Link
+	SideBarLinks  []SideBarLink
+	FormOptions   []FormOption
+	Records       []*models.Record
+	Genres        []*models.Genre
+	Artists       []*models.Artist
+	RecordArtists []*models.Artist
+	Record        *models.Record
 }
 
 func indexPlusOne(i int) int {

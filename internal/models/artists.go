@@ -103,3 +103,38 @@ func (m *ArtistModel) InsertRecordArtist(ra []RecordArtist) (int, error) {
 
 	return int(id), nil
 }
+
+func (m *ArtistModel) GetRecordArtist(recordID int) ([]*Artist, error) {
+	stmt := `
+		SELECT name FROM artists a
+		LEFT JOIN record_artists ra ON ra.artist_id = a.artist_id
+		LEFT JOIN records r ON r.id = ra.record_id
+		WHERE r.id = ?;
+	`
+
+	rows, err := m.DB.Query(stmt, recordID)
+	if err != nil {
+		return nil, err
+	}
+
+	defer rows.Close()
+
+	recordArtists := []*Artist{}
+
+	for rows.Next() {
+		a := &Artist{}
+
+		err := rows.Scan(&a.Name)
+		if err != nil {
+			return nil, err
+		}
+		recordArtists = append(recordArtists, a)
+	}
+
+	if err = rows.Err(); err != nil {
+		return nil, err
+	}
+
+	return recordArtists, nil
+
+}

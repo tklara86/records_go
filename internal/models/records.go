@@ -8,13 +8,14 @@ import (
 
 // Models
 type Record struct {
-	ID          int64
-	Title       string
-	ReleaseDate string
-	Image       string
-	Status      int
-	CreatedAt   time.Time
-	UpdatedAt   time.Time
+	ID           int64
+	Title        string
+	ReleaseDate  string
+	Image        string
+	Status       int
+	CreatedAt    time.Time
+	UpdatedAt    time.Time
+	RecordArtist []*Artist
 }
 
 type RecorImage struct {
@@ -60,6 +61,11 @@ func (m *RecordModel) Get(recordId int) (*Record, error) {
 	return r, nil
 
 }
+
+// SELECT name FROM artists a
+// LEFT JOIN record_artists ra ON ra.artist_id = a.artist_id
+// LEFT JOIN records r ON r.id = ra.record_id
+// WHERE r.id = ?;
 
 func (m *RecordModel) GetAll() ([]*Record, error) {
 	stmt := `

@@ -158,6 +158,11 @@ func (app *application) viewRecords(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	for _, r := range records {
+		artist, _ := app.artists.GetRecordArtist(int(r.ID))
+		r.RecordArtist = append(r.RecordArtist, artist...)
+	}
+
 	data := app.newTemplateData(r)
 	data.Records = records
 
