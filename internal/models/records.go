@@ -85,7 +85,7 @@ func (m *RecordModel) GetAll() ([]*Record, error) {
 			return nil, err
 		}
 
-		// Append it to the slice of snippets.
+		// Append it to the slice of records.
 		records = append(records, r)
 	}
 	// When the rows.Next() loop has finished we call rows.Err() to retrieve any

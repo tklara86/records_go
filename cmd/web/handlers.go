@@ -46,19 +46,22 @@ func (app *application) recordCreatePost(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
-	recordGenre := []models.RecordGenre{
-		{
-			RecordID: int64(id),
-			GenreID:  1,
-		},
-		{
-			RecordID: int64(id),
-			GenreID:  2,
-		},
-		{
-			RecordID: int64(id),
-			GenreID:  3,
-		},
+	recordGenre := []models.RecordGenre{}
+
+	for _, item := range r.PostForm["genre-name"] {
+
+		genreID, err := strconv.ParseInt(item, 10, 64)
+		if err != nil {
+			fmt.Println(err)
+		}
+
+		rg := []models.RecordGenre{
+			{
+				RecordID: int64(id),
+				GenreID:  genreID,
+			},
+		}
+		recordGenre = append(recordGenre, rg...)
 	}
 
 	// Genres
@@ -75,13 +78,19 @@ func (app *application) recordCreatePost(w http.ResponseWriter, r *http.Request)
 // recordCreateGet - displays a HTML form for creating a new record
 func (app *application) recordCreateGet(w http.ResponseWriter, r *http.Request) {
 
+	genres, err := app.genres.GetAll()
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
 	data := app.newTemplateData(r)
+	data.Genres = genres
 
 	app.render(w, http.StatusOK, "create.tmpl", data)
 
 }
 
-// viewRecord - dipslays single record
+// viewRecord - displays single record
 func (app *application) viewRecord(w http.ResponseWriter, r *http.Request) {
 
 	params := httprouter.ParamsFromContext(r.Context())

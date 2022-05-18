@@ -5,6 +5,7 @@
 
 {{define "section"}}
   <div class="column-container">
+  
 
     <div class="column">
       <h2>General</h2>
@@ -80,16 +81,17 @@
             </div>
             <div class="option">
               <ul class="custom-option">
-                <li><input type="checkbox" name="items" value="foo">Classical</li>
-                <li><input type="checkbox" name="items" value="foo">Jazz</li>
-                <li><input type="checkbox" name="items" value="foo">Avant-garde</li>
+                {{if .Genres}}
+                  {{range .Genres}}
+                    <li><input type="checkbox" name="genre-name" value="{{.GenreID}}">{{.GenreName}}</li> 
+                  {{end}}
+                {{end}}
               </ul>
-             
             </div>
           </div>  
         </div>
-
-       
+      
+    
         
         
         

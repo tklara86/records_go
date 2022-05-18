@@ -14,6 +14,7 @@ type templateData struct {
 	FormOptions  []FormOption
 	Records      []*models.Record
 	Record       *models.Record
+	Genres       []*models.Genre
 }
 
 func indexPlusOne(i int) int {
