@@ -9,7 +9,8 @@
     <div class="column">
       <h2>General</h2>
       <div class="column--item">
-        <form enctype="multipart/form-data" action="/admin/record/new" method="post">
+        <!-- enctype="multipart/form-data" -->
+        <form action="/admin/record/new" method="post">
 
           {{ range .FormOptions }} 
             <div class="form-control">
@@ -79,13 +80,16 @@
             </div>
             <div class="option">
               <ul class="custom-option">
-                <li data-id="1">Classical</li>
-                <li data-id="2">Jazz</li>
-                <li data-id="3">Avant-garde</li>
+                <li><input type="checkbox" name="items" value="foo">Classical</li>
+                <li><input type="checkbox" name="items" value="foo">Jazz</li>
+                <li><input type="checkbox" name="items" value="foo">Avant-garde</li>
               </ul>
+             
             </div>
           </div>  
         </div>
+
+       
         
         
         
@@ -124,7 +128,9 @@
         {{/*            </div>*/}}
         
         {{/*        </div>*/}}
-        
+          
+
+        <button type="submit">Save</button>
         
         
         </form>

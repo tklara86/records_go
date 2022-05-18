@@ -22,22 +22,24 @@ func (app *application) homeAdmin(w http.ResponseWriter, r *http.Request) {
 // recordCreatePost - creates a new record
 func (app *application) recordCreatePost(w http.ResponseWriter, r *http.Request) {
 
-	if r.Method != http.MethodPost {
-		w.Header().Set("Allow", http.MethodPost)
-		app.clientError(w, http.StatusMethodNotAllowed)
+	err := r.ParseForm()
+	if err != nil {
+		app.clientError(w, http.StatusBadRequest)
 		return
 	}
 
-	title := "Actions"
-	release := "2016"
+	recordTitle := r.PostForm.Get("recordTitle")
+	realeaseDate := r.PostForm.Get("recordReleaseDate")
+
 	image := "actions.jpg"
 
 	record := &models.Record{
-		Title:       title,
-		ReleaseDate: release,
+		Title:       recordTitle,
+		ReleaseDate: realeaseDate,
 		Image:       image,
 	}
 
+	// New record
 	id, err := app.records.Insert(record)
 	if err != nil {
 		app.serverError(w, err)
@@ -59,6 +61,7 @@ func (app *application) recordCreatePost(w http.ResponseWriter, r *http.Request)
 		},
 	}
 
+	// Genres
 	_, err = app.genres.InsertRecordGenre(recordGenre)
 	if err != nil {
 		app.serverError(w, err)
@@ -66,7 +69,7 @@ func (app *application) recordCreatePost(w http.ResponseWriter, r *http.Request)
 	}
 
 	w.Write([]byte(fmt.Sprintf("Record created with id of %d", id)))
-	//w.Write([]byte(fmt.Sprintf("Record Genre created with id of %d", record.RecordGenres.RecordID)))
+
 }
 
 // recordCreateGet - displays a HTML form for creating a new record
