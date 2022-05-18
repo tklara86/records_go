@@ -34,14 +34,29 @@
               <td><img class="albums-thumbnail" src="/dist/img/davis-bitches-brew-front_1.jpg"></td>
               <td>{{.Title}}</td>
               <td>
+                <ul>
                 {{ range .RecordArtist}}
-                  <span>{{.Name}}</span>
+                  <li>{{.Name}}</li>
                 {{end}}
+                </ul>
               </td>
-             
               <td>{{.ReleaseDate}}</td>
               <td>ECM</td>
-              <td>{{.Status}}</td>
+              {{ if .Status}}
+                <td> 
+                  <svg class="status-icon pulblished">
+                    <use xlink:href="/dist/icons/sprite.svg#dot-filled"></use>
+                  </svg>
+                  <span>Published</span>
+                </td>
+              {{else}}
+                <td>
+                  <svg class="status-icon draft">
+                    <use xlink:href="/dist/icons/sprite.svg#dot-filled"></use>
+                  </svg>
+                  <span>Draft</span>
+                </td>
+              {{end}}
               <td>
                 <div class="albums-table-action-icons">
                   <div class="edit">
