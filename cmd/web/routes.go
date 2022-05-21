@@ -24,6 +24,8 @@ func (app *application) routes() http.Handler {
 	router.HandlerFunc(http.MethodGet, "/admin/records/view/:id", app.viewRecord)
 	router.HandlerFunc(http.MethodPost, "/admin/record/new", app.recordCreatePost)
 	router.HandlerFunc(http.MethodGet, "/admin/record/new", app.recordCreateGet)
+	router.HandlerFunc(http.MethodGet, "/admin/record/labelsJSON", app.getLabelsJSON)
+	router.HandlerFunc(http.MethodGet, "/admin/record/artistsJSON", app.getArtistsJSON)
 
 	standard := alice.New(app.recoverPanic, app.logRequest, secureHeaders)
 

@@ -176,7 +176,9 @@ if (form != null) {
 }
 
 
-
+// fetch('http://localhost:8000/admin/record/artistsJSON')
+// .then(res => res.json())
+// .then(data => console.log(data))
 
 /* Custom select */
 const customSelects = document.querySelectorAll('.custom-select');
@@ -187,6 +189,10 @@ customSelects.forEach(customSelect => {
     // Toggle selects
     customSelect.addEventListener('click', (e) => {
         e.currentTarget.parentElement.classList.toggle('show');
+
+           fetch('http://localhost:8000/admin/record/labelsJSON')
+                    .then(res => res.json())
+                    .then(data => console.log(data))
     });
 
 
@@ -204,7 +210,95 @@ customSelects.forEach(customSelect => {
     const inputs = options.querySelectorAll('input');
     let markup;
 
+
+
+    
+
     inputs.forEach((input,index) => {
+
+       
+
+    
+      //  if (input.classList.contains('filter')) {
+            const allInputs = [];
+            var customOption = options.querySelector('.custom-option');
+            input.addEventListener('keyup', (e) => {
+               let filteredName = e.target.value;
+                const parentEl = input.parentElement;
+                const inputsAll = parentEl.querySelectorAll('input');
+
+                // inputsAll.forEach(inputAll => {
+                //     // if (!inputAll.classList.contains('filter')) {
+                        
+                //     // }
+                // });
+
+                const x = Array.from(inputsAll)
+                
+                x.filter(s => {
+                    if (!s.classList.contains('filter')) {
+                        allInputs.push(s)
+
+                        allInputs.forEach(allInput => {
+                            var z = allInput.dataset.input
+                            const regex = new RegExp(filteredName, "gi"); 
+
+                             if (z.match(regex)) {
+                            //     s.parentElement.remove();
+
+                            //           let markup = `
+                            //     <label>
+                            //         <input type="checkbox" name="${allInput.name}" value="${allInput.value}" data-input="${allInput.dataset.input}">${allInput.dataset.input}
+                            //     </label>
+                            
+                            // `;
+                            
+                            //  customOption.insertAdjacentHTML('beforeend', markup);
+                            }
+
+                        })
+                        // var z = s.dataset.input
+                        // const regex = new RegExp(filteredName, "gi");
+                        
+                        // if (z.match(regex)) {
+                            
+                        //     s.parentElement.remove();
+                        
+                        //     let markup = `
+                        //         <label>
+                        //             <input type="checkbox" name="${s.name}" value="${s.value}" data-input="${s.dataset.input}">${s.dataset.input}
+                        //         </label>
+                            
+                        //     `;
+                            
+                        //      customOption.insertAdjacentHTML('beforeend', markup);
+
+                        // } else {
+                        // //   s.parentElement.remove();
+                        // //     let markup2 = `
+                        // //         <label>
+                        // //             <input type="checkbox" name="${s.name}" value="${s.value}" data-input="${s.dataset.input}">${s.dataset.input}
+                        // //         </label>
+                            
+                        // //     `;
+                            
+                        // //      customOption.insertAdjacentHTML('beforeend', markup2);
+                            
+                        // }
+                    }
+                   
+                })
+
+
+              
+
+               
+              
+            
+               
+
+            })
+      //  }
         input.addEventListener('change', (e) => {
             if (e.target.checked) {
                 outputs.push(input.dataset.input);
@@ -216,6 +310,8 @@ customSelects.forEach(customSelect => {
                         </span>
                     `;
                 });
+
+             
              
                 customOptionsSelectedDiv.insertAdjacentHTML('afterbegin', markup);
                 let customOptions = customOptionsSelectedDiv.querySelectorAll('.custom-options-selected--item');
@@ -245,7 +341,9 @@ customSelects.forEach(customSelect => {
               
               
             }
-        })
+        });
+
+
 
     });    
 

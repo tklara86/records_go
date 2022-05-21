@@ -154,6 +154,36 @@ func (app *application) recordCreateGet(w http.ResponseWriter, r *http.Request) 
 
 }
 
+func (app *application) getLabelsJSON(w http.ResponseWriter, r *http.Request) {
+
+	labels, err := app.labels.GetAll()
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	err = app.writeJSON(w, http.StatusOK, envelope{"labels": labels}, nil)
+	if err != nil {
+		app.serverError(w, err)
+	}
+
+}
+
+func (app *application) getArtistsJSON(w http.ResponseWriter, r *http.Request) {
+
+	labels, err := app.artists.GetAll()
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	err = app.writeJSON(w, http.StatusOK, envelope{"artists": labels}, nil)
+	if err != nil {
+		app.serverError(w, err)
+	}
+
+}
+
 // viewRecord - displays single record
 func (app *application) viewRecord(w http.ResponseWriter, r *http.Request) {
 

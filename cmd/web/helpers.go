@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"runtime/debug"
@@ -105,4 +106,25 @@ func (app *application) newTemplateData(r *http.Request) *templateData {
 			// },
 		},
 	}
+}
+
+type envelope map[string]interface{}
+
+func (app *application) writeJSON(w http.ResponseWriter, status int,
+	data envelope, headers http.Header) error {
+
+	json, err := json.MarshalIndent(data, " ", "   ")
+	if err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.WriteHeader(status)
+	_, err = w.Write(json)
+	if err != nil {
+		return err
+	}
+
+	return nil
+
 }

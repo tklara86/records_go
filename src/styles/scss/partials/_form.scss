@@ -34,6 +34,14 @@ form {
   padding: $space--sm;
 }
 
+.input-control--nested {
+  margin-top: 0;
+  margin-bottom: 0;
+  width: 96%;
+  margin: 0 0 2% 2%;
+  padding: 8px;
+}
+
 .select {
   margin-top: $space--xs;
   margin-bottom: 20px;
