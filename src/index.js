@@ -175,202 +175,79 @@ if (form != null) {
     validator.init();
 }
 
-//
-// let html = `
-//     <form id="checkAvailability" action="" method="post" class="js-validateForm">
-//         <div class="form-inline">
-//             <div class="form-control">
-//                 <label class="form-label" for="startDate">Arrival</label>
-//                 <input class="input-control input-control--small" type="date" name="startDate" id="startDate" placeholder="yyyy-mm-dd">
-//                 <span class="form-alert"></span>
-//                 <span class="error-message"></span>
-//             </div>
-//
-//             <div class="form-control">
-//                 <label class="form-label" for="endDate">Departure</label>
-//                 <input class="input-control input-control--small" type="date" name="endDate" id="endDate" placeholder="yyyy-mm-dd">
-//                 <span class="form-alert"></span>
-//                 <span class="error-message"></span>
-//             </div>
-//         </div>
-//     </form>
-// `;
-//
-//
-// const checkAvailability = document.querySelector('.js-checkAvailability');
-// if (checkAvailability != null) {
-//    checkAvailability.addEventListener('click', function () {
-//         attention.custom({
-//             msg: html,
-//             title: 'Choose dates',
-//             callback: function (result) {
-//                 let form = document.getElementById('checkAvailability')
-//                 let formData = new FormData(form);
-//
-//                 formData.append("csrf_token", "{{.CSRFToken}}")
-//
-//
-//               fetch("/search-availability-json", {
-//                     method: "post",
-//                     body: formData
-//                 })
-//                     .then(response => response.json())
-//                     .then(data => {
-//                         console.log(data)
-//                     })
-//             }
-//         }).then()
-//     })
-// }
-
-
-function notify(msg, msgType) {
-    notie.alert({
-        type: msgType,
-        text: msg,
-    })
-}
-
-function notifyModal(title, text, icon, confirmationButton) {
-    Swal.fire({
-        title: title,
-        html: text,
-        icon: icon,
-        confirmButtonText: confirmationButton
-    })
-}
-
-
-//
-// // Prompt is module for alerts, notifications, and custom popup dialogs
-// function Prompt() {
-//     let toast = function(c) {
-//        const {
-//            msg = '',
-//            icon =  'success',
-//            position = 'top-end',
-//
-//        } = c
-//         const Toast = Swal.mixin({
-//             toast: true,
-//             title: msg,
-//             position: position,
-//             showConfirmButton: false,
-//             timer: 3000,
-//             timerProgressBar: true,
-//             didOpen: (toast) => {
-//                 toast.addEventListener('mouseenter', Swal.stopTimer)
-//                 toast.addEventListener('mouseleave', Swal.resumeTimer)
-//             }
-//         })
-//
-//         Toast.fire({
-//             icon: icon
-//         })
-//     }
-//
-//     let success = function(c) {
-//
-//         const {
-//             msg = "",
-//             title = "",
-//             footer =  "",
-//         } = c;
-//         Swal.fire({
-//             icon: 'success',
-//             title: title,
-//             text: msg,
-//             footer: footer
-//         })
-//     }
-//
-//     let error = function(c) {
-//
-//         const {
-//             msg = "",
-//             title = "",
-//             footer =  "",
-//         } = c;
-//         Swal.fire({
-//             icon: 'error',
-//             title: title,
-//             text: msg,
-//             footer: footer
-//         })
-//     }
-//
-//    async function custom(c) {
-//         const {
-//             msg = "",
-//             title = ""
-//         } = c;
-//
-//         const { value: result } = await Swal.fire({
-//             title: title,
-//             html: msg,
-//             backdrop: false,
-//             focusConfirm: false,
-//             showCancelButton: true,
-//             preConfirm: () => {
-//                 return [
-//                     document.getElementById('startDate').value,
-//                     document.getElementById('endDate').value
-//                 ]
-//             },
-//             didOpen: () => {
-//                 const form = document.querySelector('.js-validateForm');
-//                 const fields = document.querySelectorAll('.js-validateForm input')
-//                 const validator = new FormValidator(form, fields)
-//
-//                 if (form != null) {
-//                     validator.init()
-//                 }
-//             }
-//         })
-//
-//         if (result) {
-//             if (result.dismiss !== Swal.DismissReason.cancel) {
-//                 if (result.value !== "") {
-//                     if (c.callback !== undefined) {
-//                         c.callback(result);
-//                     }
-//                 }
-//             } else {
-//                 c.callback(false)
-//             }
-//         }
-//     }
-//
-//     return {
-//         toast: toast,
-//         success: success,
-//         error: error,
-//         custom: custom,
-//     }
-// }
-
 
 
 
 /* Custom select */
 const customSelects = document.querySelectorAll('.custom-select');
+let outputs = [];
 
 customSelects.forEach(customSelect => {
+    
+    // Toggle selects
     customSelect.addEventListener('click', (e) => {
         e.currentTarget.parentElement.classList.toggle('show');
-  
-    })
+    });
 
+
+    // Click outside select
     window.addEventListener('click', function (e) {
         var option = e.target.closest('.option') 
         if (e.target != customSelect && option === null) {
             customSelect.parentElement.classList.remove('show');
         }
-    })
+    });
+
+    // Check input
+    const options = customSelect.nextElementSibling;
+    const customOptionsSelectedDiv = options.nextElementSibling;
+    const inputs = options.querySelectorAll('input');
+    let markup;
+
+    inputs.forEach((input,index) => {
+        input.addEventListener('change', (e) => {
+            if (e.target.checked) {
+                outputs.push(input.dataset.input);
+
+                outputs.forEach((output) => {
+                    markup = `
+                        <span class="custom-options-selected--item" data-index="${index}">${output}
+                            <span class="icon-close"></span>
+                        </span>
+                    `;
+                });
+             
+                customOptionsSelectedDiv.insertAdjacentHTML('afterbegin', markup);
+                let customOptions = customOptionsSelectedDiv.querySelectorAll('.custom-options-selected--item');
+                customOptions.forEach(co => {
+                    let icon = co.querySelector('.icon-close');
+                    icon.addEventListener('click', (e) => {
+                        let index2 = e.target.parentElement.dataset.index;
+                        let parentEl = e.target.parentElement
+                        parentEl.remove();
+
+                        if (index2 == index) {
+                            input.checked = false;
+                        }
+                    })
+                })
+           
+                
+            } else {
+               // outputs.splice(outputs.indexOf(input.dataset.input), 1);
+               let customOptionsAll = customOptionsSelectedDiv.querySelectorAll('.custom-options-selected--item');
+                customOptionsAll.forEach(customOption => {
+                    if (index == customOption.dataset.index) {
+                        customOption.remove();
+                    }
+                    
+                })
+              
+              
+            }
+        })
+
+    });    
+
 })
-
-
-
-
-
 

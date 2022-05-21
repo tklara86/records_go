@@ -40,36 +40,16 @@
                     {{if .Artists}}
                       {{range .Artists}}
                         <label>
-                          <input type="checkbox" name="artist-name" value="{{.ArtistID}}">{{.Name}}
+                          <input type="checkbox" name="artist-name" value="{{.ArtistID}}" data-input="{{.Name}}">{{.Name}}
                         </label>
                       {{end}}
                     {{end}}
                   </div>
               </div>
-              <div class="custom-options-selected">
-                <span class="custom-options-selected--item">Krzysztof Penderecki
-                 <span class="icon-close"></span>
-                </span>
-                <span class="custom-options-selected--item">Don Cherry
-                  <span class="icon-close"></span>   
-                </span>
-                <span class="custom-options-selected--item">Karlheinz Stockhausen
-                  <span class="icon-close"></span>
-                </span>
-              </div>
+              <div class="custom-options-selected"></div>
             </div>  
           </div>
 
-          <!-- <div class="form-control">
-              <label class="form-label" for="recordReleaseDate">Realase Date</label>
-              <span class="form-alert is-danger"></span>
-              <input class="input-control input-control--small" type="text" name="recordReleaseDate" placeholder="Release Date">
-          </div>
-
-          <div class="form-control">
-            <label class="form-label" for="recordLabel">Label</label>
-            <input class="input-control input-control--small" type="text" name="recordLabel" placeholder="Label">
-          </div> -->
 
         <div class="form-control">
           <label class="form-label" for="inputYear">Genre(s)</label>
@@ -88,12 +68,13 @@
                 {{if .Genres}}
                   {{range .Genres}}
                     <label>
-                      <input type="checkbox" name="genre-name" value="{{.GenreID}}">{{.GenreName}}
+                      <input type="checkbox" name="genre-name" value="{{.GenreID}}" data-input="{{.GenreName}}">{{.GenreName}}
                     </label>
                   {{end}}
                 {{end}}
               </div>
             </div>
+            <div class="custom-options-selected"></div>
           </div>  
         </div>
       

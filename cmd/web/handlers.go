@@ -158,6 +158,7 @@ func (app *application) viewRecords(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// attach artist(s) to record
 	for _, r := range records {
 		artist, _ := app.artists.GetRecordArtist(int(r.ID))
 		r.RecordArtist = append(r.RecordArtist, artist...)
