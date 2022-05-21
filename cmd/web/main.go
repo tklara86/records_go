@@ -20,6 +20,7 @@ type application struct {
 	records       *models.RecordModel
 	genres        *models.GenreModel
 	artists       *models.ArtistModel
+	labels        *models.LabelModel
 	templateCache map[string]*template.Template
 }
 
@@ -63,6 +64,7 @@ func main() {
 		records:       &models.RecordModel{DB: db},
 		genres:        &models.GenreModel{DB: db},
 		artists:       &models.ArtistModel{DB: db},
+		labels:        &models.LabelModel{DB: db},
 		templateCache: templateCache,
 	}
 

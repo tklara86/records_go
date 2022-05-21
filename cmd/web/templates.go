@@ -16,6 +16,8 @@ type templateData struct {
 	Genres        []*models.Genre
 	Artists       []*models.Artist
 	RecordArtists []*models.Artist
+	Labels        []*models.Label
+	RecordLabels  *[]models.Label
 	Record        *models.Record
 }
 

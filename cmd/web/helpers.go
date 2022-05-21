@@ -98,11 +98,11 @@ func (app *application) newTemplateData(r *http.Request) *templateData {
 				FormType: "text",
 				FormFor:  "recordReleaseDate",
 			},
-			{
-				FormName: "Label",
-				FormType: "text",
-				FormFor:  "recordLabel",
-			},
+			// {
+			// 	FormName: "Label",
+			// 	FormType: "text",
+			// 	FormFor:  "recordLabel",
+			// },
 		},
 	}
 }

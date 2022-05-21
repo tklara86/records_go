@@ -21,18 +21,35 @@
             </div>
           {{ end }}
 
+          <div class="form-control">
+            <label class="form-label">Labels</label>
+            <div class="select">
+              <div class="custom-select custom-select-category">
+                  <span class="value">Select label</span>
+                  <span class="icon dropdown-icon"></span>
+              </div>
+              <div class="option">
+                  <div class="custom-option">
+                    {{if .Labels}}
+                      {{range .Labels}}
+                        <label>
+                          <input type="checkbox" name="label-name" value="{{.ID}}" data-input="{{.Name}}">{{.Name}}
+                        </label>
+                      {{end}}
+                    {{end}}
+                  </div>
+              </div>
+              <div class="custom-options-selected"></div>
+            </div>  
+          </div>
+
          
 
           <div class="form-control">
-            <label class="form-label" for="recordArtist">Artist(s)</label>
+            <label class="form-label">Artist(s)</label>
             <div class="select">
-              <div id="val-category" class="custom-select custom-select-category">
-                  <div>
-                    <span class="value">Select artist</span>
-                    <select name="inputCategory" id="inputCategory">
-                      <option>1</option>
-                    </select>
-                  </div>
+              <div class="custom-select custom-select-category">
+                  <span class="value">Select artist</span>
                   <span class="icon dropdown-icon"></span>
               </div>
               <div class="option">
@@ -52,15 +69,10 @@
 
 
         <div class="form-control">
-          <label class="form-label" for="inputYear">Genre(s)</label>
+          <label class="form-label">Genre(s)</label>
           <div class="select">
-            <div id="val-category" class="custom-select custom-select-category">
-                <div>
-                  <span class="value">Select Genre</span>
-                  <select name="inputCategory" id="inputCategory">
-                    <option>1</option>
-                  </select>
-                </div>
+            <div class="custom-select custom-select-category">
+                <span class="value">Select Genre</span>
                 <span class="icon dropdown-icon"></span>
             </div>
             <div class="option">
@@ -97,26 +109,7 @@
         
      
         
-        
-        {{/*        <div class="select">*/}}
-        {{/*            <div id="val-category" class="custom-select custom-select-category">*/}}
-        
-        {{/*                <div>*/}}
-        {{/*                    <span class="label">Artist</span>*/}}
-        {{/*                    <span class="value">Select artist</span>*/}}
-        {{/*                </div>*/}}
-        
-        {{/*                <span class="icon"></span>*/}}
-        
-        {{/*            </div>*/}}
-        {{/*            <div class="option">*/}}
-        {{/*                <ul class="custom-option">*/}}
-        {{/*                    <li>Krzysztof Penderecki</li>*/}}
-        {{/*                    <li>Don Cherry</li>*/}}
-        {{/*                </ul>*/}}
-        {{/*            </div>*/}}
-        
-        {{/*        </div>*/}}
+
           
 
         <button type="submit">Save</button>

@@ -41,7 +41,13 @@
                 </ul>
               </td>
               <td>{{.ReleaseDate}}</td>
-              <td>ECM</td>
+              <td>
+                <ul>
+                  {{range .RecordLabel}}
+                    <li>{{.Name}}</li>
+                  {{end}}
+                </ul>
+              </td>
               {{ if .Status}}
                 <td> 
                   <svg class="status-icon pulblished">

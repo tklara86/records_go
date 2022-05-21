@@ -70,7 +70,6 @@ func (app *application) recordCreatePost(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
-	// RecordArtists
 	recordArtist := []models.RecordArtist{}
 	for _, a := range r.PostForm["artist-name"] {
 		artistID, err := strconv.ParseInt(a, 10, 64)
@@ -87,7 +86,32 @@ func (app *application) recordCreatePost(w http.ResponseWriter, r *http.Request)
 		recordArtist = append(recordArtist, ra...)
 	}
 
+	// RecordArtists
 	_, err = app.artists.InsertRecordArtist(recordArtist)
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	recordLabel := []models.RecordLabel{}
+	for _, l := range r.PostForm["label-name"] {
+		labelID, err := strconv.ParseInt(l, 10, 64)
+		if err != nil {
+			fmt.Println(err)
+		}
+
+		rl := []models.RecordLabel{
+			{
+				LabelID:  labelID,
+				RecordID: int64(id),
+			},
+		}
+
+		recordLabel = append(recordLabel, rl...)
+	}
+
+	// RecordLabels
+	_, err = app.labels.InsertRecordLabel(recordLabel)
 	if err != nil {
 		app.serverError(w, err)
 		return
@@ -113,10 +137,18 @@ func (app *application) recordCreateGet(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
+	// pass labels struct
+	labels, err := app.labels.GetAll()
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
 	data := app.newTemplateData(r)
 
 	data.Genres = genres
 	data.Artists = artists
+	data.Labels = labels
 
 	app.render(w, http.StatusOK, "create.tmpl", data)
 
@@ -149,7 +181,7 @@ func (app *application) viewRecord(w http.ResponseWriter, r *http.Request) {
 	app.render(w, http.StatusOK, "view.tmpl", data)
 }
 
-// viewRecords - dipslays all records
+// viewRecords - displays all records
 func (app *application) viewRecords(w http.ResponseWriter, r *http.Request) {
 
 	records, err := app.records.GetAll()
@@ -158,10 +190,13 @@ func (app *application) viewRecords(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// attach artist(s) to record
+	// attach artist(s), labels(s) to record
 	for _, r := range records {
 		artist, _ := app.artists.GetRecordArtist(int(r.ID))
+		label, _ := app.labels.GetLabelArtist(int(r.ID))
+
 		r.RecordArtist = append(r.RecordArtist, artist...)
+		r.RecordLabel = append(r.RecordLabel, label...)
 	}
 
 	data := app.newTemplateData(r)

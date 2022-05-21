@@ -16,6 +16,7 @@ type Record struct {
 	CreatedAt    time.Time
 	UpdatedAt    time.Time
 	RecordArtist []*Artist
+	RecordLabel  []*Label
 }
 
 type RecorImage struct {
