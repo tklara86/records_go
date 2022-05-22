@@ -162,6 +162,10 @@ func (app *application) getLabelsJSON(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	for _, l := range labels {
+		l.InputName = "label-name"
+	}
+
 	err = app.writeJSON(w, http.StatusOK, envelope{"labels": labels}, nil)
 	if err != nil {
 		app.serverError(w, err)

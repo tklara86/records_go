@@ -6,10 +6,11 @@ import (
 )
 
 type Label struct {
-	ID        int64
-	Name      string
-	CreatedAt time.Time
-	UpdatedAt time.Time
+	ID        int64     `json:"id"`
+	Name      string    `json:"name"`
+	InputName string    `json:"input_name"`
+	CreatedAt time.Time `json:"-"` // ommit
+	UpdatedAt time.Time `json:"-"`
 }
 
 type LabelCatalogueNumber struct {

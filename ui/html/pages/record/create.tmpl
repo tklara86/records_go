@@ -23,21 +23,23 @@
 
           <div class="form-control">
             <label class="form-label">Labels</label>
-            <div class="select">
+            <div id="labels" class="select">
               <div class="custom-select custom-select-category">
                   <span class="value">Select label</span>
                   <span class="icon dropdown-icon"></span>
               </div>
               <div class="option">
                   <div class="custom-option">
-                    <input class="input-control input-control--small input-control--nested filter" type="text" name="search" placeholder="Search">
-                    {{if .Labels}}
-                      {{range .Labels}}
-                        <label>
-                          <input type="checkbox" name="label-name" value="{{.ID}}" data-input="{{.Name}}">{{.Name}}
-                        </label>
-                      {{end}}
-                    {{end}}
+                    <input autocomplete="off" class="input-control input-control--small input-control--nested filter" type="text" name="search" placeholder="Search">
+                    <div id="labels" class="json-results">
+                      <!-- {{if .Labels}}
+                        {{range .Labels}}
+                          <label>
+                            <input type="checkbox" name="label-name" value="{{.ID}}" data-input="{{.Name}}">{{.Name}}
+                          </label>
+                        {{end}}
+                      {{end}} -->
+                    </div>
                   </div>
               </div>
               <div class="custom-options-selected"></div>
@@ -55,7 +57,7 @@
               </div>
               <div class="option">
                   <div class="custom-option">
-                    <input class="input-control input-control--small input-control--nested filter" type="text" name="search" placeholder="Search">
+                    <input autoComplete='none' class="input-control input-control--small input-control--nested filter" type="text" name="search" placeholder="Search">
                     {{if .Artists}}
                       {{range .Artists}}
                         <label>
@@ -79,7 +81,7 @@
             </div>
             <div class="option">
               <div class="custom-option">
-                <input class="input-control input-control--small input-control--nested filter" type="text" name="search" placeholder="Search">
+                <input autoComplete='none' class="input-control input-control--small input-control--nested filter" type="text" name="search" placeholder="Search">
                 {{if .Genres}}
                   {{range .Genres}}
                     <label>
