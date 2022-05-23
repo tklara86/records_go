@@ -6,10 +6,11 @@ import (
 )
 
 type Genre struct {
-	GenreID   int64
-	GenreName string
-	CreatedAt time.Time
-	UpdatedAt time.Time
+	GenreID   int64     `json:"id"`
+	GenreName string    `json:"name"`
+	InputName string    `json:"input_name"`
+	CreatedAt time.Time `json:"-"`
+	UpdatedAt time.Time `json:"-"`
 }
 
 type RecordGenre struct {

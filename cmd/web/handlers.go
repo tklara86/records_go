@@ -175,13 +175,36 @@ func (app *application) getLabelsJSON(w http.ResponseWriter, r *http.Request) {
 
 func (app *application) getArtistsJSON(w http.ResponseWriter, r *http.Request) {
 
-	labels, err := app.artists.GetAll()
+	artists, err := app.artists.GetAll()
 	if err != nil {
 		app.serverError(w, err)
 		return
 	}
 
-	err = app.writeJSON(w, http.StatusOK, envelope{"artists": labels}, nil)
+	for _, a := range artists {
+		a.InputName = "artist_name"
+	}
+
+	err = app.writeJSON(w, http.StatusOK, envelope{"artists": artists}, nil)
+	if err != nil {
+		app.serverError(w, err)
+	}
+
+}
+
+func (app *application) getGenresJSON(w http.ResponseWriter, r *http.Request) {
+
+	genres, err := app.genres.GetAll()
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	for _, g := range genres {
+		g.InputName = "genre_name"
+	}
+
+	err = app.writeJSON(w, http.StatusOK, envelope{"genres": genres}, nil)
 	if err != nil {
 		app.serverError(w, err)
 	}

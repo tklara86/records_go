@@ -192,7 +192,7 @@ window.addEventListener('load', () => {
 
     fetch('http://localhost:8000/admin/record/labelsJSON')
     .then(res => res.json())
-    .then(data => {
+    .then(data => {    
         for (var j = 0; j < data.labels.length; j++) {
             ajaxOutputs.push(data.labels[j])
             const { id, name, input_name } = data.labels[j];
@@ -210,6 +210,48 @@ window.addEventListener('load', () => {
             }
         } 
     });   
+
+    fetch('http://localhost:8000/admin/record/artistsJSON')
+    .then(res => res.json())
+    .then(data => {    
+        for (var j = 0; j < data.artists.length; j++) {
+            ajaxOutputs.push(data.artists[j])
+            const { id, name, input_name } = data.artists[j];
+            markup = `
+                <label>
+                    <input type="checkbox" name="${input_name}" value="${id}" data-input="${name}">${name}
+                </label>
+            `;
+
+            for (var i = 0; i < jsonResults.length; i++) {
+                if (jsonResults[i].id == 'artists') {
+                    jsonResults[i].insertAdjacentHTML('afterbegin', markup);
+                }
+                
+            }
+        } 
+    });
+
+    fetch('http://localhost:8000/admin/record/genresJSON')
+    .then(res => res.json())
+    .then(data => {    
+        for (var j = 0; j < data.genres.length; j++) {
+            ajaxOutputs.push(data.genres[j])
+            const { id, name, input_name } = data.genres[j];
+            markup = `
+                <label>
+                    <input type="checkbox" name="${input_name}" value="${id}" data-input="${name}">${name}
+                </label>
+            `;
+
+            for (var i = 0; i < jsonResults.length; i++) {
+                if (jsonResults[i].id == 'genres') {
+                    jsonResults[i].insertAdjacentHTML('afterbegin', markup);
+                }
+                
+            }
+        } 
+    });
 });
 
 customSelects.forEach(customSelect => {
@@ -218,27 +260,23 @@ customSelects.forEach(customSelect => {
     customSelect.addEventListener('click', (e) => {
         e.currentTarget.parentElement.classList.toggle('show');
 
-            // Check input
+         // Check input
         const options = customSelect.nextElementSibling;
         const customOptionsSelectedDiv = options.nextElementSibling;
         const inputs = options.querySelectorAll('input');
-        let markup;
+        let inputsAttached;
     
 
         if (e.currentTarget.parentElement.classList.contains('show')) {
-            inputs.forEach((input,index) => {
+            inputs.forEach((input, index) => {
 
-
-
-                const allInputs = [];
-                var customOption = options.querySelector('.custom-option');
                 input.addEventListener('keyup', (e) => {
                     let filteredName = e.target.value;
                     
                     const jsonResults = e.target.nextElementSibling;
                     const labels = jsonResults.querySelectorAll('label');
     
-            
+
                     ajaxOutputs.filter(object => {
                         const regex = new RegExp(filteredName, "gi")
                         if (object.name.match(regex)) {
@@ -251,84 +289,104 @@ customSelects.forEach(customSelect => {
                             `
                             jsonResults.insertAdjacentHTML('afterbegin', markup)
     
-                            let inputsAttached = jsonResults.querySelectorAll('input');
-    
-                            inputsAttached.forEach(inputAt => {
-                                inputAt.addEventListener('change', (e) => {
-                                    if (e.target.checked) {
-                                        outputs2.push(inputAt)
-    
-                                 
-                                        outputs2.forEach((output) => {
-                                            markup = `
-                                                <span class="custom-options-selected--item" data-index="${index}">${output}
-                                                    <span class="icon-close"></span>
-                                                </span>
-                                            `;
-                                        });
-                        
-                                        customOptionsSelectedDiv.insertAdjacentHTML('afterbegin', markup); 
-                                     
-                                        
+                            inputsAttached = jsonResults.querySelectorAll('input');
+                            
+                        }   
+                    })
+
+                    inputsAttached.forEach((inputAt) => {
+                        inputAt.addEventListener('change', (e) => {
+                            if (inputAt.checked) {
+
+                                let markup = `
+                                    <span class="custom-options-selected--item" data-index="${inputAt.value}">${inputAt.dataset.input}
+                                        <span class="icon-close"></span>
+                                    </span>
+                                `;
+
+                                customOptionsSelectedDiv.insertAdjacentHTML('afterbegin', markup); 
+
+                                let customOptions = customOptionsSelectedDiv.querySelectorAll('.custom-options-selected--item');
+                                customOptions.forEach(co => {
+                                    let icon = co.querySelector('.icon-close');
+                                    icon.addEventListener('click', (e) => {
+                                        let index2 = e.target.parentElement.dataset.index;
+                                        let parentEl = e.target.parentElement
+                                        parentEl.remove();
+                
+                                        if (inputAt.value == index2) {
+                                            inputAt.checked = false;
+                                        }
+                                    })
+                                })
+
+                            } else {
+
+                                let customOptionsAll = customOptionsSelectedDiv.querySelectorAll('.custom-options-selected--item');
+                                
+                                customOptionsAll.forEach(customOption => {
+             
+                                    if (inputAt.value == customOption.dataset.index) {
+                                        customOption.remove();
                                     }
                                     
                                 })
-                            })
+                            }
+
+                         
                             
-                        }
-                      
+                        })
                     })
-                  
-    
+
                 })
     
     
                
           
-            input.addEventListener('change', (e) => {
-                if (e.target.checked) {
-                    outputs.push(input.dataset.input);
+            // input.addEventListener('change', (e) => {
+            //     if (e.target.checked) {
+            //         outputs.push(input.dataset.input);
                     
     
-                    outputs.forEach((output) => {
-                        markup = `
-                            <span class="custom-options-selected--item" data-index="${index}">${output}
-                                <span class="icon-close"></span>
-                            </span>
-                        `;
-                    });
+            //         outputs.forEach((output) => {
+            //             markup = `
+            //                 <span class="custom-options-selected--item" data-index="${index}">${output}
+            //                     <span class="icon-close"></span>
+            //                 </span>
+            //             `;
+            //         });
     
                  
                  
-                    customOptionsSelectedDiv.insertAdjacentHTML('afterbegin', markup);
-                    let customOptions = customOptionsSelectedDiv.querySelectorAll('.custom-options-selected--item');
-                    customOptions.forEach(co => {
-                        let icon = co.querySelector('.icon-close');
-                        icon.addEventListener('click', (e) => {
-                            let index2 = e.target.parentElement.dataset.index;
-                            let parentEl = e.target.parentElement
-                            parentEl.remove();
+            //         customOptionsSelectedDiv.insertAdjacentHTML('afterbegin', markup);
+            //         let customOptions = customOptionsSelectedDiv.querySelectorAll('.custom-options-selected--item');
+            //         customOptions.forEach(co => {
+            //             let icon = co.querySelector('.icon-close');
+            //             icon.addEventListener('click', (e) => {
+            //                 let index2 = e.target.parentElement.dataset.index;
+            //                 let parentEl = e.target.parentElement
+            //                 parentEl.remove();
     
-                            if (index2 == index) {
-                                input.checked = false;
-                            }
-                        })
-                    })
+            //                 if (index2 == index) {
+            //                     input.checked = false;
+            //                 }
+            //             })
+            //         })
                
                     
-                } else {
-                   // outputs.splice(outputs.indexOf(input.dataset.input), 1);
-                   let customOptionsAll = customOptionsSelectedDiv.querySelectorAll('.custom-options-selected--item');
-                    customOptionsAll.forEach(customOption => {
-                        if (index == customOption.dataset.index) {
-                            customOption.remove();
-                        }
+            //     } else {
+            //        // outputs.splice(outputs.indexOf(input.dataset.input), 1);
+            //        let customOptionsAll = customOptionsSelectedDiv.querySelectorAll('.custom-options-selected--item');
+            //         customOptionsAll.forEach(customOption => {
+            //             if (index == customOption.dataset.index) {
+            //                 customOption.remove();
+            //             }
                         
-                    })
+            //         })
                   
                   
-                }
-            });
+            //     }
+            // });
     
     
     

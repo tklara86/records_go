@@ -6,10 +6,11 @@ import (
 )
 
 type Artist struct {
-	ArtistID  int64
-	Name      string
-	CreatedAt time.Time
-	UpdatedAt time.Time
+	ArtistID  int64     `json:"id"`
+	Name      string    `json:"name"`
+	InputName string    `json:"input_name"`
+	CreatedAt time.Time `json:"-"`
+	UpdatedAt time.Time `json:"-"`
 }
 
 type RecordArtist struct {

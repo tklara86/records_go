@@ -57,14 +57,16 @@
               </div>
               <div class="option">
                   <div class="custom-option">
-                    <input autoComplete='none' class="input-control input-control--small input-control--nested filter" type="text" name="search" placeholder="Search">
-                    {{if .Artists}}
+                    <input autocomplete="off" class="input-control input-control--small input-control--nested filter" type="text" name="search" placeholder="Search">
+                    <div id="artists" class="json-results">
+                    <!-- {{if .Artists}}
                       {{range .Artists}}
                         <label>
                           <input type="checkbox" name="artist-name" value="{{.ArtistID}}" data-input="{{.Name}}">{{.Name}}
                         </label>
                       {{end}}
-                    {{end}}
+                    {{end}} -->
+                  </div>
                   </div>
               </div>
               <div class="custom-options-selected"></div>
@@ -82,13 +84,15 @@
             <div class="option">
               <div class="custom-option">
                 <input autoComplete='none' class="input-control input-control--small input-control--nested filter" type="text" name="search" placeholder="Search">
-                {{if .Genres}}
+                <div id="genres" class="json-results">
+                <!-- {{if .Genres}}
                   {{range .Genres}}
                     <label>
                       <input type="checkbox" name="genre-name" value="{{.GenreID}}" data-input="{{.GenreName}}">{{.GenreName}}
                     </label>
                   {{end}}
-                {{end}}
+                {{end}} -->
+              </div>
               </div>
             </div>
             <div class="custom-options-selected"></div>
