@@ -180,10 +180,10 @@ if (form != null) {
 const customSelects = document.querySelectorAll('.custom-select');
 let outputs = [];
 let outputs2 = [];
-let ajaxOutputs = [];
+let ajaxOutputsLabels = [];
+let ajaxOutputsArtists = [];
+let ajaxOutputsGenres = [];
 let inputsAll;
-
-
 
 window.addEventListener('load', () => {
 
@@ -194,7 +194,7 @@ window.addEventListener('load', () => {
     .then(res => res.json())
     .then(data => {    
         for (var j = 0; j < data.labels.length; j++) {
-            ajaxOutputs.push(data.labels[j])
+            ajaxOutputsLabels.push(data.labels[j])
             const { id, name, input_name } = data.labels[j];
             markup = `
                 <label>
@@ -215,7 +215,7 @@ window.addEventListener('load', () => {
     .then(res => res.json())
     .then(data => {    
         for (var j = 0; j < data.artists.length; j++) {
-            ajaxOutputs.push(data.artists[j])
+            ajaxOutputsArtists.push(data.artists[j])
             const { id, name, input_name } = data.artists[j];
             markup = `
                 <label>
@@ -236,7 +236,7 @@ window.addEventListener('load', () => {
     .then(res => res.json())
     .then(data => {    
         for (var j = 0; j < data.genres.length; j++) {
-            ajaxOutputs.push(data.genres[j])
+            ajaxOutputsGenres.push(data.genres[j])
             const { id, name, input_name } = data.genres[j];
             markup = `
                 <label>
@@ -276,8 +276,8 @@ customSelects.forEach(customSelect => {
                     const jsonResults = e.target.nextElementSibling;
                     const labels = jsonResults.querySelectorAll('label');
     
-
-                    ajaxOutputs.filter(object => {
+                    
+                    ajaxOutputsLabels.filter(object => {
                         const regex = new RegExp(filteredName, "gi")
                         if (object.name.match(regex)) {
                             labels.forEach(label => label.remove());
@@ -339,57 +339,6 @@ customSelects.forEach(customSelect => {
                     })
 
                 })
-    
-    
-               
-          
-            // input.addEventListener('change', (e) => {
-            //     if (e.target.checked) {
-            //         outputs.push(input.dataset.input);
-                    
-    
-            //         outputs.forEach((output) => {
-            //             markup = `
-            //                 <span class="custom-options-selected--item" data-index="${index}">${output}
-            //                     <span class="icon-close"></span>
-            //                 </span>
-            //             `;
-            //         });
-    
-                 
-                 
-            //         customOptionsSelectedDiv.insertAdjacentHTML('afterbegin', markup);
-            //         let customOptions = customOptionsSelectedDiv.querySelectorAll('.custom-options-selected--item');
-            //         customOptions.forEach(co => {
-            //             let icon = co.querySelector('.icon-close');
-            //             icon.addEventListener('click', (e) => {
-            //                 let index2 = e.target.parentElement.dataset.index;
-            //                 let parentEl = e.target.parentElement
-            //                 parentEl.remove();
-    
-            //                 if (index2 == index) {
-            //                     input.checked = false;
-            //                 }
-            //             })
-            //         })
-               
-                    
-            //     } else {
-            //        // outputs.splice(outputs.indexOf(input.dataset.input), 1);
-            //        let customOptionsAll = customOptionsSelectedDiv.querySelectorAll('.custom-options-selected--item');
-            //         customOptionsAll.forEach(customOption => {
-            //             if (index == customOption.dataset.index) {
-            //                 customOption.remove();
-            //             }
-                        
-            //         })
-                  
-                  
-            //     }
-            // });
-    
-    
-    
         }); 
         }
         

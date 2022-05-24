@@ -182,7 +182,7 @@ func (app *application) getArtistsJSON(w http.ResponseWriter, r *http.Request) {
 	}
 
 	for _, a := range artists {
-		a.InputName = "artist_name"
+		a.InputName = "artist-name"
 	}
 
 	err = app.writeJSON(w, http.StatusOK, envelope{"artists": artists}, nil)
@@ -201,7 +201,7 @@ func (app *application) getGenresJSON(w http.ResponseWriter, r *http.Request) {
 	}
 
 	for _, g := range genres {
-		g.InputName = "genre_name"
+		g.InputName = "genre-name"
 	}
 
 	err = app.writeJSON(w, http.StatusOK, envelope{"genres": genres}, nil)
