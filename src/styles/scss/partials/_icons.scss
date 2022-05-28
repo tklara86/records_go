@@ -56,6 +56,15 @@
   fill: green;
 }
 
+.exclamation-icon {
+  background: url('/dist/icons/exclamation-triangle.svg') no-repeat center;
+  background-size: auto;
+  width: 20px;
+  height: 20px;
+  margin-left: 5px;
+  background-size: cover;
+}
+
 
 span.icon-close {
   background: url('/dist/icons/cross-circled.svg') no-repeat center;

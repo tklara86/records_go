@@ -163,6 +163,18 @@ label {
 }
 
 
+.no-results-found {
+  display: flex;
+  padding: 7px;
+  display: none;
+
+  p {
+    margin-bottom: 0;
+    margin-left: 5px;
+  }
+}
+
+
 .error-message {
   bottom: 5px;
   font-size: 14px;

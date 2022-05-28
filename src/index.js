@@ -177,197 +177,194 @@ if (form != null) {
 
 
 /* Custom select */
-const customSelects = document.querySelectorAll('.custom-select');
-let ajaxOutputsLabels = [];
-let ajaxOutputsArtists = [];
-let ajaxOutputsGenres = [];
+class Selectable {
 
+    #options;
+    #input;
+    #customOptionsSelectedDiv;
 
-window.addEventListener('load', () => {
+    constructor (element) {
+        this.element = element;
+        this.#options = this.element.nextElementSibling;
+        this.#customOptionsSelectedDiv = this.#options.nextElementSibling;
+        this.#input = this.#options.querySelector('input');
+    }
 
-    let jsonResults = document.querySelectorAll('.json-results');
-    let markup;
+    toggleSelect = () => {
+        this.element.parentElement.classList.toggle('show');  
 
-    fetch('http://localhost:8000/admin/record/labelsJSON')
-    .then(res => res.json())
-    .then(data => {    
-        for (var j = 0; j < data.labels.length; j++) {
-            ajaxOutputsLabels.push(data.labels[j])
-            const { id, name, input_name } = data.labels[j];
-            markup = `
-                <label>
-                    <input type="checkbox" name="${input_name}" value="${id}" data-input="${name}">${name}
-                </label>
-            `;
+    }
 
-            for (var i = 0; i < jsonResults.length; i++) {
-                if (jsonResults[i].id == 'labels') {
-                    jsonResults[i].insertAdjacentHTML('afterbegin', markup);
-                }
-                
-            }
-        } 
-    });   
-
-    fetch('http://localhost:8000/admin/record/artistsJSON')
-    .then(res => res.json())
-    .then(data => {    
-        for (var j = 0; j < data.artists.length; j++) {
-            ajaxOutputsArtists.push(data.artists[j])
-            const { id, name, input_name } = data.artists[j];
-            markup = `
-                <label>
-                    <input type="checkbox" name="${input_name}" value="${id}" data-input="${name}">${name}
-                </label>
-            `;
-
-            for (var i = 0; i < jsonResults.length; i++) {
-                if (jsonResults[i].id == 'artists') {
-                    jsonResults[i].insertAdjacentHTML('afterbegin', markup);
-                }
-                
-            }
-        } 
-    });
-
-    fetch('http://localhost:8000/admin/record/genresJSON')
-    .then(res => res.json())
-    .then(data => {    
-        for (var j = 0; j < data.genres.length; j++) {
-            ajaxOutputsGenres.push(data.genres[j])
-            const { id, name, input_name } = data.genres[j];
-            markup = `
-                <label>
-                    <input type="checkbox" name="${input_name}" value="${id}" data-input="${name}">${name}
-                </label>
-            `;
-
-            for (var i = 0; i < jsonResults.length; i++) {
-                if (jsonResults[i].id == 'genres') {
-                    jsonResults[i].insertAdjacentHTML('afterbegin', markup);
-                }
-                
-            }
-        } 
-    });
-});
-
-customSelects.forEach(customSelect => {
-    
-    // Toggle selects
-    customSelect.addEventListener('click', (e) => {
-        e.currentTarget.parentElement.classList.toggle('show');
-
-         // Check input
-        const options = customSelect.nextElementSibling;
-        const customOptionsSelectedDiv = options.nextElementSibling;
-        const inputs = options.querySelectorAll('input');
-        let inputsAttached;
-        let outputInputs = [];
-    
-
-        if (e.currentTarget.parentElement.classList.contains('show')) {
-            inputs.forEach((input, index) => {
-
-                switch(input.name) {
-                    case 'label-name':
-                        outputInputs = ajaxOutputsLabels;
-                        break;
-                    case 'artist-name':
-                        outputInputs = ajaxOutputsArtists;
-                        break;
-                    case 'genre-name':
-                        outputInputs = ajaxOutputsGenres;
-                }
-
-                input.addEventListener('keyup', (e) => {
-                    let filteredName = e.target.value;
-
-                    const jsonResults = e.target.nextElementSibling;
-                    const labels = jsonResults.querySelectorAll('label');
-    
-                    outputInputs.filter(object => {
-                        const regex = new RegExp(filteredName, "gi")
-                        if (object.name.match(regex)) {
-                        
-                           labels.forEach(label => {
-                            label.remove(); 
-                           });
-    
-                            let markup = `
-                                <label>
-                                 <input type="checkbox" name="${object.input_name}" value="${object.id}" data-input="${object.name}">${object.name}
-                                </label> 
-                            `
-                            jsonResults.insertAdjacentHTML('afterbegin', markup)
-    
-                            inputsAttached = jsonResults.querySelectorAll('input');
-                            
-                        }   
-                    })
-
-                    inputsAttached.forEach((inputAt) => {
-                        inputAt.addEventListener('change', (e) => {
-                            if (inputAt.checked) {
-
-                                let markup = `
-                                    <span class="custom-options-selected--item" data-index="${inputAt.value}">${inputAt.dataset.input}
-                                        <span class="icon-close"></span>
-                                    </span>
-                                `;
-
-                                customOptionsSelectedDiv.insertAdjacentHTML('afterbegin', markup); 
-
-                                let customOptions = customOptionsSelectedDiv.querySelectorAll('.custom-options-selected--item');
-                                customOptions.forEach(co => {
-                                    let icon = co.querySelector('.icon-close');
-                                    icon.addEventListener('click', (e) => {
-                                        let index2 = e.target.parentElement.dataset.index;
-                                        let parentEl = e.target.parentElement
-                                        parentEl.remove();
-                
-                                        if (inputAt.value == index2) {
-                                            inputAt.checked = false;
-                                        }
-                                    })
-                                })
-
-                            } else {
-
-                                let customOptionsAll = customOptionsSelectedDiv.querySelectorAll('.custom-options-selected--item');
-                                
-                                customOptionsAll.forEach(customOption => {
-             
-                                    if (inputAt.value == customOption.dataset.index) {
-                                        customOption.remove();
-                                    }
-                                    
-                                })
-                            }
-
-                         
-                            
-                        })
-                    })
-
-                })
-        }); 
-        }
-        
-    });
-
-    // Click outside select
-    window.addEventListener('click', function (e) {
+    closeSelect = (e) => {
         var option = e.target.closest('.option') 
-        if (e.target != customSelect && option === null) {
-            customSelect.parentElement.classList.remove('show');
-        }
-    });
+        if (e.target != this.element && option === null) {
+            this.element.parentElement.classList.remove('show');
+        }  
+    }
 
-
-  
-
+    searchSelect = () => {
     
+        this.#input.addEventListener('keyup', (e) => {
+            let filteredName = e.target.value;
 
-})
+            const jsonResults = this.#input.nextElementSibling;
+            const labels = jsonResults.querySelectorAll('label');
+            const regex = new RegExp(filteredName, "gi");
+            
+            labels.forEach(label => {
+                let labelInput = label.querySelector('input');
+                
+                labelInput.dataset.input.match(regex) 
+                    ? label.style.display = 'flex' 
+                    : label.style.display = 'none';
+            });
+        });
+    }
 
+    showSelectedResults = () => {
+        const jsonResults = this.#input.nextElementSibling;
+    
+        jsonResults.addEventListener('change', (e) => {
+            const input = e.target.closest('input');
+
+            if (input.checked) {
+                let markup = `
+                <span class="custom-options-selected--item" data-index="${input.value}">${input.dataset.input}
+                    <span class="icon-close"></span>
+                </span>
+                `;  
+                
+                this.#customOptionsSelectedDiv.insertAdjacentHTML('afterbegin', markup); 
+
+                let customOptions = this.#customOptionsSelectedDiv.querySelectorAll('.custom-options-selected--item');
+
+                customOptions.forEach(co => {
+                    let icon = co.querySelector('.icon-close');
+                    icon.addEventListener('click', (e) => {
+                        let index2 = e.target.parentElement.dataset.index;
+                        let parentEl = e.target.parentElement
+                        parentEl.remove();
+
+                        if (input.value == index2) {
+                            input.checked = false;
+                        }
+                    })
+                })
+            } else {
+                let customOptionsAll = this.#customOptionsSelectedDiv.querySelectorAll('.custom-options-selected--item');
+                customOptionsAll.forEach(customOption => {
+                    if (input.value == customOption.dataset.index) {
+                        customOption.remove();
+                    }  
+                })
+            }
+
+        })
+    }
+
+    init = () =>  {
+        // toggle 'select'
+        this.element.addEventListener('click', this.toggleSelect);
+        // close 'select' when click outside container
+        window.addEventListener('click', this.closeSelect);
+        // search inputs
+        this.searchSelect();
+        this.showSelectedResults();
+    }
+}
+
+
+
+
+const labels = document.querySelector('.custom-labels');
+const genres = document.querySelector('.custom-genres');
+const artists = document.querySelector('.custom-artists');
+
+
+if (labels) {
+    new Selectable(labels).init();
+}
+
+if (genres) {
+    new Selectable(genres).init();
+}
+
+if (artists) {
+    new Selectable(artists).init();
+}
+
+
+
+
+
+
+
+
+// window.addEventListener('load', () => {
+
+//     let jsonResults = document.querySelectorAll('.json-results');
+//     let markup;
+
+//     fetch('http://localhost:8000/admin/record/labelsJSON')
+//     .then(res => res.json())
+//     .then(data => {    
+//         for (var j = 0; j < data.labels.length; j++) {
+//             ajaxOutputsLabels.push(data.labels[j])
+//             const { id, name, input_name } = data.labels[j];
+//             markup = `
+//                 <label>
+//                     <input type="checkbox" name="${input_name}" value="${id}" data-input="${name}">${name}
+//                 </label>
+//             `;
+
+//             for (var i = 0; i < jsonResults.length; i++) {
+//                 if (jsonResults[i].id == 'labels') {
+//                     jsonResults[i].insertAdjacentHTML('afterbegin', markup);
+//                 }
+                
+//             }
+//         } 
+//     });   
+
+//     fetch('http://localhost:8000/admin/record/artistsJSON')
+//     .then(res => res.json())
+//     .then(data => {    
+//         for (var j = 0; j < data.artists.length; j++) {
+//             ajaxOutputsArtists.push(data.artists[j])
+//             const { id, name, input_name } = data.artists[j];
+//             markup = `
+//                 <label>
+//                     <input type="checkbox" name="${input_name}" value="${id}" data-input="${name}">${name}
+//                 </label>
+//             `;
+
+//             for (var i = 0; i < jsonResults.length; i++) {
+//                 if (jsonResults[i].id == 'artists') {
+//                     jsonResults[i].insertAdjacentHTML('afterbegin', markup);
+//                 }
+                
+//             }
+//         } 
+//     });
+
+//     fetch('http://localhost:8000/admin/record/genresJSON')
+//     .then(res => res.json())
+//     .then(data => {    
+//         for (var j = 0; j < data.genres.length; j++) {
+//             ajaxOutputsGenres.push(data.genres[j])
+//             const { id, name, input_name } = data.genres[j];
+//             markup = `
+//                 <label>
+//                     <input type="checkbox" name="${input_name}" value="${id}" data-input="${name}">${name}
+//                 </label>
+//             `;
+
+//             for (var i = 0; i < jsonResults.length; i++) {
+//                 if (jsonResults[i].id == 'genres') {
+//                     jsonResults[i].insertAdjacentHTML('afterbegin', markup);
+//                 }
+                
+//             }
+//         } 
+//     });
+// });
