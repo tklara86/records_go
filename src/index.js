@@ -178,12 +178,10 @@ if (form != null) {
 
 /* Custom select */
 const customSelects = document.querySelectorAll('.custom-select');
-let outputs = [];
-let outputs2 = [];
 let ajaxOutputsLabels = [];
 let ajaxOutputsArtists = [];
 let ajaxOutputsGenres = [];
-let inputsAll;
+
 
 window.addEventListener('load', () => {
 
@@ -265,22 +263,36 @@ customSelects.forEach(customSelect => {
         const customOptionsSelectedDiv = options.nextElementSibling;
         const inputs = options.querySelectorAll('input');
         let inputsAttached;
+        let outputInputs = [];
     
 
         if (e.currentTarget.parentElement.classList.contains('show')) {
             inputs.forEach((input, index) => {
 
+                switch(input.name) {
+                    case 'label-name':
+                        outputInputs = ajaxOutputsLabels;
+                        break;
+                    case 'artist-name':
+                        outputInputs = ajaxOutputsArtists;
+                        break;
+                    case 'genre-name':
+                        outputInputs = ajaxOutputsGenres;
+                }
+
                 input.addEventListener('keyup', (e) => {
                     let filteredName = e.target.value;
-                    
+
                     const jsonResults = e.target.nextElementSibling;
                     const labels = jsonResults.querySelectorAll('label');
     
-                    
-                    ajaxOutputsLabels.filter(object => {
+                    outputInputs.filter(object => {
                         const regex = new RegExp(filteredName, "gi")
                         if (object.name.match(regex)) {
-                            labels.forEach(label => label.remove());
+                        
+                           labels.forEach(label => {
+                            label.remove(); 
+                           });
     
                             let markup = `
                                 <label>
