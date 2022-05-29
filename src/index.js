@@ -210,6 +210,7 @@ class Selectable {
             const jsonResults = this.#input.nextElementSibling;
             const labels = jsonResults.querySelectorAll('label');
             const regex = new RegExp(filteredName, "gi");
+            const noFound = jsonResults.querySelector('.no-results-create');
             
             labels.forEach(label => {
                 let labelInput = label.querySelector('input');
@@ -217,24 +218,44 @@ class Selectable {
                 
                 labelInput.dataset.input.match(regex) 
                     ? label.style.display = 'flex' 
-                    : label.style.display = 'none';                 
+                    : label.style.display = 'none'; 
+                    
+                    
+                    if (!labelInput.dataset.input.match(regex)) {
+                        if (noFound) {
+                            noFound.remove();
+                        
+                        } 
+                    }
 
             });
 
             let m = `
-            <div class="no-results-found">
-                <span class="icon exclamation-icon"></span>
-                <p>No results found!</p>
-            </div>
-            
+                <div class="no-results-create">
+                    <div class="no-results-found">
+                        <span class="icon exclamation-icon"></span>
+                        <p>No results found!</p>
+                    </div>
+                    <div class="add-to-db">
+                        <span id="js-inputVal">Would you like to add <span class="input-value"></span></span>
+                        <div id="js-buttonAdd">
+                        <svg class="add-icon js-add-icon">
+                            <use xlink:href="/dist/icons/sprite.svg#file"></use>
+                        </svg>
+                        <p>Add</p>
+                        </div>
+                    </div>
+                </div>
             `;
 
-            if (jsonResults.innerText == '') {
-                jsonResults.insertAdjacentHTML('beforeend', m)
+            if (jsonResults.innerText === '') {
+                jsonResults.insertAdjacentHTML('beforeend', m);
+                const inputValue = document.querySelector('.input-value');
+                inputValue.innerHTML = filteredName + '?';
             }  else {
-                const noFound = jsonResults.querySelector('.no-results-found')
                 if (noFound) {
-                    noFound.remove();
+                     noFound.style.display = 'flex';
+                    
                 } 
             }
 

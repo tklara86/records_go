@@ -175,6 +175,44 @@ label {
   }
 }
 
+.add-to-db {
+  padding: 0 7px;
+  display: inline-grid;
+  width: 100%;
+}
+
+#js-inputVal {
+  margin-left: 5px;
+  margin-bottom: 5px;
+  font-family: $font-italic-light;
+  .input-value {
+    font-family: $font-bold;
+  }
+}
+
+
+#js-buttonAdd {
+
+  display: flex;
+  align-items: center;
+  background: #d8e4e8;
+  width: 100%;
+  padding: 7px;
+  border-radius: 5px;
+  justify-content: center;
+  align-items: center;
+
+  p {
+    margin-bottom: 0;
+  }
+
+
+
+}
+
+
+
+
 
 .error-message {
   bottom: 5px;
