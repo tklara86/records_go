@@ -166,7 +166,8 @@ label {
 .no-results-found {
   display: flex;
   padding: 7px;
-  display: none;
+
+  align-items: center;
 
   p {
     margin-bottom: 0;

@@ -213,11 +213,32 @@ class Selectable {
             
             labels.forEach(label => {
                 let labelInput = label.querySelector('input');
+             
                 
                 labelInput.dataset.input.match(regex) 
                     ? label.style.display = 'flex' 
-                    : label.style.display = 'none';
+                    : label.style.display = 'none';                 
+
             });
+
+            let m = `
+            <div class="no-results-found">
+                <span class="icon exclamation-icon"></span>
+                <p>No results found!</p>
+            </div>
+            
+            `;
+
+            if (jsonResults.innerText == '') {
+                jsonResults.insertAdjacentHTML('beforeend', m)
+            }  else {
+                const noFound = jsonResults.querySelector('.no-results-found')
+                if (noFound) {
+                    noFound.remove();
+                } 
+            }
+
+
         });
     }
 
