@@ -117,7 +117,7 @@ func (app *application) recordCreatePost(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
-	w.Write([]byte(fmt.Sprintf("Record created with id of %d", id)))
+	// http.Redirect(w, r, "/admin/records", http.StatusFound)
 
 }
 

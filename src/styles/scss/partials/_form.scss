@@ -190,12 +190,16 @@ label {
   }
 }
 
+//#5BE974
+//#9AEAA9
 
+//#CBFF57
+//#B7ED3E
 #js-buttonAdd {
 
   display: flex;
   align-items: center;
-  background: #d8e4e8;
+  background: #9AEAA9;
   width: 100%;
   padding: 7px;
   border-radius: 5px;
@@ -203,10 +207,13 @@ label {
   align-items: center;
   cursor: pointer;
   transition: all .3s ease-in;
+  box-shadow: -5px 4px 33px -12px #9AEAA9;
 
   &:hover {
-    background: #bcced5;
+    background: #76d888;
     transition: all .3s ease-in;
+
+    
   }
 
   p {
@@ -292,8 +299,7 @@ label {
   max-height: 0;
   overflow-y: hidden;
   width: 100%;
-  animation: slideInDown .3s ease-in;
-  z-index: 500;
+
   margin-top: 5px;
 }
 .select.show .option {
@@ -302,7 +308,8 @@ label {
   border: 1px solid #d1d1d1;
   box-shadow: inset 0 0 0 1px hsla(0,0%,97.6%,.87);
   border-radius: 7px;
-  animation: slideInUp .3s ease backwards;
+  animation: slideInUp .2s ease-in forwards;
+  z-index: 500;
 
 }
 .custom-option {
@@ -342,8 +349,7 @@ ul.custom-option {
 }
 
 .icon {
-  background-position-x: 0;
-  background-position-y: 0;
+
   display: inline-block;
   width: 20px;
   height: 20px;
@@ -357,8 +363,7 @@ ul.custom-option {
 
 
 .select.show .icon.dropdown-icon {
-  background-position-x: 0;
-  background-position-y: 0;
+
   display: inline-block;
   background: url('/dist/icons/chevron-up.svg') no-repeat center;
   width: 20px;
@@ -385,7 +390,7 @@ ul.custom-option {
   }
   100% {
     opacity: 0;
-    transform: translateY(5px);
+    transform: translateY(-3px);
   }
 }
 
@@ -417,4 +422,3 @@ ul.custom-option {
 .custom-option label input {
   cursor: pointer;
 }
-

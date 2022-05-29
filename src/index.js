@@ -216,18 +216,21 @@ class Selectable {
                 let labelInput = label.querySelector('input');
              
                 
-                labelInput.dataset.input.match(regex) 
-                    ? label.style.display = 'flex' 
-                    : label.style.display = 'none'; 
+                if (labelInput.dataset.input.match(regex)) {
+                    label.style.display = 'flex';
+                    if (noFound) {
+                        noFound.remove();
+                    } 
+                }  else {
+                    label.style.display = 'none';  
+                }
 
-
-                                
-                    if (!labelInput.dataset.input.match(regex)) {
-                        if (noFound) {
-                            noFound.remove();
-                        
-                        } 
-                    }
+                if (!labelInput.dataset.input.match(regex)) {
+                    if (noFound) {
+                        noFound.remove();
+                    
+                    } 
+                }
 
             });
 
@@ -267,6 +270,15 @@ class Selectable {
                                     const data = this.postData('http://localhost:8000/admin/record/postLabelsJSON', { 
                                        name: filteredName
                                     })
+
+                                    if (data) {
+                                        this.#input.value = '';
+                                        const noFound2 = jsonResults.querySelector('.no-results-create');
+                                        if (noFound2) {
+                                            noFound2.remove()
+                                        }
+                                        labels.forEach(label => label.style.display = 'flex');
+                                    }
                                 
                                 } catch (error) {
                                     console.log(error) 
@@ -278,6 +290,14 @@ class Selectable {
                                     const data = this.postData('http://localhost:8000/admin/record/postGenresJSON', { 
                                        name: filteredName
                                     })
+                                    if (data) {
+                                        this.#input.value = '';
+                                        const noFound2 = jsonResults.querySelector('.no-results-create');
+                                        if (noFound2) {
+                                            noFound2.remove()
+                                        }
+                                        labels.forEach(label => label.style.display = 'flex');
+                                    }
                                     
                         
                                 } catch (error) {
@@ -290,6 +310,14 @@ class Selectable {
                                     const data = this.postData('http://localhost:8000/admin/record/postArtistsJSON', { 
                                        name: filteredName
                                     })
+                                    if (data) {
+                                        this.#input.value = '';
+                                        const noFound2 = jsonResults.querySelector('.no-results-create');
+                                        if (noFound2) {
+                                            noFound2.remove()
+                                        }
+                                        labels.forEach(label => label.style.display = 'flex');
+                                    }
                                     
                         
                                 } catch (error) {
