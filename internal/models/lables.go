@@ -72,13 +72,13 @@ func (m *LabelModel) GetAll() ([]*Label, error) {
 	return labels, nil
 }
 
-func (m *LabelModel) Insert(a *Label) (int, error) {
+func (m *LabelModel) Insert(l *Label) (int, error) {
 	stmt := `
 		INSERT INTO labels (name, created_at, updated_at)
 			VALUES (?, UTC_TIMESTAMP(), UTC_TIMESTAMP())
 	`
 
-	result, err := m.DB.Exec(stmt, a.Name)
+	result, err := m.DB.Exec(stmt, l.Name)
 	if err != nil {
 		return 0, err
 	}

@@ -173,6 +173,93 @@ func (app *application) getLabelsJSON(w http.ResponseWriter, r *http.Request) {
 
 }
 
+func (app *application) postLabelsJSON(w http.ResponseWriter, r *http.Request) {
+
+	var input struct {
+		Name string `json:"name"`
+	}
+
+	err := app.readJSON(w, r, &input)
+	if err != nil {
+		app.serverError(w, err)
+	}
+
+	label := &models.Label{
+		Name: input.Name,
+	}
+
+	_, err = app.labels.Insert(label)
+	if err != nil {
+		app.serverError(w, err)
+	}
+
+	headers := make(http.Header)
+
+	err = app.writeJSON(w, http.StatusCreated, envelope{"label": label}, headers)
+	if err != nil {
+		app.serverError(w, err)
+	}
+
+}
+
+func (app *application) postArtistsJSON(w http.ResponseWriter, r *http.Request) {
+
+	var input struct {
+		Name string `json:"name"`
+	}
+
+	err := app.readJSON(w, r, &input)
+	if err != nil {
+		app.serverError(w, err)
+	}
+
+	artist := &models.Artist{
+		Name: input.Name,
+	}
+
+	_, err = app.artists.Insert(artist)
+	if err != nil {
+		app.serverError(w, err)
+	}
+
+	headers := make(http.Header)
+
+	err = app.writeJSON(w, http.StatusCreated, envelope{"artist": artist}, headers)
+	if err != nil {
+		app.serverError(w, err)
+	}
+
+}
+
+func (app *application) postGenresJSON(w http.ResponseWriter, r *http.Request) {
+
+	var input struct {
+		Name string `json:"name"`
+	}
+
+	err := app.readJSON(w, r, &input)
+	if err != nil {
+		app.serverError(w, err)
+	}
+
+	genre := &models.Genre{
+		GenreName: input.Name,
+	}
+
+	_, err = app.genres.Insert(genre)
+	if err != nil {
+		app.serverError(w, err)
+	}
+
+	headers := make(http.Header)
+
+	err = app.writeJSON(w, http.StatusCreated, envelope{"genre": genre}, headers)
+	if err != nil {
+		app.serverError(w, err)
+	}
+
+}
+
 func (app *application) getArtistsJSON(w http.ResponseWriter, r *http.Request) {
 
 	artists, err := app.artists.GetAll()

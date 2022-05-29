@@ -219,8 +219,9 @@ class Selectable {
                 labelInput.dataset.input.match(regex) 
                     ? label.style.display = 'flex' 
                     : label.style.display = 'none'; 
-                    
-                    
+
+
+                                
                     if (!labelInput.dataset.input.match(regex)) {
                         if (noFound) {
                             noFound.remove();
@@ -248,19 +249,75 @@ class Selectable {
                 </div>
             `;
 
+           
+
             if (jsonResults.innerText === '') {
                 jsonResults.insertAdjacentHTML('beforeend', m);
                 const inputValue = document.querySelector('.input-value');
-                inputValue.innerHTML = filteredName + '?';
-            }  else {
-                if (noFound) {
-                     noFound.style.display = 'flex';
-                    
-                } 
-            }
 
+                let attachedEvent = false;
+                const buttonAdd = jsonResults.querySelector('#js-buttonAdd');
+
+                if (!attachedEvent) {
+                    buttonAdd.addEventListener('click', () => {
+                        switch (jsonResults.id) {
+                            case 'labels':
+                                
+                                try {
+                                    const data = this.postData('http://localhost:8000/admin/record/postLabelsJSON', { 
+                                       name: filteredName
+                                    })
+                                
+                                } catch (error) {
+                                    console.log(error) 
+                                }
+                           
+                                break;
+                            case 'genres':
+                                try {
+                                    const data = this.postData('http://localhost:8000/admin/record/postGenresJSON', { 
+                                       name: filteredName
+                                    })
+                                    
+                        
+                                } catch (error) {
+                                    console.log(error) 
+                                }
+                
+                                break;
+                            case 'artists':
+                                try {
+                                    const data = this.postData('http://localhost:8000/admin/record/postArtistsJSON', { 
+                                       name: filteredName
+                                    })
+                                    
+                        
+                                } catch (error) {
+                                    console.log(error) 
+                                }
+                                break;
+                        }
+            
+                        attachedEvent = true;
+                    })
+                }
+      
+                inputValue.innerHTML = filteredName;  
+            }  
 
         });
+    }
+    postData = (url, data) => {
+       const res =  fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        }).then(res => res.json())
+
+        return res;
+    
     }
 
     showSelectedResults = () => {
@@ -334,79 +391,3 @@ if (genres) {
 if (artists) {
     new Selectable(artists).init();
 }
-
-
-
-
-
-
-
-
-// window.addEventListener('load', () => {
-
-//     let jsonResults = document.querySelectorAll('.json-results');
-//     let markup;
-
-//     fetch('http://localhost:8000/admin/record/labelsJSON')
-//     .then(res => res.json())
-//     .then(data => {    
-//         for (var j = 0; j < data.labels.length; j++) {
-//             ajaxOutputsLabels.push(data.labels[j])
-//             const { id, name, input_name } = data.labels[j];
-//             markup = `
-//                 <label>
-//                     <input type="checkbox" name="${input_name}" value="${id}" data-input="${name}">${name}
-//                 </label>
-//             `;
-
-//             for (var i = 0; i < jsonResults.length; i++) {
-//                 if (jsonResults[i].id == 'labels') {
-//                     jsonResults[i].insertAdjacentHTML('afterbegin', markup);
-//                 }
-                
-//             }
-//         } 
-//     });   
-
-//     fetch('http://localhost:8000/admin/record/artistsJSON')
-//     .then(res => res.json())
-//     .then(data => {    
-//         for (var j = 0; j < data.artists.length; j++) {
-//             ajaxOutputsArtists.push(data.artists[j])
-//             const { id, name, input_name } = data.artists[j];
-//             markup = `
-//                 <label>
-//                     <input type="checkbox" name="${input_name}" value="${id}" data-input="${name}">${name}
-//                 </label>
-//             `;
-
-//             for (var i = 0; i < jsonResults.length; i++) {
-//                 if (jsonResults[i].id == 'artists') {
-//                     jsonResults[i].insertAdjacentHTML('afterbegin', markup);
-//                 }
-                
-//             }
-//         } 
-//     });
-
-//     fetch('http://localhost:8000/admin/record/genresJSON')
-//     .then(res => res.json())
-//     .then(data => {    
-//         for (var j = 0; j < data.genres.length; j++) {
-//             ajaxOutputsGenres.push(data.genres[j])
-//             const { id, name, input_name } = data.genres[j];
-//             markup = `
-//                 <label>
-//                     <input type="checkbox" name="${input_name}" value="${id}" data-input="${name}">${name}
-//                 </label>
-//             `;
-
-//             for (var i = 0; i < jsonResults.length; i++) {
-//                 if (jsonResults[i].id == 'genres') {
-//                     jsonResults[i].insertAdjacentHTML('afterbegin', markup);
-//                 }
-                
-//             }
-//         } 
-//     });
-// });
