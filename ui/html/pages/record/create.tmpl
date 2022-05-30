@@ -10,8 +10,8 @@
     <div class="column">
       <h2>General</h2>
       <div class="column--item">
-        <!-- enctype="multipart/form-data" -->
-        <form action="/admin/record/new" method="post">
+     
+        <form enctype="multipart/form-data" action="/admin/record/new" method="post">
 
           {{ range .FormOptions }} 
             <div class="form-control">
@@ -84,58 +84,41 @@
           </div>
 
 
-        <div class="form-control">
-          <label class="form-label">Genre(s)</label>
-          <div id="genres" class="select">
-            <div class="custom-select custom-genres">
-                <span class="value">Select Genre</span>
-                <span class="icon dropdown-icon"></span>
-            </div>
-            <div class="option">
-              <div class="custom-option">
-                <input autocomplete="off" class="input-control input-control--small input-control--nested filter" type="text" name="search" placeholder="Search">
-                <div id="genres" class="json-results">
-                {{if .Genres}}
-                  {{range .Genres}}
-                    <label>
-                      <input type="checkbox" name="genre-name" value="{{.GenreID}}" data-input="{{.GenreName}}">{{.GenreName}}
-                    </label>
-                  {{end}}
-                {{end}}
-                <!-- <div class="no-results-found">
-                  <span class="icon exclamation-icon"></span>
-                  <p>No results found!</p>
-                </div> -->
-              </div>
-              </div>
-            </div>
-            <div class="custom-options-selected"></div>
-          </div>  
-        </div>
-      
-    
-        
-        
-        
-          <!-- <div class="form-control">
-              <label for="inputCover">Image</label>
-        
-          <input class="input-control input-control--small" type="file" name="inputCover" />
-           
-                  <span class="error-message">{{.}}</span>
-            
-          </div> -->
-        
-          <!-- <input type="submit" value="Add Record" class="btn btn-small btn-primary"/> -->
-        
-    
-        
-     
-        
-
-          
-
-        <button type="submit">Save</button>
+                <div class="form-control">
+                  <label class="form-label">Genre(s)</label>
+                  <div id="genres" class="select">
+                    <div class="custom-select custom-genres">
+                        <span class="value">Select Genre</span>
+                        <span class="icon dropdown-icon"></span>
+                    </div>
+                    <div class="option">
+                      <div class="custom-option">
+                        <input autocomplete="off" class="input-control input-control--small input-control--nested filter" type="text" name="search" placeholder="Search">
+                        <div id="genres" class="json-results">
+                        {{if .Genres}}
+                          {{range .Genres}}
+                            <label>
+                              <input type="checkbox" name="genre-name" value="{{.GenreID}}" data-input="{{.GenreName}}">{{.GenreName}}
+                            </label>
+                          {{end}}
+                        {{end}}
+                        <!-- <div class="no-results-found">
+                          <span class="icon exclamation-icon"></span>
+                          <p>No results found!</p>
+                        </div> -->
+                      </div>
+                      </div>
+                    </div>
+                    <div class="custom-options-selected"></div>
+                  </div>  
+                </div>
+                
+                <div class="form-control">
+                  <label for="recordCover">Cover</label>
+                  <input class="input-control input-control--small" type="file" name="recordCover" multiple />
+                </div>  
+                
+                <input type="submit"  value="Add Record"/>
         
         
         </form>

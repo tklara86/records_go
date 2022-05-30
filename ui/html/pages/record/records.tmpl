@@ -31,7 +31,7 @@
           {{ range $i, $r := .Records}}
             <tr>
               <td>{{indexPlusOne $i}}</td>
-              <td><img class="albums-thumbnail" src="/dist/img/davis-bitches-brew-front_1.jpg"></td>
+              <td><img class="albums-thumbnail" src="{{.Image}}" alt="{{.Title}}-cover"></td>
               <td>{{.Title}}</td>
               <td>
                 <ul>

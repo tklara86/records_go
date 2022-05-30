@@ -1,11 +1,16 @@
 package main
 
 import (
+	"context"
 	"errors"
 	"fmt"
+	"io"
 	"net/http"
+	"os"
 	"strconv"
 
+	"github.com/cloudinary/cloudinary-go"
+	"github.com/cloudinary/cloudinary-go/api/uploader"
 	"github.com/julienschmidt/httprouter"
 	"github.com/tklara86/records_go/internal/models"
 )
@@ -22,21 +27,77 @@ func (app *application) homeAdmin(w http.ResponseWriter, r *http.Request) {
 // recordCreatePost - creates a new record
 func (app *application) recordCreatePost(w http.ResponseWriter, r *http.Request) {
 
+	const maxUplpoadSize = 1024 * 1024 // 1MB
+	var ctx = context.Background()
+
 	err := r.ParseForm()
 	if err != nil {
 		app.clientError(w, http.StatusBadRequest)
 		return
 	}
 
+	r.Body = http.MaxBytesReader(w, r.Body, maxUplpoadSize)
+	if err := r.ParseMultipartForm(maxUplpoadSize); err != nil {
+		http.Error(w, "The uploaded file is too big. Please choose an file that's less than 1MB in size", http.StatusBadRequest)
+		return
+	}
+
 	recordTitle := r.PostForm.Get("recordTitle")
 	realeaseDate := r.PostForm.Get("recordReleaseDate")
+	//	recordCover := r.PostForm.Get("recordCover")
 
-	image := "actions.jpg"
+	file, fileHeader, err := r.FormFile("recordCover")
+
+	if err != nil {
+		//errorsMap["noImage"] = "Please select an image"
+		return
+	}
+
+	defer file.Close()
+
+	err = os.MkdirAll("./uploads", os.ModePerm)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	// Creates a new file in the covers directory
+	dst, err := os.Create(fmt.Sprintf("./uploads/%s", fileHeader.Filename))
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	defer dst.Close()
+
+	// Copy the uploaded file to the filesystem
+	// at the specified destination
+	_, err = io.Copy(dst, file)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	//	Cloudinary upload
+	cloudinaryName := os.Getenv("CLOUDINARY_NAME")
+	cloudinaryAPIKey := os.Getenv("CLOUDINARY_API")
+	cloudinarySecret := os.Getenv("CLOUDINARY_SECRET")
+
+	cld, _ := cloudinary.NewFromParams(cloudinaryName, cloudinaryAPIKey, cloudinarySecret)
+	fmt.Println(cld)
+
+	resp, _ := cld.Upload.Upload(ctx, dst.Name(),
+		uploader.UploadParams{
+			PublicID:       fileHeader.Filename,
+			AllowedFormats: []string{"jpg", "jpeg", "png"},
+			Folder:         "covers",
+			Tags:           []string{"album cover"},
+		})
 
 	record := &models.Record{
 		Title:       recordTitle,
 		ReleaseDate: realeaseDate,
-		Image:       image,
+		Image:       resp.SecureURL,
 	}
 
 	// New record
@@ -117,7 +178,11 @@ func (app *application) recordCreatePost(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
-	// http.Redirect(w, r, "/admin/records", http.StatusFound)
+	//Remove uploads file
+	err = os.RemoveAll("./uploads")
+	if err != nil {
+		fmt.Println(err)
+	}
 
 }
 
