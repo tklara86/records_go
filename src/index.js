@@ -192,7 +192,6 @@ class Selectable {
 
     toggleSelect = () => {
         this.element.parentElement.classList.toggle('show');  
-
     }
 
     closeSelect = (e) => {
@@ -366,7 +365,7 @@ class Selectable {
                 } else if (data.genres) {
                     dataObj = data.genres
                 }
-                
+
     
                 for (var j = 0; j < dataObj.length; j++) {    
                     const { id, name, input_name } = dataObj[j];
