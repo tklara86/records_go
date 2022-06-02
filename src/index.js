@@ -269,7 +269,7 @@ class Selectable {
                                 try {
                                     const data = this.postData('http://localhost:8000/admin/record/postLabelsJSON', { 
                                        name: filteredName
-                                    })
+                                    }, 'http://localhost:8000/admin/record/labelsJSON', jsonResults)
 
                                     if (data) {
                                         this.#input.value = '';
@@ -277,26 +277,30 @@ class Selectable {
                                         if (noFound2) {
                                             noFound2.remove()
                                         }
-                                        labels.forEach(label => label.style.display = 'flex');
+
+                                        labels.forEach(label => label.remove());
+
+                                   
                                     }
+
+                                  
                                 
                                 } catch (error) {
                                     console.log(error) 
                                 }
-                           
                                 break;
                             case 'genres':
                                 try {
                                     const data = this.postData('http://localhost:8000/admin/record/postGenresJSON', { 
                                        name: filteredName
-                                    })
+                                    }, 'http://localhost:8000/admin/record/genresJSON', jsonResults)
                                     if (data) {
                                         this.#input.value = '';
                                         const noFound2 = jsonResults.querySelector('.no-results-create');
                                         if (noFound2) {
                                             noFound2.remove()
                                         }
-                                        labels.forEach(label => label.style.display = 'flex');
+                                        labels.forEach(label => label.remove());
                                     }
                                     
                         
@@ -309,14 +313,14 @@ class Selectable {
                                 try {
                                     const data = this.postData('http://localhost:8000/admin/record/postArtistsJSON', { 
                                        name: filteredName
-                                    })
+                                    }, 'http://localhost:8000/admin/record/artistsJSON', jsonResults)
                                     if (data) {
                                         this.#input.value = '';
                                         const noFound2 = jsonResults.querySelector('.no-results-create');
                                         if (noFound2) {
                                             noFound2.remove()
                                         }
-                                        labels.forEach(label => label.style.display = 'flex');
+                                        labels.forEach(label => label.remove());
                                     }
                                     
                         
@@ -335,18 +339,50 @@ class Selectable {
 
         });
     }
-    postData = (url, data) => {
+    postData = (url, data, getUrl, results) => {
        const res =  fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(data)
-        }).then(res => res.json())
+        }).then(res => res.json()).then(() => this.getData(getUrl, results))
 
         return res;
     
     }
+
+
+    getData = (url, results) => {
+        fetch(url)
+            .then(res => res.json())
+            .then(data => {  
+                let dataObj;
+
+                if (data.labels) {
+                    dataObj = data.labels;
+                } else if (data.artists) {
+                    dataObj = data.artists
+                } else if (data.genres) {
+                    dataObj = data.genres
+                }
+                
+    
+                for (var j = 0; j < dataObj.length; j++) {    
+                    const { id, name, input_name } = dataObj[j];
+                    let markup = `
+                        <label>
+                            <input type="checkbox" name="${input_name}" value="${id}" data-input="${name}">${name}
+                        </label>
+                    `;
+
+                    results.insertAdjacentHTML('afterbegin', markup);
+                    
+                } 
+            });
+    }
+
+ 
 
     showSelectedResults = () => {
         const jsonResults = this.#input.nextElementSibling;

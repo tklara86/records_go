@@ -68,6 +68,8 @@ func (app *application) recordCreatePost(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
+	fmt.Println(file, fileHeader)
+
 	defer dst.Close()
 
 	// Copy the uploaded file to the filesystem
