@@ -131,6 +131,33 @@
         <h2>Tracklist</h2>
         <div class="column--item">
           <div class="add-tracklist-container">
+            <div class="form-control mr-20 mb-20">
+              <div class="select mt-0 mb-0">
+                <div id="val-category" class="custom-select custom-select-category">
+                    <div>
+                      <span class="value">1</span>
+                      <select name="inputCategory" id="inputCategory">
+                        <option>1</option>
+                      </select>
+                    </div>
+                    <span class="icon dropdown-icon"></span>
+                </div>
+                <div class="option">
+                  <ul class="custom-option">
+                    <li data-id="1">1</li>
+                    <li data-id="2">2</li>
+                    <li data-id="3">3</li>
+                    <li data-id="4">4</li>
+                    <li data-id="5">5</li>
+                    <li data-id="6">6</li>
+                    <li data-id="7">7</li>
+                    <li data-id="8">8</li>
+                    <li data-id="9">9</li>
+                    <li data-id="10">10</li>
+                  </ul>
+                </div>
+              </div>  
+            </div>
             <div class="add-track">
               <svg class="add-icon small">
                 <use xlink:href="/dist/icons/sprite.svg#plus-circled"></use>
@@ -147,6 +174,7 @@
                   <th>Track Artist</th>
                   <th>Track Title</th>
                   <th>Track Duration</th>
+                  <th></th>
                 </tr>
                 <tr>
                   <td class="td-width-sm">  
@@ -202,7 +230,15 @@
                   <td class="td-width-md">
                     <div class="form-control">
                       <span class="form-alert"></span>
-                      <input autocomplete="off" class="input-control input-control--small" type="text" name="recordTrackDuration" placeholder="00:00">
+                      <input autocomplete="off" class="input-control input-control--small" type="text" name="recordTrackDuration" placeholder="0:00" maxlength="3">
+                    </div>
+                  </td>
+                  <td class="td-flex td-width-sm">
+                    <div class="remove icon-flex">
+                      <svg class="action-icon sm">
+                        <use xlink:href="/dist/icons/sprite.svg#remove"></use>
+                      </svg>
+                      Remove
                     </div>
                   </td>
                 </tr> 

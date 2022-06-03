@@ -57,6 +57,10 @@ tr:last-of-type {
   color: var(--text-body); 
 }
 
+.action-icon.sm {
+  width: 18px;
+}
+
 .albums-table-action-icons .edit {
   margin-right: 7px;
 }
@@ -107,6 +111,10 @@ tr:last-of-type {
 .add-track-artist,
 .add-track {
   cursor: pointer;
+}
+
+.add-track {
+  margin-bottom: 20px;
 }
 
 .add-track-artist {
