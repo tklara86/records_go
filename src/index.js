@@ -441,6 +441,7 @@ class Selectable {
 const labels = document.querySelector('.custom-labels');
 const genres = document.querySelector('.custom-genres');
 const artists = document.querySelector('.custom-artists');
+const trackArtists = document.querySelector('.custom-track-artists');
 
 
 if (labels) {
@@ -453,4 +454,8 @@ if (genres) {
 
 if (artists) {
     new Selectable(artists).init();
+}
+
+if (trackArtists) {
+    new Selectable(trackArtists).init();
 }

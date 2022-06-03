@@ -4,101 +4,38 @@
 
 
 {{define "section"}}
+<form enctype="multipart/form-data" action="/admin/record/new" method="post">
   <div class="column-container">
-  
+      <!-- General column -->
+      <div class="column">
+        <h2>General</h2>
+        <div class="column--item">
+      
+          
 
-    <div class="column">
-      <h2>General</h2>
-      <div class="column--item">
-     
-        <form enctype="multipart/form-data" action="/admin/record/new" method="post">
+            {{ range .FormOptions }} 
+              <div class="form-control">
+                  <label class="form-label" for="{{.FormFor}}">{{.FormName}}</label>
+                  <span class="form-alert"></span>
+                  <input autocomplete="off" class="input-control input-control--small" type="{{.FormType}}" name="{{.FormFor}}" placeholder="{{.FormName}}">
+              </div>
+            {{ end }}
 
-          {{ range .FormOptions }} 
             <div class="form-control">
-                <label class="form-label" for="{{.FormFor}}">{{.FormName}}</label>
-                <span class="form-alert"></span>
-                <input autocomplete="off" class="input-control input-control--small" type="{{.FormType}}" name="{{.FormFor}}" placeholder="{{.FormName}}">
-            </div>
-          {{ end }}
-
-          <div class="form-control">
-            <label class="form-label">Record Label</label>
-            <div id="labels" class="select">
-              <div class="custom-select custom-labels">
-                  <span class="value">Select label</span>
-                  <span class="icon dropdown-icon"></span>
-              </div>
-              <div class="option">
-                  <div class="custom-option">
-                    <input autocomplete="off" class="input-control input-control--small input-control--nested filter" type="text" name="search" placeholder="Search">
-                    <div id="labels" class="json-results">
-                      {{if .Labels}}
-                        {{range .Labels}}
-                          <label>
-                            <input type="checkbox" name="label-name" value="{{.ID}}" data-input="{{.Name}}">{{.Name}}
-                          </label>
-                        {{end}}
-                      {{end}}
-                      <!-- <div class="no-results-found">
-                        <span class="icon exclamation-icon"></span>
-                        <p>No results found!</p>
-                      </div> -->
-                      
-                    </div>
-                  </div>
-              </div>
-              <div class="custom-options-selected"></div>
-            </div>  
-          </div>
-
-         
-
-          <div class="form-control">
-            <label class="form-label">Artist(s)</label>
-            <div id="artists" class="select">
-              <div class="custom-select custom-artists">
-                  <span class="value">Select artist</span>
-                  <span class="icon dropdown-icon"></span>
-              </div>
-              <div class="option">
-                <div class="custom-option">
-                  <input autocomplete="off" class="input-control input-control--small input-control--nested filter" type="text" name="search" placeholder="Search">
-                  <div id="artists" class="json-results">
-                    {{if .Artists}}
-                      {{range .Artists}}
-                        <label>
-                          <input type="checkbox" name="artist-name" value="{{.ArtistID}}" data-input="{{.Name}}">{{.Name}}
-                        </label>
-                      {{end}}
-                    {{end}} 
-                      <!-- <div class="no-results-found">
-                        <span class="icon exclamation-icon"></span>
-                        <p>No results found!</p>
-                      </div>
-                    </div> -->
-                  </div>
+              <label class="form-label">Record Label</label>
+              <div id="labels" class="select">
+                <div class="custom-select custom-labels">
+                    <span class="value">Select label</span>
+                    <span class="icon dropdown-icon"></span>
                 </div>
-              </div>
-              <div class="custom-options-selected"></div>
-            </div>  
-          </div>
-
-
-                <div class="form-control">
-                  <label class="form-label">Genre(s)</label>
-                  <div id="genres" class="select">
-                    <div class="custom-select custom-genres">
-                        <span class="value">Select Genre</span>
-                        <span class="icon dropdown-icon"></span>
-                    </div>
-                    <div class="option">
-                      <div class="custom-option">
-                        <input autocomplete="off" class="input-control input-control--small input-control--nested filter" type="text" name="search" placeholder="Search">
-                        <div id="genres" class="json-results">
-                        {{if .Genres}}
-                          {{range .Genres}}
+                <div class="option">
+                    <div class="custom-option">
+                      <input autocomplete="off" class="input-control input-control--small input-control--nested filter" type="text" name="search" placeholder="Search">
+                      <div id="labels" class="json-results">
+                        {{if .Labels}}
+                          {{range .Labels}}
                             <label>
-                              <input type="checkbox" name="genre-name" value="{{.GenreID}}" data-input="{{.GenreName}}">{{.GenreName}}
+                              <input type="checkbox" name="label-name" value="{{.ID}}" data-input="{{.Name}}">{{.Name}}
                             </label>
                           {{end}}
                         {{end}}
@@ -106,33 +43,178 @@
                           <span class="icon exclamation-icon"></span>
                           <p>No results found!</p>
                         </div> -->
-                      </div>
+                        
                       </div>
                     </div>
-                    <div class="custom-options-selected"></div>
-                  </div>  
                 </div>
-                
-                <div class="form-control">
-                  <label for="recordCover">Cover</label>
-                  <input class="input-control input-control--small" type="file" name="recordCover" multiple />
-                </div>  
-                
-                <input type="submit"  value="Add Record"/>
-        
-        
-        </form>
-      </div>
+                <div class="custom-options-selected"></div>
+              </div>  
+            </div>
 
-    </div>
-    
-    <div class="column">
-      <h2>Tracklist</h2>
-      <div class="column--item">
+          
+
+            <div class="form-control">
+              <label class="form-label">Artist(s)</label>
+              <div id="artists" class="select">
+                <div class="custom-select custom-artists">
+                    <span class="value">Select artist</span>
+                    <span class="icon dropdown-icon"></span>
+                </div>
+                <div class="option">
+                  <div class="custom-option">
+                    <input autocomplete="off" class="input-control input-control--small input-control--nested filter" type="text" name="search" placeholder="Search">
+                    <div id="artists" class="json-results">
+                      {{if .Artists}}
+                        {{range .Artists}}
+                          <label>
+                            <input type="checkbox" name="artist-name" value="{{.ArtistID}}" data-input="{{.Name}}">{{.Name}}
+                          </label>
+                        {{end}}
+                      {{end}} 
+                        <!-- <div class="no-results-found">
+                          <span class="icon exclamation-icon"></span>
+                          <p>No results found!</p>
+                        </div>
+                      </div> -->
+                    </div>
+                  </div>
+                </div>
+                <div class="custom-options-selected"></div>
+              </div>  
+            </div>
+
+
+                  <div class="form-control">
+                    <label class="form-label">Genre(s)</label>
+                    <div id="genres" class="select">
+                      <div class="custom-select custom-genres">
+                          <span class="value">Select Genre</span>
+                          <span class="icon dropdown-icon"></span>
+                      </div>
+                      <div class="option">
+                        <div class="custom-option">
+                          <input autocomplete="off" class="input-control input-control--small input-control--nested filter" type="text" name="search" placeholder="Search">
+                          <div id="genres" class="json-results">
+                          {{if .Genres}}
+                            {{range .Genres}}
+                              <label>
+                                <input type="checkbox" name="genre-name" value="{{.GenreID}}" data-input="{{.GenreName}}">{{.GenreName}}
+                              </label>
+                            {{end}}
+                          {{end}}
+                          <!-- <div class="no-results-found">
+                            <span class="icon exclamation-icon"></span>
+                            <p>No results found!</p>
+                          </div> -->
+                        </div>
+                        </div>
+                      </div>
+                      <div class="custom-options-selected"></div>
+                    </div>  
+                  </div>
+                  
+                  <div class="form-control">
+                    <label for="recordCover">Cover</label>
+                    <input class="input-control input-control--small" type="file" name="recordCover" multiple />
+                  </div>  
+                  
+          
+          
+          
+      
+        </div>
 
       </div>
-    </div>
+      
+      <!-- Tarcklists -->
+      <div class="column">
+        <h2>Tracklist</h2>
+        <div class="column--item">
+          <div class="add-tracklist-container">
+            <div class="add-track">
+              <svg class="add-icon small">
+                <use xlink:href="/dist/icons/sprite.svg#plus-circled"></use>
+              </svg>
+              Add Track
+            </div>
+          </div>
+        
+          <div class="tracklist-table">
+            <table>
+              <tbody>
+                <tr class="tracklist-table-headings">
+                  <th>Track</th>
+                  <th>Track Artist</th>
+                  <th>Track Title</th>
+                  <th>Track Duration</th>
+                </tr>
+                <tr>
+                  <td class="td-width-sm">  
+                    <div class="form-control">
+                        <span class="form-alert"></span>
+                        <input autocomplete="off" class="input-control input-control--small" type="text" name="recordTrack" placeholder="Track">
+                    </div>
+                  </td>
+                  <td class="td-flex">
+                    <div class="add-tracklist-artist-container">
+                      <div class="add-track-artist">
+                        <svg class="add-icon small">
+                          <use xlink:href="/dist/icons/sprite.svg#plus-circled"></use>
+                        </svg>
+                        Add Artist
+                      </div>
+                    </div>
+                    <div class="form-control d-none">
+                      <div id="artists" class="select">
+                        <div class="custom-select custom-track-artists">
+                            <span class="value">Select artist</span>
+                            <span class="icon dropdown-icon"></span>
+                        </div>
+                        <div class="option">
+                          <div class="custom-option">
+                            <input autocomplete="off" class="input-control input-control--small input-control--nested filter" type="text" name="search" placeholder="Search">
+                            <div id="track-artists" class="json-results">
+                              {{if .Artists}}
+                                {{range .Artists}}
+                                  <label>
+                                    <input type="checkbox" name="track-artist-name" value="{{.ArtistID}}" data-input="{{.Name}}">{{.Name}}
+                                  </label>
+                                {{end}}
+                              {{end}} 
+                                <!-- <div class="no-results-found">
+                                  <span class="icon exclamation-icon"></span>
+                                  <p>No results found!</p>
+                                </div>
+                              </div> -->
+                            </div>
+                          </div>
+                        </div>
+                        <div class="custom-options-selected"></div>
+                      </div>  
+                    </div>
+                  </td>
+                  <td>
+                    <div class="form-control">
+                      <span class="form-alert"></span>
+                      <input autocomplete="off" class="input-control input-control--small" type="text" name="recordTrackTitle" placeholder="Track Title">
+                    </div>
+                  </td>
+                  <td class="td-width-md">
+                    <div class="form-control">
+                      <span class="form-alert"></span>
+                      <input autocomplete="off" class="input-control input-control--small" type="text" name="recordTrackDuration" placeholder="00:00">
+                    </div>
+                  </td>
+                </tr> 
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
   </div>
+  <input type="submit"  value="Add Record"/>
+</form>
 
 
 

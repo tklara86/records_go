@@ -68,8 +68,6 @@ func (app *application) recordCreatePost(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
-	fmt.Println(file, fileHeader)
-
 	defer dst.Close()
 
 	// Copy the uploaded file to the filesystem
@@ -86,7 +84,6 @@ func (app *application) recordCreatePost(w http.ResponseWriter, r *http.Request)
 	cloudinarySecret := os.Getenv("CLOUDINARY_SECRET")
 
 	cld, _ := cloudinary.NewFromParams(cloudinaryName, cloudinaryAPIKey, cloudinarySecret)
-	fmt.Println(cld)
 
 	resp, _ := cld.Upload.Upload(ctx, dst.Name(),
 		uploader.UploadParams{

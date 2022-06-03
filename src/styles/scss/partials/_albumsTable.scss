@@ -23,6 +23,7 @@ td, th {
   padding: 8px;
 }
 
+.tracklist-table-headings,
 .albums-table-headings {
   font-family: $font-bold;
 }
@@ -85,6 +86,13 @@ tr:last-of-type {
   justify-content: flex-end;
 }
 
+.add-tracklist-artist-container {
+  display: flex;
+  justify-content: flex-start;
+}
+
+
+.add-track,
 .add-record {
   display: flex;
   padding: 10px;
@@ -96,14 +104,56 @@ tr:last-of-type {
   font-family: $font-bold;
 }
 
+.add-track-artist,
+.add-track {
+  cursor: pointer;
+}
+
+.add-track-artist {
+  display: flex;
+  padding: 10px 0;
+  background: #fbfbfb;
+  align-items: center;
+  font-family: $font-regular;
+}
+
 .add-icon  {
   width: 25px;
   height: 25px;
   margin-right: 2px;
   color: var(--text-body);
+
+  &.small {
+    width: 18px;
+    height: 18px;
+    margin-right: 3px;
+  }
 }
 
 img.albums-thumbnail {
   width: 100px;
   border-radius: 2px;
+}
+
+
+.add-tracklist-container {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+
+}
+
+
+.td-width-sm {
+  width: 80px;
+}
+
+.td-width-md {
+  width: 120px;
+}
+
+.td-flex {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
 }

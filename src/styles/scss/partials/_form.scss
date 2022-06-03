@@ -1,7 +1,4 @@
-form {
 
-  max-width: $form-width;
-}
 .input-control {
   width: 100%;
   font-size:$text--sm;
@@ -421,4 +418,9 @@ ul.custom-option {
 
 .custom-option label input {
   cursor: pointer;
+}
+
+
+.d-none {
+  display: none;
 }
