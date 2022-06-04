@@ -29,7 +29,7 @@
         </tr>
         {{if .Records}}
           {{ range $i, $r := .Records}}
-            <tr>
+            <tr data-album-id="{{.ID}}">
               <td>{{indexPlusOne $i}}</td>
               <td><img class="albums-thumbnail" src="{{.Image}}" alt="{{.Title}}-cover"></td>
               <td>{{.Title}}</td>

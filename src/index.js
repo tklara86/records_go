@@ -266,7 +266,7 @@ function addMultipleTracks() {
             <td class="td-flex td-width-sm">
             <div class="remove icon-flex removeTrack">
                 <svg class="action-icon sm">
-                <use xlink:href="/dist/icons/sprite.svg#remove"></use>
+                <use xlink:href="/dist/icons/sprite.svg#trash"></use>
                 </svg>
                 Remove
             </div>
@@ -315,7 +315,7 @@ function addMultipleTracks() {
                     </div> 
                     <div class="remove icon-flex removeTrackArtist">
                         <svg class="action-icon sm">
-                        <use xlink:href="/dist/icons/sprite.svg#remove"></use>
+                        <use xlink:href="/dist/icons/sprite.svg#trash"></use>
                         </svg>
                         Remove
                     </div>
