@@ -261,6 +261,10 @@ label {
   font-family: $font-regular;
 }
 
+.custom-track-artists {
+  padding: 7px;
+}
+
 .select.show .custom-select {
   background-color: white;
   border-color: #3b82f6;
@@ -423,4 +427,15 @@ ul.custom-option {
 
 .d-none {
   display: none;
+}
+
+.form-control.sub-select {
+  display: flex;
+  align-items: flex-start;
+}
+
+.removeTrackArtist {
+  margin-left: 8px;
+  margin-top: $space--xs;
+
 }

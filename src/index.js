@@ -181,23 +181,25 @@ if (form != null) {
 const labels = document.querySelector('.custom-labels');
 const genres = document.querySelector('.custom-genres');
 const artists = document.querySelector('.custom-artists');
-const trackArtists = document.querySelector('.custom-track-artists');
+const addTracks = document.querySelector('.custom-tracks');
 
 
 if (labels) {
-    new Selectable(labels).init();
+    new Selectable(labels).initMultiple();
 }
 
 if (genres) {
-    new Selectable(genres).init();
+    new Selectable(genres).initMultiple();
 }
 
 if (artists) {
-    new Selectable(artists).init();
+    new Selectable(artists).initMultiple();
 }
 
-if (trackArtists) {
-    new Selectable(trackArtists).init();
+
+
+if (addTracks) {
+    new Selectable(addTracks).initSingle();  
 }
 
 
@@ -216,69 +218,168 @@ if (trackArtists) {
 
 
 
-
-// const customSelects = document.querySelectorAll('.custom-select');
-
-
-// customSelects.forEach(customSelect => {
-//     customSelect.addEventListener('click', (e) => {
-//         e.currentTarget.parentElement.classList.toggle('show');
-
-//         const option = e.currentTarget.nextElementSibling;
-//         const options = option.querySelectorAll('.custom-option li');
-//         const customOption = option.querySelector('.custom-option');
-
-//         const value = customSelect.querySelector('.value')
-//         const inputCategory = customSelect.querySelector('#inputCategory');
+const addTrackButton = document.getElementById('addTrackButton');
 
 
 
+function addMultipleTracks() {
+    const countTracks = document.getElementById('countTracks');
+    const numberOfTracks = parseInt(countTracks.innerHTML);
 
-//         options.forEach(item=> {
-//             item.addEventListener('click', function (e) {
-//                 value.innerHTML = e.target.innerHTML;
-//                 inputCategory.options[0].value = e.target.dataset.id;
-//                 e.target.parentElement.classList.remove('show');
-//             })
+    const tracklistTableHead = document.querySelector('.tracklist-table-head');
+
+    for (var i = 0; i < numberOfTracks; i++) {
+
+        
+        let markup = `
+            <tr>
+            <td class="td-width-sm">  
+            <div class="form-control">
+                <span class="form-alert"></span>
+                <input autocomplete="off" class="input-control input-control--small" type="text" name="recordTrack" placeholder="Track">
+            </div>
+            </td>
+            <td class="td-flex">
+            <div class="add-tracklist-artist-container">
+                <div class="add-track-artist">
+                <svg class="add-icon small">
+                    <use xlink:href="/dist/icons/sprite.svg#plus-circled"></use>
+                </svg>
+                Add Artist
+                </div>
+            </div>
+            
+        
+            </td>
+            <td>
+            <div class="form-control">
+                <span class="form-alert"></span>
+                <input autocomplete="off" class="input-control input-control--small" type="text" name="recordTrackTitle" placeholder="Track Title">
+            </div>
+            </td>
+            <td class="td-width-md">
+            <div class="form-control">
+                <span class="form-alert"></span>
+                <input autocomplete="off" class="input-control input-control--small" type="text" name="recordTrackDuration" placeholder="0:00" maxlength="3">
+            </div>
+            </td>
+            <td class="td-flex td-width-sm">
+            <div class="remove icon-flex removeTrack">
+                <svg class="action-icon sm">
+                <use xlink:href="/dist/icons/sprite.svg#remove"></use>
+                </svg>
+                Remove
+            </div>
+            </td>
+            </tr>
+            `;
+
+            tracklistTableHead.insertAdjacentHTML('beforeend', markup);
+    }
+  
+
+    const removeTracks = document.querySelectorAll('.removeTrack');
+
+    removeTracks.forEach(removeTrack => {
+        removeTrack.addEventListener('click', (e) => {
+            e.target.parentElement.parentElement.remove();
+        }) 
+    })
 
 
-//         })
 
-//         // const unique = [...new Set(selectedOptions)]
-//         //
-//         //
-//         // for (var i = 0; i <= unique.length; i++) {
-//         //
-//         //     var input = document.createElement('input');
-//         //     input.type = 'hidden';
-//         //     input.name = 'inputCategories';
-//         //     input.value = unique[i];
-//         //
-//         //
-//         //     // var inputConatiner = document.createElement('div');
-//         //     //
-//         //     // inputConatiner.insertAdjacentHTML("afterbegin",input)
-//         //     //
-//         //     if (input.value != 'undefined') {
-//         //         const selectForm = document.querySelector('.select');
-//         //         selectForm.appendChild(input)
-//         //     }
-//         //
-//         //     //
-//         //     // selectForm.insertAdjacentHTML("afterbegin",  inputConatiner)
-//         //
-//         // }
+    const addTrackArtists = document.querySelectorAll('.add-track-artist');
+
+    addTrackArtists.forEach(addTrackArtist => {
+        let isAdded = false;
+        addTrackArtist.addEventListener('click', (e) => {
+            const parentEl = e.target.parentElement;
+            const tr = parentEl.parentElement;
+            
+            
+            let m = `
+                    <div class="form-control sub-select">
+                    <div id="artists" class="select">
+                    <div class="custom-select custom-track-artists">
+                        <span class="value">Select artist</span>
+                        <span class="icon dropdown-icon"></span>
+                    </div>
+                    <div class="option">
+                        <div class="custom-option">
+                        <input autocomplete="off" class="input-control input-control--small input-control--nested filter" type="text" name="search" placeholder="Search">
+                        <div id="track-artists" class="json-results">
+                        </div>
+                        </div>
+                    </div>
+                    <div class="custom-options-selected"></div>
+                    </div> 
+                    <div class="remove icon-flex removeTrackArtist">
+                        <svg class="action-icon sm">
+                        <use xlink:href="/dist/icons/sprite.svg#remove"></use>
+                        </svg>
+                        Remove
+                    </div>
+                </div>
+            `;
+
+
+            if (!isAdded) {
+                parentEl.insertAdjacentHTML('afterend', m);
+                isAdded = true;
+            }
+
+            const trackArtist = tr.querySelector('.custom-track-artists');
+      
+            new Selectable(trackArtist).initMultiple();
+            
+            const options = parentEl.nextElementSibling;
+            const jsResults = options.querySelector('#track-artists');
+
+          
+          
+            fetch('http://localhost:8000/admin/record/artistsJSON')
+                .then(res => res.json())
+                .then(data => {  
+     
+                for (var j = 0; j < data.artists.length; j++) {    
+                    const { id, name, input_name } = data.artists[j];
+                    let markup = `
+                        <label>
+                            <input type="checkbox" name="${input_name}-track" value="${id}" data-input="${name}">${name}
+                        </label>
+                    `;
+
+                    jsResults.insertAdjacentHTML('afterbegin', markup);
+                    
+                } 
+            });
+
+
+            const removeTrackArtist = tr.querySelector('.removeTrackArtist');
+
+            if (removeTrackArtist) {
+                removeTrackArtist.addEventListener('click', (e) => {
+                   e.target.parentElement.remove();
+                   isAdded = false
+                  
+                })
+            }
+
+            
+        
+        })
+
+
+
+ 
+    })
+}
+
+
+addTrackButton.addEventListener('click', addMultipleTracks);
 
 
 
 
 
 
-//         window.addEventListener('click', function (e) {
-//             if(e.target !== customSelect && e.target !== customOption) {
-//                 customSelect.parentElement.classList.remove('show');
-//             }
-//         })
-
-//     })
-// })

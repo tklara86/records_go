@@ -23,141 +23,141 @@ class Selectable {
   }
 
   searchSelect = () => {
-  
-      this.#input.addEventListener('keyup', (e) => {
-          let filteredName = e.target.value;
+    
+    this.#input.addEventListener('keyup', (e) => {
+        let filteredName = e.target.value;
 
-          const jsonResults = this.#input.nextElementSibling;
-          const labels = jsonResults.querySelectorAll('label');
-          const regex = new RegExp(filteredName, "gi");
-          const noFound = jsonResults.querySelector('.no-results-create');
-          
-          labels.forEach(label => {
-              let labelInput = label.querySelector('input');
-           
-              
-              if (labelInput.dataset.input.match(regex)) {
-                  label.style.display = 'flex';
-                  if (noFound) {
-                      noFound.remove();
-                  } 
-              }  else {
-                  label.style.display = 'none';  
-              }
+        const jsonResults = this.#input.nextElementSibling;
+        const labels = jsonResults.querySelectorAll('label');
+        const regex = new RegExp(filteredName, "gi");
+        const noFound = jsonResults.querySelector('.no-results-create');
+        
+        labels.forEach(label => {
+            let labelInput = label.querySelector('input');
+        
+            
+            if (labelInput.dataset.input.match(regex)) {
+                label.style.display = 'flex';
+                if (noFound) {
+                    noFound.remove();
+                } 
+            }  else {
+                label.style.display = 'none';  
+            }
 
-              if (!labelInput.dataset.input.match(regex)) {
-                  if (noFound) {
-                      noFound.remove();
-                  
-                  } 
-              }
+            if (!labelInput.dataset.input.match(regex)) {
+                if (noFound) {
+                    noFound.remove();
+                
+                } 
+            }
 
-          });
+        });
 
-          let m = `
-              <div class="no-results-create">
-                  <div class="no-results-found">
-                      <span class="icon exclamation-icon"></span>
-                      <p>No results found!</p>
-                  </div>
-                  <div class="add-to-db">
-                      <span id="js-inputVal">Would you like to add <span class="input-value"></span></span>
-                      <div id="js-buttonAdd">
-                      <svg class="add-icon js-add-icon">
-                          <use xlink:href="/dist/icons/sprite.svg#file"></use>
-                      </svg>
-                      <p>Add</p>
-                      </div>
-                  </div>
-              </div>
-          `;
+        let m = `
+            <div class="no-results-create">
+                <div class="no-results-found">
+                    <span class="icon exclamation-icon"></span>
+                    <p>No results found!</p>
+                </div>
+                <div class="add-to-db">
+                    <span id="js-inputVal">Would you like to add <span class="input-value"></span></span>
+                    <div id="js-buttonAdd">
+                    <svg class="add-icon js-add-icon">
+                        <use xlink:href="/dist/icons/sprite.svg#file"></use>
+                    </svg>
+                    <p>Add</p>
+                    </div>
+                </div>
+            </div>
+        `;
 
-         
+        
 
-          if (jsonResults.innerText === '') {
-              jsonResults.insertAdjacentHTML('beforeend', m);
-              const inputValue = document.querySelector('.input-value');
+        if (jsonResults.innerText === '') {
+            jsonResults.insertAdjacentHTML('beforeend', m);
+            const inputValue = document.querySelector('.input-value');
 
-              let attachedEvent = false;
-              const buttonAdd = jsonResults.querySelector('#js-buttonAdd');
+            let attachedEvent = false;
+            const buttonAdd = jsonResults.querySelector('#js-buttonAdd');
 
-              if (!attachedEvent) {
-                  buttonAdd.addEventListener('click', () => {
-                      switch (jsonResults.id) {
-                          case 'labels':
-                              
-                              try {
-                                  const data = this.postData('http://localhost:8000/admin/record/postLabelsJSON', { 
-                                     name: filteredName
-                                  }, 'http://localhost:8000/admin/record/labelsJSON', jsonResults)
+            if (!attachedEvent) {
+                buttonAdd.addEventListener('click', () => {
+                    switch (jsonResults.id) {
+                        case 'labels':
+                            
+                            try {
+                                const data = this.postData('http://localhost:8000/admin/record/postLabelsJSON', { 
+                                    name: filteredName
+                                }, 'http://localhost:8000/admin/record/labelsJSON', jsonResults)
 
-                                  if (data) {
-                                      this.#input.value = '';
-                                      const noFound2 = jsonResults.querySelector('.no-results-create');
-                                      if (noFound2) {
-                                          noFound2.remove()
-                                      }
+                                if (data) {
+                                    this.#input.value = '';
+                                    const noFound2 = jsonResults.querySelector('.no-results-create');
+                                    if (noFound2) {
+                                        noFound2.remove()
+                                    }
 
-                                      labels.forEach(label => label.remove());
-
-                                 
-                                  }
+                                    labels.forEach(label => label.remove());
 
                                 
-                              
-                              } catch (error) {
-                                  console.log(error) 
-                              }
-                              break;
-                          case 'genres':
-                              try {
-                                  const data = this.postData('http://localhost:8000/admin/record/postGenresJSON', { 
-                                     name: filteredName
-                                  }, 'http://localhost:8000/admin/record/genresJSON', jsonResults)
-                                  if (data) {
-                                      this.#input.value = '';
-                                      const noFound2 = jsonResults.querySelector('.no-results-create');
-                                      if (noFound2) {
-                                          noFound2.remove()
-                                      }
-                                      labels.forEach(label => label.remove());
-                                  }
-                                  
-                      
-                              } catch (error) {
-                                  console.log(error) 
-                              }
-              
-                              break;
-                          case 'artists':
-                              try {
-                                  const data = this.postData('http://localhost:8000/admin/record/postArtistsJSON', { 
-                                     name: filteredName
-                                  }, 'http://localhost:8000/admin/record/artistsJSON', jsonResults)
-                                  if (data) {
-                                      this.#input.value = '';
-                                      const noFound2 = jsonResults.querySelector('.no-results-create');
-                                      if (noFound2) {
-                                          noFound2.remove()
-                                      }
-                                      labels.forEach(label => label.remove());
-                                  }
-                                  
-                      
-                              } catch (error) {
-                                  console.log(error) 
-                              }
-                              break;
-                      }
-          
-                      attachedEvent = true;
-                  })
-              }
-    
-              inputValue.innerHTML = filteredName;  
-          }  
+                                }
 
-      });
+                            
+                            
+                            } catch (error) {
+                                console.log(error) 
+                            }
+                            break;
+                        case 'genres':
+                            try {
+                                const data = this.postData('http://localhost:8000/admin/record/postGenresJSON', { 
+                                    name: filteredName
+                                }, 'http://localhost:8000/admin/record/genresJSON', jsonResults)
+                                if (data) {
+                                    this.#input.value = '';
+                                    const noFound2 = jsonResults.querySelector('.no-results-create');
+                                    if (noFound2) {
+                                        noFound2.remove()
+                                    }
+                                    labels.forEach(label => label.remove());
+                                }
+                                
+                    
+                            } catch (error) {
+                                console.log(error) 
+                            }
+            
+                            break;
+                        case 'artists':
+                            try {
+                                const data = this.postData('http://localhost:8000/admin/record/postArtistsJSON', { 
+                                    name: filteredName
+                                }, 'http://localhost:8000/admin/record/artistsJSON', jsonResults)
+                                if (data) {
+                                    this.#input.value = '';
+                                    const noFound2 = jsonResults.querySelector('.no-results-create');
+                                    if (noFound2) {
+                                        noFound2.remove()
+                                    }
+                                    labels.forEach(label => label.remove());
+                                }
+                                
+                    
+                            } catch (error) {
+                                console.log(error) 
+                            }
+                            break;
+                    }
+        
+                    attachedEvent = true;
+                })
+            }
+
+            inputValue.innerHTML = filteredName;  
+        }  
+
+    });
   }
   postData = (url, data, getUrl, results) => {
      const res =  fetch(url, {
@@ -245,7 +245,23 @@ class Selectable {
       })
   }
 
-  init = () =>  {
+
+  selectValue = () => {
+
+        const options = document.querySelectorAll('.custom-option li');
+        const value = this.element.querySelector('.value');
+        const parentEl = this.element;
+
+        options.forEach(item=> {
+            item.addEventListener('click', function (e) {
+                value.innerHTML = e.target.innerHTML;
+                parentEl.parentElement.classList.remove('show');
+
+            })
+        })
+  }
+
+  initMultiple = () =>  {
       // toggle 'select'
       this.element.addEventListener('click', this.toggleSelect);
       // close 'select' when click outside container
@@ -253,6 +269,14 @@ class Selectable {
       // search inputs
       this.searchSelect();
       this.showSelectedResults();
+  }
+
+  initSingle = () => {
+     // toggle 'select'
+     this.element.addEventListener('click', this.toggleSelect);
+     // close 'select' when click outside container
+     window.addEventListener('click', this.closeSelect);  
+     this.selectValue();
   }
 }
 

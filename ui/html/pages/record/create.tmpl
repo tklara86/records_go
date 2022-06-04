@@ -133,13 +133,8 @@
           <div class="add-tracklist-container">
             <div class="form-control mr-20 mb-20">
               <div class="select mt-0 mb-0">
-                <div id="val-category" class="custom-select custom-select-category">
-                    <div>
-                      <span class="value">1</span>
-                      <select name="inputCategory" id="inputCategory">
-                        <option>1</option>
-                      </select>
-                    </div>
+                <div id="val-category" class="custom-select custom-tracks">
+                    <span id="countTracks" class="value">1</span>
                     <span class="icon dropdown-icon"></span>
                 </div>
                 <div class="option">
@@ -158,7 +153,7 @@
                 </div>
               </div>  
             </div>
-            <div class="add-track">
+            <div id="addTrackButton" class="add-track">
               <svg class="add-icon small">
                 <use xlink:href="/dist/icons/sprite.svg#plus-circled"></use>
               </svg>
@@ -168,7 +163,7 @@
         
           <div class="tracklist-table">
             <table>
-              <tbody>
+              <tbody class="tracklist-table-head">
                 <tr class="tracklist-table-headings">
                   <th>Track</th>
                   <th>Track Artist</th>
@@ -176,72 +171,6 @@
                   <th>Track Duration</th>
                   <th></th>
                 </tr>
-                <tr>
-                  <td class="td-width-sm">  
-                    <div class="form-control">
-                        <span class="form-alert"></span>
-                        <input autocomplete="off" class="input-control input-control--small" type="text" name="recordTrack" placeholder="Track">
-                    </div>
-                  </td>
-                  <td class="td-flex">
-                    <div class="add-tracklist-artist-container">
-                      <div class="add-track-artist">
-                        <svg class="add-icon small">
-                          <use xlink:href="/dist/icons/sprite.svg#plus-circled"></use>
-                        </svg>
-                        Add Artist
-                      </div>
-                    </div>
-                    <div class="form-control d-none">
-                      <div id="artists" class="select">
-                        <div class="custom-select custom-track-artists">
-                            <span class="value">Select artist</span>
-                            <span class="icon dropdown-icon"></span>
-                        </div>
-                        <div class="option">
-                          <div class="custom-option">
-                            <input autocomplete="off" class="input-control input-control--small input-control--nested filter" type="text" name="search" placeholder="Search">
-                            <div id="track-artists" class="json-results">
-                              {{if .Artists}}
-                                {{range .Artists}}
-                                  <label>
-                                    <input type="checkbox" name="track-artist-name" value="{{.ArtistID}}" data-input="{{.Name}}">{{.Name}}
-                                  </label>
-                                {{end}}
-                              {{end}} 
-                                <!-- <div class="no-results-found">
-                                  <span class="icon exclamation-icon"></span>
-                                  <p>No results found!</p>
-                                </div>
-                              </div> -->
-                            </div>
-                          </div>
-                        </div>
-                        <div class="custom-options-selected"></div>
-                      </div>  
-                    </div>
-                  </td>
-                  <td>
-                    <div class="form-control">
-                      <span class="form-alert"></span>
-                      <input autocomplete="off" class="input-control input-control--small" type="text" name="recordTrackTitle" placeholder="Track Title">
-                    </div>
-                  </td>
-                  <td class="td-width-md">
-                    <div class="form-control">
-                      <span class="form-alert"></span>
-                      <input autocomplete="off" class="input-control input-control--small" type="text" name="recordTrackDuration" placeholder="0:00" maxlength="3">
-                    </div>
-                  </td>
-                  <td class="td-flex td-width-sm">
-                    <div class="remove icon-flex">
-                      <svg class="action-icon sm">
-                        <use xlink:href="/dist/icons/sprite.svg#remove"></use>
-                      </svg>
-                      Remove
-                    </div>
-                  </td>
-                </tr> 
               </tbody>
             </table>
           </div>
