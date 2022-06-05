@@ -19,6 +19,7 @@ type templateData struct {
 	Labels        []*models.Label
 	RecordLabels  *[]models.Label
 	Record        *models.Record
+	Tracklists    []*models.Tracklist
 }
 
 func indexPlusOne(i int) int {

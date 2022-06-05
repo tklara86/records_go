@@ -236,7 +236,7 @@ function addMultipleTracks() {
             <td class="td-width-sm">  
             <div class="form-control">
                 <span class="form-alert"></span>
-                <input autocomplete="off" class="input-control input-control--small" type="text" name="recordTrack" placeholder="Track">
+                <input autocomplete="off" class="input-control input-control--small" type="text" name="record-track" placeholder="Track">
             </div>
             </td>
             <td class="td-flex">
@@ -254,13 +254,13 @@ function addMultipleTracks() {
             <td>
             <div class="form-control">
                 <span class="form-alert"></span>
-                <input autocomplete="off" class="input-control input-control--small" type="text" name="recordTrackTitle" placeholder="Track Title">
+                <input autocomplete="off" class="input-control input-control--small" type="text" name="record-track-title" placeholder="Track Title">
             </div>
             </td>
             <td class="td-width-md">
             <div class="form-control">
                 <span class="form-alert"></span>
-                <input autocomplete="off" class="input-control input-control--small" type="text" name="recordTrackDuration" placeholder="0:00" maxlength="3">
+                <input autocomplete="off" class="input-control input-control--small" type="text" name="record-track-duration" placeholder="0:00" maxlength="3">
             </div>
             </td>
             <td class="td-flex td-width-sm">

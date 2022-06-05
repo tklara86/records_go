@@ -130,6 +130,31 @@ func (app *application) recordCreatePost(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
+	// Tracklist
+	recordTracklist := []models.Tracklist{}
+	for i, recordTrack := range r.PostForm["record-track"] {
+		for k, recordTitle := range r.PostForm["record-track-title"] {
+			for j, recordDuration := range r.PostForm["record-track-duration"] {
+				if i == k && j == k {
+					td := []models.Tracklist{
+						{
+							RecordID:      int64(id),
+							Track:         recordTrack,
+							TrackTitle:    recordTitle,
+							TrackDuration: recordDuration,
+						},
+					}
+					recordTracklist = append(recordTracklist, td...)
+				}
+			}
+		}
+	}
+
+	_, err = app.tracklists.Insert(recordTracklist)
+	if err != nil {
+		app.serverError(w, err)
+	}
+
 	recordArtist := []models.RecordArtist{}
 	for _, a := range r.PostForm["artist-name"] {
 		artistID, err := strconv.ParseInt(a, 10, 64)

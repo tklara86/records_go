@@ -79,6 +79,7 @@ CREATE TABLE `record_images` (
 
 CREATE TABLE `tracklist` (
   `id` int PRIMARY KEY AUTO_INCREMENT,
+  `record_id` int NOT NULL,
   `track` varchar(255) NOT NULL,
   `track_title` varchar(255) NOT NULL,
   `track_duration` varchar(255) NOT NULL,
@@ -86,13 +87,6 @@ CREATE TABLE `tracklist` (
   `updated_at` datetime NOT NULL DEFAULT (now())
 );
 
-CREATE TABLE `record_tracklists` (
-  `id` int PRIMARY KEY AUTO_INCREMENT,
-  `record_id` int,
-  `tracklist_id` int,
-  `created_at` datetime NOT NULL DEFAULT (now()),
-  `updated_at` datetime NOT NULL DEFAULT (now())
-);
 
 CREATE TABLE `record_tracklists_artists` (
   `id` int PRIMARY KEY AUTO_INCREMENT,
@@ -282,9 +276,7 @@ ALTER TABLE `record_artists` ADD FOREIGN KEY (`record_id`) REFERENCES `records` 
 
 ALTER TABLE `record_images` ADD FOREIGN KEY (`record_id`) REFERENCES `records` (`id`) ON DELETE CASCADE;
 
-ALTER TABLE `record_tracklists` ADD FOREIGN KEY (`record_id`) REFERENCES `records` (`id`) ON DELETE CASCADE;
-
-ALTER TABLE `record_tracklists` ADD FOREIGN KEY (`tracklist_id`) REFERENCES `tracklist` (`id`) ON DELETE CASCADE;
+ALTER TABLE `tracklist` ADD FOREIGN KEY (`record_id`) REFERENCES `records` (`id`) ON DELETE CASCADE;
 
 ALTER TABLE `record_tracklists_artists` ADD FOREIGN KEY (`tracklist_id`) REFERENCES `tracklist` (`id`) ON DELETE CASCADE;
 
