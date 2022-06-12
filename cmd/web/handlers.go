@@ -150,7 +150,36 @@ func (app *application) recordCreatePost(w http.ResponseWriter, r *http.Request)
 		}
 	}
 
-	_, err = app.tracklists.Insert(recordTracklist)
+	tracklist_ids, err := app.tracklists.Insert(recordTracklist)
+	if err != nil {
+		app.serverError(w, err)
+	}
+
+	recordTracklistArtists := []models.RecordTracklistArtist{}
+
+	for z, record_artist_name := range r.PostForm["artist-name-track"] {
+		for s, v := range tracklist_ids {
+			artistID, err := strconv.ParseInt(record_artist_name, 10, 64)
+
+			if err != nil {
+				fmt.Println(err)
+			}
+
+			if z == s {
+				rta := []models.RecordTracklistArtist{
+					{
+						TracklistID: v,
+						ArtistID:    artistID,
+					},
+				}
+				recordTracklistArtists = append(recordTracklistArtists, rta...)
+
+			}
+
+		}
+	}
+
+	_, err = app.tracklists.InsertRecordTracklistArtist(recordTracklistArtists)
 	if err != nil {
 		app.serverError(w, err)
 	}
