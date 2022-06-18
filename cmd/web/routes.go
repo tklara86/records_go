@@ -15,9 +15,9 @@ func (app *application) routes() http.Handler {
 		app.notFound(w)
 	})
 
-	fileServer := http.FileServer(http.Dir("dist"))
+	fileServer := http.FileServer(http.Dir("app"))
 
-	router.Handler(http.MethodGet, "/dist/*filepath", http.StripPrefix("/dist", fileServer))
+	router.Handler(http.MethodGet, "/app/*filepath", http.StripPrefix("/app", fileServer))
 
 	router.HandlerFunc(http.MethodGet, "/admin", app.homeAdmin)
 	router.HandlerFunc(http.MethodGet, "/admin/records", app.viewRecords)
@@ -32,7 +32,7 @@ func (app *application) routes() http.Handler {
 	router.HandlerFunc(http.MethodPost, "/admin/record/postArtistsJSON", app.postArtistsJSON)
 	router.HandlerFunc(http.MethodPost, "/admin/record/postGenresJSON", app.postGenresJSON)
 
-	standard := alice.New(app.recoverPanic, app.logRequest, secureHeaders)
+	standard := alice.New(app.recoverPanic, app.logRequest)
 
 	return standard.Then(router)
 

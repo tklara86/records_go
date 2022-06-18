@@ -1,38 +1,55 @@
-const path = require("path");
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-
+const path = require('path');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
-    mode: "development",
-    plugins: [new MiniCssExtractPlugin()],
-    module: {
-        rules: [
-            {
-                test: /\.(s[ac]|c)ss$/i, // scss, sass and css
-                use: [
-                    MiniCssExtractPlugin.loader,
-                    "css-loader",
-                    "sass-loader",
-                    "postcss-loader"
-                ]
-            },
-            {
-                test: /\.js$/,
-                exclude: /node_modules/,
-                use: {
-                    // without additional settings, this will reference .babelrc
-                    loader: "babel-loader"
-                }
-            }
-        ]
+    mode: 'production',
+    entry: {
+        sass: './app/sass/src/index.js',
+        js: './app/js/src/index.js'
     },
-
-    devServer: {
-        static: {
-            directory: path.join(__dirname, 'dist'),
-        },
-        compress: true,
-        port: 8000,
+    output: {        
+        filename: 'app/[name]/dist/bundle.js',
+        path: path.resolve(__dirname, ''),
     },
     devtool: 'source-map',
-}
+    watchOptions: {
+        ignored: /node_modules/,
+    },
+    module: {
+        rules: [
+        {
+            test: /\.s[ac]ss$/i,
+            use: [
+                MiniCssExtractPlugin.loader,
+                {
+                    loader: 'css-loader',
+                    options: {
+                        url: false,
+                        sourceMap: true
+                    }
+                },
+                {
+                    // Compiles Sass to CSS
+                    loader: "sass-loader",
+                    options: {
+                        sourceMap: true
+                    }
+                }
+            ],
+        },
+        {
+            test: /\.(png|svg|jpg|gif|woff2)$/i,
+            type: 'asset/resource',
+        },
+        ],
+    },
+    resolve: {
+        extensions: ['.ts', '.js'],
+    },
+    plugins: [
+        new MiniCssExtractPlugin({            
+            filename: "./app/sass/dist/bundle.css",
+            chunkFilename: "[id].css",
+        }),
+    ]
+};
