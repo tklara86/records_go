@@ -381,7 +381,7 @@ function addMultipleTracks() {
 addTrackButton.addEventListener('click', addMultipleTracks);
 
 
-
+console.log('test');
 
 
 
